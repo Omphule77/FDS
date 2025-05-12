@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Performance Summary</title>
+    <title>Delivery Boy Profile & Performance Summary</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
             background-color: white;
             padding-top: 100px; /* Fix navbar overlap */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
         .navbar {
             background-color: red;
@@ -31,8 +34,37 @@
             object-fit: cover;
             cursor: pointer;
         }
-        .container {
-            max-width: 900px;
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #ddd;
+            margin-bottom: 15px;
+        }
+        .btn-logout {
+            background-color: red;
+            color: white;
+            font-size: 14px;
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 10px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: red;
+        }
+        .summary-container {
+            width: 80%;
+            margin-top: 20px;
         }
         .card {
             border-radius: 15px;
@@ -40,12 +72,8 @@
             padding: 20px;
             margin-bottom: 15px;
         }
-        .highlight {
-            font-weight: bold;
-            color: red;
-        }
         .insights-list {
-            text-align: left;
+            text-align: left; /* Align points to the left */
             padding-left: 20px;
         }
     </style>
@@ -56,13 +84,26 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">Foodie Express</a>
             <div class="ms-auto">
-                <img id="profileIcon" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-icon" alt="User Profile Icon" onclick="navigateToProfile()">
+                <img id="profileIcon" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-icon" alt="User Profile Icon">
             </div>
         </div>
     </nav>
 
+    <!-- Profile Section -->
+    <div class="profile-container">
+        <img id="profilePic" src="https://cdn.pixabay.com/photo/2023/03/06/12/58/avatar-7832427_1280.png" class="profile-img" alt="User Profile Picture">
+        <h3>John Doe</h3>
+        <p><strong>Email:</strong> johndoe@example.com</p>
+        <p><strong>Phone:</strong> +91 9876543210</p>
+        <p><strong>Date of Birth:</strong> 01 Jan 1995</p>
+        <p><strong>Gender:</strong> Male</p>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+
+    <hr class="w-50 my-4">
+
     <!-- Performance Summary Section -->
-    <div class="container mt-4">
+    <div class="summary-container">
         <h2 class="text-center mb-4">Performance Summary</h2>
         <div class="row g-4">
             <div class="col-md-6">
@@ -94,21 +135,23 @@
                 </div>
             </div>
         </div>
-        <div class="card mt-4">
-            <h5>Insights and Suggestions</h5>
-            <ul class="insights-list">
-                <li><strong>Strength:</strong> Your on-time delivery rate is outstanding!</li>
-                <li><strong>Improvement Area:</strong> Focus on optimizing routes during peak traffic hours.</li>
-                <li><strong>Recommendation:</strong> Use the map integration feature to plan the shortest routes.</li>
-            </ul>
-        </div>
+    </div>
+
+    <!-- Insights and Suggestions -->
+    <div class="card mt-4 summary-container">
+        <h5>Insights and Suggestions</h5>
+        <ul class="insights-list">
+            <li><strong>Strength:</strong> Your on-time delivery rate is outstanding!</li>
+            <li><strong>Improvement Area:</strong> Focus on optimizing routes during peak traffic hours.</li>
+            <li><strong>Recommendation:</strong> Use the map integration feature to plan the shortest routes.</li>
+        </ul>
     </div>
 
     <script>
-        function navigateToProfile() {
-            window.location.href = 'profile.html';
+        function logout() {
+            alert("You have been logged out!");
+            window.location.href = "logout.html";
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
