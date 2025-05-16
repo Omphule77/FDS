@@ -1,51 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FoodExpress - Sign Up</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #F0E3CA;
-            color: black;
-            min-height: 100vh;
-        }
-       
-        .signup-container {
-            background-color: rgb(202, 169, 135);
-            border-radius: 15px;
-            padding: 30px;
-            position: relative;
-            z-index: 1;
-        }
-        .bg-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1470&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.4;
-            z-index: 0;
-        }
-        .btn-black {
-            background-color: black;
-            color: white;
-            font-weight: 600;
-        }
-        .btn-black:hover {
-            background-color: #333;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FoodExpress - Sign Up</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <script>
+<style>
+body {
+	font-family: 'Poppins', sans-serif;
+	background-color: #F0E3CA;
+	color: black;
+	min-height: 100vh;
+}
+
+.signup-container {
+	background-color: rgb(202, 169, 135);
+	border-radius: 15px;
+	padding: 30px;
+	position: relative;
+	z-index: 1;
+}
+
+.bg-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image:
+		url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1470&auto=format&fit=crop');
+	background-size: cover;
+	background-position: center;
+	opacity: 0.4;
+	z-index: 0;
+}
+
+.btn-black {
+	background-color: black;
+	color: white;
+	font-weight: 600;
+}
+
+.btn-black:hover {
+	background-color: #333;
+}
+</style>
+
+<script>
         function showForm() {
             let userType = document.getElementById("userType").value;
             document.getElementById("restaurantForm").style.display = userType === "restaurant" ? "block" : "none";
@@ -57,98 +65,141 @@
 </head>
 <body>
 
-<div class="bg-overlay"></div>
+	<div class="bg-overlay"></div>
 
-<div class="container d-flex align-items-center justify-content-center min-vh-100">
-    <div class="col-md-6 col-lg-6">
-        
-        <!-- Logo & Branding -->
-        <div class="text-center mb-4">
-            <h1 class="fw-bold" style="color: #ff5b03;">Foodie Express</h1>
-            <p>Delicious food at your doorstep</p>
-        </div>
+	<div
+		class="container d-flex align-items-center justify-content-center min-vh-100">
+		<div class="col-md-6 col-lg-6">
 
-        <div class="signup-container shadow-lg">
-            <h2 class="text-center fw-bold mb-4">Create an Account</h2>
+			<!-- Logo & Branding -->
+			<div class="text-center mb-4">
+				<h1 class="fw-bold" style="color: #ff5b03;">Foodie Express</h1>
+				<p>Delicious food at your doorstep</p>
+			</div>
 
-            <label for="userType" class="form-label fw-medium">Select User Type</label>
-            <select class="form-select py-3 mb-3" id="userType" onchange="showForm()" required>
-                <option value="customer" selected>Customer</option>
-                <option value="restaurant">Restaurant</option>
-                <option value="delivery">Delivery Boy</option>
-            </select>
+			<div class="signup-container shadow-lg">
+				<h2 class="text-center fw-bold mb-4">Create an Account</h2>
 
-            <!-- Restaurant Signup Form -->
-            <div id="restaurantForm" style="display: none;">
-                <h4 class="fw-bold mt-3">Restaurant Information</h4>
-                <input type="text" class="form-control mb-3" placeholder="Restaurant Name" required>
-                <input type="text" class="form-control mb-3" placeholder="Restaurant Address" required>
-                <input type="text" class="form-control mb-3" placeholder="City" required>
-                <input type="tel" class="form-control mb-3" placeholder="Restaurant Phone Number" required>
-                <input type="text" class="form-control mb-3" placeholder="GST ID" required>
+				<label for="userType" class="form-label fw-medium">Select
+					User Type</label> <select class="form-select py-3 mb-3" id="userType"
+					onchange="showForm()" required>
+					<option value="customer" selected>Customer</option>
+					<option value="restaurant">Restaurant</option>
+					<option value="delivery">Delivery Boy</option>
+				</select>
 
-                <h4 class="fw-bold mt-3">Owner Details</h4>
-                <input type="text" class="form-control mb-3" placeholder="Owner Name" required>
-                <input type="email" class="form-control mb-3" placeholder="Owner Email ID" required>
-                <input type="tel" class="form-control mb-3" placeholder="Owner Phone Number 1" required>
-                <input type="tel" class="form-control mb-3" placeholder="Owner Phone Number 2" required>
-                <input type="password" class="form-control mb-3" placeholder="Password" required>
-                <input type="password" class="form-control mb-3" placeholder="Confirm Password" required>
+				<!-- Restaurant Signup Form -->
+			<form th:action="@{/restaurantRegister}" method="post" th:object="${restro}">
+				<div id="restaurantForm" style="display: none;">
+					<h4 class="fw-bold mt-3">Restaurant Information</h4>
+					<input type="text" th:field="*{rName}" class="form-control mb-3"
+						placeholder="Restaurant Name" required>
+						 <input type="text" th:field="*{address}"
+						class="form-control mb-3" placeholder="Restaurant Address"
+						required>
+						 <input type="text" th:field="*{city}" class="form-control mb-3"
+						placeholder="City" required>
+						 <input type="tel" th:field="*{rPhone}"
+						class="form-control mb-3" placeholder="Restaurant Phone Number"
+						required>
+						 <input type="text" th:field="*{gstId}" class="form-control mb-3"
+						placeholder="GST ID" required>
 
-                <h4 class="fw-bold mt-3">Operational Hours & Holidays</h4>
-                <label>From:</label>
-                <input type="time" class="form-control mb-3" required>
-                <label>To:</label>
-                <input type="time" class="form-control mb-3" required>
+					<h4 class="fw-bold mt-3">Owner Details</h4>
+					<input type="text" th:field="*{oName}" class="form-control mb-3"
+						placeholder="Owner Name" required>
+						 <input type="email" th:field="*{oEmail}"
+						class="form-control mb-3" placeholder="Owner Email ID" required>
+					<input type="tel" th:field="*{oPhone}" class="form-control mb-3"
+						placeholder="Owner Phone Number 1" required>
+						 <input th:field="*{oAltPhone}"
+						type="tel" class="form-control mb-3"
+						placeholder="Owner Phone Number 2" required> 
+						<input th:field="*{password}"
+						type="password" class="form-control mb-3" placeholder="Password"
+						required>
+					<h4 class="fw-bold mt-3">Operational Hours & Holidays</h4>
+					<label>From:</label> 
+					<input type="time" th:field="*{oTime}" class="form-control mb-3"
+						required> <label>To:</label> 
+						<input type="time" th:field="*{cTime}"
+						class="form-control mb-3" required> 
+					<label>Restaurant
+						Holiday:</label>
+					<select class="form-select mb-3" th:field="*{holiday}">
+						<option value="Monday">Monday</option>
+						<option value="Tuesday">Tuesday</option>
+						<option value="Wednesday">Wednesday</option>
+						<option value="Thursday">Thursday</option>
+						<option value="Friday">Friday</option>
+						<option value="Saturday">Saturday</option>
+						<option value="Sunday">Sunday</option>
+					</select>
+					<!-- Submit Button -->
+						<div class="d-grid mt-4">
+							<button type="submit" class="btn btn-black">Sign Up</button>
+						</div>
+					</form>
+				</div>
 
-                <label>Restaurant Holiday:</label>
-                <select class="form-select mb-3">
-                    <option value="Monday">Monday</option>
-                    <option value="Tuesday">Tuesday</option>
-                    <option value="Wednesday">Wednesday</option>
-                    <option value="Thursday">Thursday</option>
-                    <option value="Friday">Friday</option>
-                    <option value="Saturday">Saturday</option>
-                    <option value="Sunday">Sunday</option>
-                </select>
-            </div>
+				<!-- Delivery Boy Signup Form -->
+				<form th:action="@{/deliveryRegister}" method="post" th:object="${dvr}">
+				<div id="deliveryForm" style="display: none;">
+					<h4 class="fw-bold mt-3">Delivery Boy Information</h4>
+					<input type="text" class="form-control mb-3"
+						placeholder="Full Name" th:field="*{name}" required>
+					 <input type="email"
+						class="form-control mb-3" th:field="*{email}" placeholder="Email" required>
+					 <input
+						type="password" th:field="*{password}" class="form-control mb-3" placeholder="Password"
+						required>
+					 <input type="tel"
+						class="form-control mb-3" th:field="*{phone}" placeholder="Phone Number 1" required>
+					<input type="tel" th:field="*{altPhone}" class="form-control mb-3"
+						placeholder="Phone Number 2" required>
+					 <input type="text" th:field="*{address}"
+						class="form-control mb-3" placeholder="Address" required>
+					<label>Date of Birth:</label> 
+					<input type="date" th:field="*{dob}"
+						class="form-control mb-3" required> 
+					<input type="text" th:field="*{vehicle}"
+						class="form-control mb-3" placeholder="Vehicle Number" required>
+					<input type="text" class="form-control mb-3"
+					  th:field="*{adharcard}"	placeholder="Aadhar Card Number" required>
+					<!-- Submit Button -->
+					<div class="d-grid mt-4">
+						<button type="submit" class="btn btn-black">Sign Up</button>
+					</div>
+				</div>
+				</form>
 
-            <!-- Delivery Boy Signup Form -->
-            <div id="deliveryForm" style="display: none;">
-                <h4 class="fw-bold mt-3">Delivery Boy Information</h4>
-                <input type="text" class="form-control mb-3" placeholder="Full Name" required>
-                <input type="email" class="form-control mb-3" placeholder="Email" required>
-                <input type="password" class="form-control mb-3" placeholder="Password" required>
-                <input type="password" class="form-control mb-3" placeholder="Confirm Password" required>
-                <input type="tel" class="form-control mb-3" placeholder="Phone Number 1" required>
-                <input type="tel" class="form-control mb-3" placeholder="Phone Number 2" required>
-                <input type="text" class="form-control mb-3" placeholder="Address" required>
-                <label>Date of Birth:</label>
-                <input type="date" class="form-control mb-3" required>
-                <input type="text" class="form-control mb-3" placeholder="Vehicle Number" required>
-                <input type="text" class="form-control mb-3" placeholder="Aadhar Card Number" required>
-            </div>
+				<!-- Customer Signup Form -->
+				<form th:action="@{/customerRegister}" method="post" th:object="${ctm}">
+					<div id="customerForm">
+						<h4 class="fw-bold mt-3">Customer Information</h4>
+						<input type="text" class="form-control mb-3" th:field="*{name}"
+							placeholder="Full Name" required> <input type="email"
+							class="form-control mb-3" th:field="*{email}" placeholder="Email"
+							required> <input type="tel" class="form-control mb-3"
+							th:field="*{phone}" placeholder="Phone Number 1" required>
+						<input type="tel" class="form-control mb-3" th:field="*{altPhone}"
+							placeholder="Phone Number 2" required> <input type="text"
+							class="form-control mb-3" th:field="*{address}"
+							placeholder="Address" required> <input type="password"
+							class="form-control mb-3" th:field="*{password}"
+							placeholder="Password" required>
+						<!-- Submit Button -->
+						<div class="d-grid mt-4">
+							<button type="submit" class="btn btn-black">Sign Up</button>
+						</div>
+					</div>
+				</form>
 
-            <!-- Customer Signup Form -->
-            <div id="customerForm">
-                <h4 class="fw-bold mt-3">Customer Information</h4>
-                <input type="text" class="form-control mb-3" placeholder="Full Name" required>
-                <input type="email" class="form-control mb-3" placeholder="Email" required>
-                <input type="tel" class="form-control mb-3" placeholder="Phone Number 1" required>
-                <input type="tel" class="form-control mb-3" placeholder="Phone Number 2" required>
-                <input type="text" class="form-control mb-3" placeholder="Address" required>
-                <input type="password" class="form-control mb-3" placeholder="Password" required>
-                <input type="password" class="form-control mb-3" placeholder="Confirm Password" required>
-            </div>
 
-            <!-- Submit Button -->
-            <div class="d-grid mt-4">
-                <button type="submit" class="btn btn-black">Sign Up</button>
-            </div>
 
-        </div>
-    </div>
-</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

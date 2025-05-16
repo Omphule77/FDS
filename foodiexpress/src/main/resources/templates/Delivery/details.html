@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pending Orders</title>
+    <title>Active Deliveries</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
@@ -29,9 +29,7 @@
         .card {
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            cursor: pointer;
         }
         .footer {
             background-color: #FF6F61;
@@ -48,37 +46,31 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Foodie Express</a>
+            <a class="navbar-brand" href='/index'>Foodie Express</a>
             <div class="ms-auto">
                 <img id="profileIcon" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-icon" alt="User Profile Icon" onclick="navigateToProfile()">
             </div>
         </div>
     </nav>
 
-    <!-- Pending Orders Section -->
+    <!-- Active Deliveries Section -->
     <div class="container mt-4">
-        <h2 class="text-center mb-4">Available Orders</h2>
+        <h2 class="text-center mb-4">Active Deliveries</h2>
         <div class="row g-4">
             <div class="col-md-6">
-                <div class="card p-3">
-                    <h5>Order #54321</h5>
-                    <p><strong>Restaurant:</strong> Sushi Delight</p>
-                    <p><strong>Pickup Location:</strong> 25 Ocean Drive</p>
-                    <p><strong>Delivery Address:</strong> 42 Elm Avenue</p>
-                    <div class="mt-auto">
-                        <button class="btn btn-primary w-100" onclick="viewOrderDetails('54321', 'Sushi Delight', '25 Ocean Drive', '42 Elm Avenue', '12:30 PM', 'John Doe', '+91 9876543210')">View Details</button>
-                    </div>
+                <div class="card p-3" onclick="viewOrderDetails('12345', 'Pizza Palace', '10 Baker Street', '12 Main Street', '12:30 PM', 'John Doe', '+91 9876543210', 'Pending')">
+                    <h5>Order #12345</h5>
+                    <p><strong>Restaurant:</strong> Pizza Palace</p>
+                    <p><strong>Pickup Location:</strong> 10 Baker Street</p>
+                    <p><strong>Delivery Address:</strong> 12 Main Street</p>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card p-3">
-                    <h5>Order #98765</h5>
-                    <p><strong>Restaurant:</strong> Tandoori Treats</p>
-                    <p><strong>Pickup Location:</strong> 50 Spice Street</p>
-                    <p><strong>Delivery Address:</strong> 80 Oak Street</p>
-                    <div class="mt-auto">
-                        <button class="btn btn-primary w-100" onclick="viewOrderDetails('98765', 'Tandoori Treats', '50 Spice Street', '80 Oak Street', '1:00 PM', 'Jane Smith', '+91 8765432109')">View Details</button>
-                    </div>
+                <div class="card p-3" onclick="viewOrderDetails('67890', 'Burger Hub', '15 West Road', '34 Elm Avenue', '1:00 PM', 'Jane Smith', '+91 8765432109', 'Paid')">
+                    <h5>Order #67890</h5>
+                    <p><strong>Restaurant:</strong> Burger Hub</p>
+                    <p><strong>Pickup Location:</strong> 15 West Road</p>
+                    <p><strong>Delivery Address:</strong> 34 Elm Avenue</p>
                 </div>
             </div>
         </div>
@@ -100,10 +92,13 @@
                     <p><strong>Delivery Time:</strong> <span id="deliveryTime"></span></p>
                     <p><strong>Customer Name:</strong> <span id="customerName"></span></p>
                     <p><strong>Customer Contact:</strong> <span id="customerContact"></span></p>
+                    <p><strong>Payment Status:</strong> <span id="paymentStatus"></span></p>
+                    <hr>
+                    <label for="otpInput"><strong>Enter OTP:</strong></label>
+                    <input type="text" id="otpInput" class="form-control" placeholder="Enter OTP received from customer">
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success" onclick="acceptOrder()">Accept Order</button>
-                    <button class="btn btn-danger" onclick="rejectOrder()">Reject Order</button>
+                    <button class="btn btn-success" onclick="verifyOrder()">Verify & Complete Order</button>
                 </div>
             </div>
         </div>
@@ -116,10 +111,10 @@
 
     <script>
         function navigateToProfile() {
-            window.location.href = 'profile.html';
+            window.location.href = '/profile';
         }
 
-        function viewOrderDetails(orderId, restaurant, pickupLocation, deliveryAddress, deliveryTime, customerName, customerContact) {
+        function viewOrderDetails(orderId, restaurant, pickupLocation, deliveryAddress, deliveryTime, customerName, customerContact, paymentStatus) {
             document.getElementById("orderId").innerText = orderId;
             document.getElementById("restaurant").innerText = restaurant;
             document.getElementById("pickupLocation").innerText = pickupLocation;
@@ -127,17 +122,33 @@
             document.getElementById("deliveryTime").innerText = deliveryTime;
             document.getElementById("customerName").innerText = customerName;
             document.getElementById("customerContact").innerText = customerContact;
+            document.getElementById("paymentStatus").innerText = paymentStatus;
             new bootstrap.Modal(document.getElementById("orderDetailsModal")).show();
         }
 
-        function acceptOrder() {
-            alert("Order accepted successfully!");
-            new bootstrap.Modal(document.getElementById("orderDetailsModal")).hide();
-        }
+        function verifyOrder() {
+            let otp = document.getElementById("otpInput").value;
+            let paymentStatus = document.getElementById("paymentStatus").innerText;
+            let modalElement = document.getElementById("orderDetailsModal");
+            let modalInstance = bootstrap.Modal.getInstance(modalElement);
 
-        function rejectOrder() {
-            alert("Order rejected.");
-            new bootstrap.Modal(document.getElementById("orderDetailsModal")).hide();
+            if (otp === "" || otp.length !== 6) {
+                alert("Please enter a valid 6-digit OTP.");
+                return;
+            }
+
+            if (paymentStatus !== "Paid") {
+                alert("Payment is still pending. Please confirm payment before completing the order.");
+                return;
+            }
+
+            alert("Order successfully completed!");
+            setTimeout(() => {
+                modalInstance.hide(); // Properly close the modal after alert
+                document.getElementById("orderDetailsModal").classList.remove("show");
+                document.body.classList.remove("modal-open");
+                document.querySelector(".modal-backdrop").remove();
+            }, 500); // Delay to allow alert to be dismissed
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
