@@ -151,6 +151,63 @@
         
     </div>
     
+    
+    <!-- This is sliding img -->
+    <div class="container">
+        <div id="mycarousel" class="carousel slide" data-bs-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-bs-target="#mycarousel" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#mycarousel" data-bs-slide-to="1" ></li>
+                <li data-bs-target="#mycarousel" data-bs-slide-to="2" ></li>               <!--  THIS ORDER LIST INDICATE THAT THE -->
+                <li data-bs-target="#mycarousel" data-bs-slide-to="3" ></li>               <!--  BOTTOM INDICATORS-->
+                <li data-bs-target="#mycarousel" data-bs-slide-to="4" ></li>
+
+            </ol>
+            
+
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="text-align: center;">
+                    <img src="ice1.jpg" width="90%" height="500px" >
+                </div>
+
+                <div class="carousel-item " style="text-align: center;">
+                    <img src="/img/burger.png"width="90%" height="500px" >
+                </div>
+                                                                               
+                <div class="carousel-item " style="text-align: center;">
+                    <img src="/img/coffee.jpg" width="90%" height="500px" >
+                </div>
+
+                <div class="carousel-item " style="text-align: center;">
+                    <img src="/img/cake.png" width="90%" height="500px" >
+                </div>
+
+                <div class="carousel-item " style="text-align: center;">
+                    <img src="/img/thali.png" width="90%" height="500px" >
+                </div>
+            </div>
+
+
+
+
+
+            <a class="carousel-control-prev" href="#mycarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>                                                                       <!--THIS IS ANCHOR TAG FOR PREVIOUS AND NEXT BUTTON-->
+
+            <a class="carousel-control-next" href="#mycarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+
+
+
+
+        </div>
+
+    </div>
+    <br>
+    
+    
     <form th:action="@{/logout}" method="post">
       <button type="submit">Logout</button>
     </form>

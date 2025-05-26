@@ -29,7 +29,7 @@ CREATE TABLE `admin` (
   `address` varchar(45) NOT NULL,
   `phone` varchar(10) NOT NULL,
   `altphone` varchar(10) NOT NULL,
-  `password` varchar(8) NOT NULL,
+  `password` varchar(100) NOT NULL,
   PRIMARY KEY (`adminid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -40,6 +40,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+INSERT INTO `admin` VALUES (1,'om phule','omphule1@gmail.com','ghdsas','67686786','576566','$2a$12$.gTx5Ved4.1T9mPaFTuHy.ZOU7kHJze6.rMUieJrwmWDy7mPDKZvO');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +64,7 @@ CREATE TABLE `authorities` (
 
 LOCK TABLES `authorities` WRITE;
 /*!40000 ALTER TABLE `authorities` DISABLE KEYS */;
-INSERT INTO `authorities` VALUES ('harshad1@gmail.com','ROLE_RESTAURANT'),('harshad2@gmail.com','ROLE_DELIVERY'),('om1@gmail.com','ROLE_CUSTOMER'),('om2@gmail.com','ROLE_CUSTOMER'),('om3@gmail.com','ROLE_CUSTOMER'),('om4@gmail.com','ROLE_CUSTOMER'),('om6@gmail.com','ROLE_CUSTOMER'),('om7@gmail.com','ROLE_CUSTOMER'),('prafful3@gmail.com','ROLE_CUSTOMER');
+INSERT INTO `authorities` VALUES ('harshad1@gmail.com','ROLE_RESTAURANT'),('harshad2@gmail.com','ROLE_DELIVERY'),('om1@gmail.com','ROLE_CUSTOMER'),('om2@gmail.com','ROLE_CUSTOMER'),('om3@gmail.com','ROLE_CUSTOMER'),('om4@gmail.com','ROLE_CUSTOMER'),('om6@gmail.com','ROLE_CUSTOMER'),('om7@gmail.com','ROLE_CUSTOMER'),('omphule1@gmail.com','ROLE_ADMIN'),('prafful3@gmail.com','ROLE_CUSTOMER');
 /*!40000 ALTER TABLE `authorities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +188,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('harshad1@gmail.com','$2a$10$9mhXF0qbXlIbRXDNWoO3ne5EnDsu7XaCU56bVutoTALy/HApclZgm','1'),('harshad2@gmail.com','$2a$10$qkTOgqZ9z0DZMR9yJcXbne7PR1e/30c2SYyhbucUwyC8PgRvlPhpy','1'),('om1@gmail.com','$2a$10$ODpwsQOdlFA2ezahPogewOboVA2GAu8B30RJI6gvd8PFkMtJHXrcW','1'),('om2@gmail.com','{bcrypt}$2a$10$Nk9ErAxbJgRNb0Pv6RgqTuTZsWKh9PncfjnSJUlEV/ERtSLSnntVO','1'),('om3@gmail.com','{noop}pass123','1'),('om4@gmail.com','{noop}pass123','1'),('om6@gmail.com','$2a$10$ortUq5SzaLiyj5tqV/BuMugKnP5pF2Tpka4Syc8cUF8aKD1wkSbcy','1'),('om7@gmail.com','$2a$10$d4g7jZv6oeTjGXS0NXxeGOBD/NKUQ0tyqo2TM1.7olDxmopcNUX2y','1'),('prafful3@gmail.com','$2a$10$TRzif5R41ZiCYjN0wMvsRe7aQmeAc37oHWFisrtSKtD38ZSrraRAW','1');
+INSERT INTO `users` VALUES ('harshad1@gmail.com','$2a$10$9mhXF0qbXlIbRXDNWoO3ne5EnDsu7XaCU56bVutoTALy/HApclZgm','1'),('harshad2@gmail.com','$2a$10$qkTOgqZ9z0DZMR9yJcXbne7PR1e/30c2SYyhbucUwyC8PgRvlPhpy','1'),('om1@gmail.com','$2a$10$ODpwsQOdlFA2ezahPogewOboVA2GAu8B30RJI6gvd8PFkMtJHXrcW','1'),('om2@gmail.com','{bcrypt}$2a$10$Nk9ErAxbJgRNb0Pv6RgqTuTZsWKh9PncfjnSJUlEV/ERtSLSnntVO','1'),('om3@gmail.com','{noop}pass123','1'),('om4@gmail.com','{noop}pass123','1'),('om6@gmail.com','$2a$10$ortUq5SzaLiyj5tqV/BuMugKnP5pF2Tpka4Syc8cUF8aKD1wkSbcy','1'),('om7@gmail.com','$2a$10$d4g7jZv6oeTjGXS0NXxeGOBD/NKUQ0tyqo2TM1.7olDxmopcNUX2y','1'),('omphule1@gmail.com','$2a$12$.gTx5Ved4.1T9mPaFTuHy.ZOU7kHJze6.rMUieJrwmWDy7mPDKZvO','1'),('prafful3@gmail.com','$2a$10$TRzif5R41ZiCYjN0wMvsRe7aQmeAc37oHWFisrtSKtD38ZSrraRAW','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -200,4 +201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-15 17:41:18
+-- Dump completed on 2025-05-26 11:13:19
