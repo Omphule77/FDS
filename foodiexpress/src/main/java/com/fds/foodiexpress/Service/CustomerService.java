@@ -23,5 +23,6 @@ public interface CustomerService {
 	Optional<FoodItems> findAllChicken();
 	Optional<FoodItems> findAllPizza();
 	Optional<FoodItems> findAllSandwitch();
+	FoodItems findFoodById(int id);
 	
 }

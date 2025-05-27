@@ -116,4 +116,10 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDao.findSandwitch();
 	}
 
+
+	@Override
+	public FoodItems findFoodById(int id) {
+		return customerDao.findById(id);
+	}
+
 }
