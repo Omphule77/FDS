@@ -52,7 +52,12 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="/index">Foodie Express</a>
             <div class="ms-auto">
-                <img id="profileIcon" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-icon" alt="User Profile Icon" onclick="navigateToProfile()">
+                <a th:href="@{/profile(agentid=${user != null ? user.agentid : 0})}">
+				    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-icon" alt="User Profile Icon">
+				</a>
+
+
+
             </div>
         </div>
     </nav>
@@ -61,7 +66,8 @@
     <div class="container mt-4">
         <div class="row text-center">
             <div class="col-12">
-                <h2 class="mb-4">Welcome, John Doe</h2>
+                <!-- <h2 class="mb-4">Welcome, John Doe</h2> -->
+                <h2>Welcome, <span th:text="${user != null ? user.name : 'Guest'}"></span></h2>                
             </div>
         </div>
         <div class="row g-4">

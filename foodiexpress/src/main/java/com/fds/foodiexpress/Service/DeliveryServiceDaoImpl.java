@@ -1,24 +1,37 @@
 package com.fds.foodiexpress.Service;
 
 import org.springframework.stereotype.Service;
-
 import com.fds.foodiexpress.dao.DeliveryDAO;
 import com.fds.foodiexpress.entity.Delivery;
 
 @Service
-public class DeliveryServiceDaoImpl implements DeliveryServiceDAO{
-	
-	private DeliveryDAO deliveryDao;
-	
-	public DeliveryServiceDaoImpl(DeliveryDAO deliveryDao) {
-		this.deliveryDao=deliveryDao;
-	}
+public class DeliveryServiceDaoImpl implements DeliveryServiceDAO {
+    private final DeliveryDAO deliveryDao;
 
-	@Override
-	public void change(Delivery delivery) {
-		// TODO Auto-generated method stub
-		deliveryDao.update(delivery);
-		
-	}
+    public DeliveryServiceDaoImpl(DeliveryDAO deliveryDao) {
+        this.deliveryDao = deliveryDao;
+    }
 
+    @Override
+    public Delivery findById(int id) {
+        Delivery result = deliveryDao.findById(id);
+        if (result == null) {
+            throw new RuntimeException("Did not find user with ID: " + id);
+        }
+        return result;
+    }
+
+    @Override
+    public Delivery findByEmail(String email) {
+        Delivery result = deliveryDao.findByEmail(email);
+        if (result == null) {
+            throw new RuntimeException("User not found for email: " + email);
+        }
+        return result;
+    }
+
+    @Override
+    public Delivery save(Delivery theDelivery) {
+        return deliveryDao.save(theDelivery);
+    }
 }
