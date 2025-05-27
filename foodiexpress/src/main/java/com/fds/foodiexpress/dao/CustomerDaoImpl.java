@@ -213,5 +213,11 @@ public class CustomerDaoImpl implements CustomerDao {
         }
 	}
 
+	@Override
+	public FoodItems findById(int id) {
+		
+		return entityManager.find(FoodItems.class, id);
+	}
+
 
 }

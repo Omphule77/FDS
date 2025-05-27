@@ -240,7 +240,7 @@
   
   <div class="scrolling-wrapper">
     <div class="card">
-      <center><a th:href="@{/burger}"><img src="/img/burgerc.png" alt="burger" width="200px"></a></center>
+      <center><a th:href="@{/burger/{email}(email=${ctm.email})}"><img src="/img/burgerc.png" alt="burger" width="200px"></a></center>
       <div class="card-body">
         <h5 class="card-title" style="text-align: center;" >Burger</h5>
         
@@ -248,7 +248,7 @@
     </div>
 
     <div class="card">
-        <center><a th:href="@{/icecream}"><img src="/img/icec.png" alt="burger" width="200px" style="margin-top: 35px;"></a></center>
+        <center><a th:href="@{/icecream/{email}(email=${ctm.email})}"><img src="/img/icec.png" alt="burger" width="200px" style="margin-top: 35px;"></a></center>
         <div class="card-body">
           <h5 class="card-title" style="text-align: center;margin-top: 30px;" >Ice-Cream</h5>
           
@@ -256,7 +256,7 @@
       </div>
 
       <div class="card">
-        <center><a th:href="@{/cake}"><img src="/img/cakec.png"  alt="burger" width="200px"></a></center>
+        <center><a th:href="@{/cake/{email}(email=${ctm.email})}"><img src="/img/cakec.png"  alt="burger" width="200px"></a></center>
         <div class="card-body">
           <h5 class="card-title" style="text-align: center;" >Cake</h5>
           
@@ -264,7 +264,7 @@
       </div>
 
       <div class="card">
-        <center><a th:href="@{/fries}"><img src="/img/fries.png" alt="burger" width="200px"></a></center>
+        <center><a th:href="@{/fries/{email}(email=${ctm.email})}"><img src="/img/fries.png" alt="burger" width="200px"></a></center>
         <div class="card-body">
           <h5 class="card-title" style="text-align: center;" >Fries</h5>
           
@@ -272,7 +272,7 @@
       </div>
 
       <div class="card">
-        <center><a th:href="@{/biryani}"><img src="/img/biryanic.png" alt="burger" width="200px"></a></center>
+        <center><a th:href="@{/biryani/{email}(email=${ctm.email})}"><img src="/img/biryanic.png" alt="burger" width="200px"></a></center>
         <div class="card-body">
           <h5 class="card-title" style="text-align: center;" >Biryani</h5>
           
@@ -280,7 +280,7 @@
       </div>
 
       <div class="card">
-        <center><a th:href="@{/chicken}"><img src="/img/chickenc1.png"  alt="burger" width="200px"></a></center>
+        <center><a th:href="@{/chicken/{email}(email=${ctm.email})}"><img src="/img/chickenc1.png"  alt="burger" width="200px"></a></center>
         <div class="card-body">
           <h5 class="card-title" style="text-align: center;" >Chicken</h5>
           
@@ -288,7 +288,7 @@
       </div>
 
       <div class="card">
-        <center><a th:href="@{/pizza}"><img src="/img/pizzac.png"   alt="burger" width="200px"></a></center>
+        <center><a th:href="@{/pizza/{email}(email=${ctm.email})}"><img src="/img/pizzac.png"   alt="burger" width="200px"></a></center>
         <div class="card-body">
           <h5 class="card-title" style="text-align: center;" >Pizza</h5>
           
@@ -296,7 +296,7 @@
       </div>
 
       <div class="card">
-        <center><a th:href="@{/sandwitch}"><img src="/img/sandwitchc.png" alt="burger" width="200px"></a></center>
+        <center><a th:href="@{/sandwitch/{email}(email=${ctm.email})}"><img src="/img/sandwitchc.png" alt="burger" width="200px"></a></center>
         <div class="card-body">
           <h5 class="card-title" style="text-align: center;" >Sandwitch</h5>
           
@@ -334,7 +334,7 @@
                     </h6>
                     <p class="card-text" th:text="${p.comment}"></p>
                     <button class="btn btn-primary">
-                        <a href="#" style="text-decoration: none; color:white;">
+                        <a th:href="@{/buynow/{id}/{email}(id=${p.id},email=${ctm.email})}" style="text-decoration: none; color:white;">
                             Buy Now
                         </a>
                     </button> 

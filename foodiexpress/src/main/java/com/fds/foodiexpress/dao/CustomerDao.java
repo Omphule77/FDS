@@ -25,4 +25,5 @@ public interface CustomerDao{
 	Optional<FoodItems> findChicken();
 	Optional<FoodItems> findPizza();
 	Optional<FoodItems> findSandwitch();
+	FoodItems findById(int id);
 }
