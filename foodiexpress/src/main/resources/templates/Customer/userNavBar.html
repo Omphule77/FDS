@@ -91,6 +91,26 @@
                 margin-top: 0;
             }
         }
+        
+         .scrolling-wrapper {
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
+      display: flex;
+      flex-wrap: nowrap;
+    }
+    .card {
+      flex: 0 0 auto;
+      width: 300px; /* Adjust as needed */
+      margin-right: 10px; /* Adjust spacing between cards */
+      border: none;
+    }
+    
+   /*  end the card scrolling */
+   
+   .card-img-top{
+   		height: 200px;
+   }
     </style>
     <script>
         function showProfilePage() {
@@ -155,14 +175,14 @@
     <!-- This is sliding img -->
     <div class="container">
         <div id="mycarousel" class="carousel slide" data-bs-ride="carousel">
-            <ol class="carousel-indicators">
+            <ul class="carousel-indicators" style="list-style: none">
                 <li data-bs-target="#mycarousel" data-bs-slide-to="0" class="active"></li>
                 <li data-bs-target="#mycarousel" data-bs-slide-to="1" ></li>
                 <li data-bs-target="#mycarousel" data-bs-slide-to="2" ></li>               <!--  THIS ORDER LIST INDICATE THAT THE -->
                 <li data-bs-target="#mycarousel" data-bs-slide-to="3" ></li>               <!--  BOTTOM INDICATORS-->
                 <li data-bs-target="#mycarousel" data-bs-slide-to="4" ></li>
 
-            </ol>
+            </ul>
             
 
             <div class="carousel-inner">
@@ -208,6 +228,125 @@
     <br>
     
     
+    <!-- Carousel completed -->
+
+
+
+
+ <h3 style="text-align:center;">-----------Where is your interest----------</h3>
+    <br>
+    
+<div class="container mt-3">
+  
+  <div class="scrolling-wrapper">
+    <div class="card">
+      <center><a th:href="@{/burger}"><img src="/img/burgerc.png" alt="burger" width="200px"></a></center>
+      <div class="card-body">
+        <h5 class="card-title" style="text-align: center;" >Burger</h5>
+        
+      </div>
+    </div>
+
+    <div class="card">
+        <center><a th:href="@{/icecream}"><img src="/img/icec.png" alt="burger" width="200px" style="margin-top: 35px;"></a></center>
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center;margin-top: 30px;" >Ice-Cream</h5>
+          
+        </div>
+      </div>
+
+      <div class="card">
+        <center><a th:href="@{/cake}"><img src="/img/cakec.png"  alt="burger" width="200px"></a></center>
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center;" >Cake</h5>
+          
+        </div>
+      </div>
+
+      <div class="card">
+        <center><a th:href="@{/fries}"><img src="/img/fries.png" alt="burger" width="200px"></a></center>
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center;" >Fries</h5>
+          
+        </div>
+      </div>
+
+      <div class="card">
+        <center><a th:href="@{/biryani}"><img src="/img/biryanic.png" alt="burger" width="200px"></a></center>
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center;" >Biryani</h5>
+          
+        </div>
+      </div>
+
+      <div class="card">
+        <center><a th:href="@{/chicken}"><img src="/img/chickenc1.png"  alt="burger" width="200px"></a></center>
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center;" >Chicken</h5>
+          
+        </div>
+      </div>
+
+      <div class="card">
+        <center><a th:href="@{/pizza}"><img src="/img/pizzac.png"   alt="burger" width="200px"></a></center>
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center;" >Pizza</h5>
+          
+        </div>
+      </div>
+
+      <div class="card">
+        <center><a th:href="@{/sandwitch}"><img src="/img/sandwitchc.png" alt="burger" width="200px"></a></center>
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center;" >Sandwitch</h5>
+          
+        </div>
+      </div>
+    
+    <!-- Add more cards here -->
+  </div>
+</div>
+
+
+
+
+<!-- Here is all of the food items -->
+<br>
+<h3 style="text-align:center;">-----------Here Is All Types Of Food----------</h3>
+    <br>
+
+<div class="container">
+  
+  
+    <div class="row justify-content-center">
+        <div th:each="p : ${food}" class="col-lg-4 col-md-6 col-sm-12 mb-3">
+            <div class="card cl4" style="border: 2px black solid; border-radius: 20px; box-shadow: 5px 5px 5px 5px; margin-top:20px;">
+                <img class="card-img-top" th:src="${p.fImg}" alt="Card image cap" style="border-radius:20px 20px 0 0;">
+                <div class="card-body" style="background-color: #E6E6FA; border-radius: 0 0 20px 20px;">
+                    <h5 class="card-title" th:text="${p.name}"></h5>
+                    <p>
+                        <img width="25" height="25" src="https://img.icons8.com/color/48/restaurant-.png" alt="restaurant-"/>
+                        <span th:text="${p.rName}"></span>
+                    </p>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/rupee.png" alt="rupee"/>
+                        <strong style="color:black; font-size:24px;" th:text="${p.rs}"></strong>
+                    </h6>
+                    <p class="card-text" th:text="${p.comment}"></p>
+                    <button class="btn btn-primary">
+                        <a href="#" style="text-decoration: none; color:white;">
+                            Buy Now
+                        </a>
+                    </button> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    
+    
     <form th:action="@{/logout}" method="post">
       <button type="submit">Logout</button>
     </form>
@@ -218,7 +357,14 @@
 			window.location.reload();
 		}
 });
+  
+  document.addEventListener("DOMcontentloaded",function()
+  {
+      var element=document.getElementById("mycarousel");
+      var mycarousel=new bootstrap.Carousel(element,{interval:500});
+  });
   </script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>
 </html>

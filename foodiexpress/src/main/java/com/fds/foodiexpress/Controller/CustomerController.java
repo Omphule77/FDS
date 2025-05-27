@@ -2,6 +2,8 @@ package com.fds.foodiexpress.Controller;
 
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.fds.foodiexpress.Service.CustomerService;
 import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
+import com.fds.foodiexpress.entity.FoodItems;
 import com.fds.foodiexpress.entity.Restaurant;
 
 @Controller
@@ -24,8 +28,15 @@ public class CustomerController {
 		this.userService=userService;
 	}
 	
-	@GetMapping("/dashboard")
-	public String afterLogin() {
+	@GetMapping("/dashboard/{username}")
+	public String afterLogin(Model m,@PathVariable String username) {
+		System.out.println("UserName: "+username);
+		Optional<Customer> c=userService.customerFind(username);
+		List<FoodItems> f= userService.findAllFood();
+		System.out.println(f);
+		m.addAttribute("food", f);
+		m.addAttribute("ctm", c.orElse(null));
+		System.out.println(c);
 		return "customer/userNavBar";
 	}
 	
@@ -44,7 +55,7 @@ public class CustomerController {
 		    switch (role) {
 		        case "ROLE_CUSTOMER":
 		            System.out.println("Redirecting to Admin Dashboard...");
-		            return "redirect:/dashboard";
+		            return "redirect:/dashboard/"+username;
 		        case "ROLE_RESTAURANT":
 		            System.out.println("Redirecting to Restro Dashboard...");
 		            return "redirect:/restro-dashboard";
@@ -130,5 +141,96 @@ public class CustomerController {
 		System.out.println("Done!");
 		return "login";
 	}
+	
+	@GetMapping("/burger")
+	public String burger(Model m) {
+	    Optional<FoodItems> optionalBurger = userService.findAllBuger(); // Get Optional
+	    
+	    FoodItems burger = optionalBurger.orElse(null); // Unwrap Optional safely
+
+	    m.addAttribute("burger", burger); 
+	    
+	    return "Customer/burger";
+	}
+	
+	@GetMapping("/icecream")
+	public String iceCream(Model m) {
+	    Optional<FoodItems> optionalIce = userService.findAllIceCream(); // Get Optional
+	    
+	    FoodItems ice = optionalIce.orElse(null); // Unwrap Optional safely
+
+	    m.addAttribute("ice", ice); 
+	    
+	    return "Customer/ice";
+	}
+	
+	@GetMapping("/cake")
+	public String cake(Model m) {
+	    Optional<FoodItems> optionalcake = userService.findAllCake(); // Get Optional
+	    
+	    FoodItems cake = optionalcake.orElse(null); // Unwrap Optional safely
+
+	    m.addAttribute("cake", cake); 
+	    
+	    return "Customer/cake";
+	}
+	
+	@GetMapping("/fries")
+	public String fries(Model m) {
+	    Optional<FoodItems> optionalFries = userService.findAllFries(); // Get Optional
+	    
+	    FoodItems fries = optionalFries.orElse(null); // Unwrap Optional safely
+
+	    m.addAttribute("fries", fries); 
+	    
+	    return "Customer/fries";
+	}
+	
+	@GetMapping("/biryani")
+	public String biryani(Model m) {
+	    Optional<FoodItems> optionalBiryani = userService.findAllBiryani(); // Get Optional
+	    
+	    FoodItems biryani = optionalBiryani.orElse(null); // Unwrap Optional safely
+
+	    m.addAttribute("biryani", biryani); 
+	    
+	    return "Customer/biryani";
+	}
+	
+	@GetMapping("/chicken")
+	public String chicken(Model m) {
+	    Optional<FoodItems> optionalChicken = userService.findAllChicken(); // Get Optional
+	    
+	    FoodItems chicken = optionalChicken.orElse(null); // Unwrap Optional safely
+
+	    m.addAttribute("chicken", chicken); 
+	    
+	    return "Customer/chicken";
+	}
+	
+	@GetMapping("/pizza")
+	public String pizza(Model m) {
+	    Optional<FoodItems> optionalPizza = userService.findAllPizza(); // Get Optional
+	    
+	    FoodItems pizza = optionalPizza.orElse(null); // Unwrap Optional safely
+
+	    m.addAttribute("pizza", pizza); 
+	    
+	    return "Customer/pizza";
+	}
+	
+	@GetMapping("/sandwitch")
+	public String sandwitch(Model m) {
+	    Optional<FoodItems> optionalSandwitch = userService.findAllSandwitch(); // Get Optional
+	    
+	    FoodItems sandwitch = optionalSandwitch.orElse(null); // Unwrap Optional safely
+
+	    m.addAttribute("sandwitch", sandwitch); 
+	    
+	    return "Customer/sandwitch";
+	}
+
+	
+	
 	
 }
