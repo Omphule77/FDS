@@ -76,14 +76,14 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer` (
-  `customerId` int NOT NULL AUTO_INCREMENT,
+  `customer_Id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `email` varchar(45) NOT NULL,
   `phone` varchar(10) NOT NULL,
   `altphone` varchar(10) NOT NULL,
-  `Address` varchar(250) NOT NULL,
+  `address` varchar(250) NOT NULL,
   `password` varchar(90) NOT NULL,
-  PRIMARY KEY (`customerId`)
+  PRIMARY KEY (`customer_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -93,7 +93,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Om Prakash Phule','omphule77@gmail.com','7707777228','8626960196','siruseri chennai','Pass@123'),(2,'Harshad Joshi','harshad@gmail.com','4534675423','4537786764','SDB 2 - (G & 1st Flr) SDB 3 - (3 - 6 Flr), Survey No. 602/3, Plot No. 1, ELCOT IT/ ITES - SEZ, Sholinganallur Village','{bcrypt}Pass@123'),(3,'Harshad Joshi','harshad@gmail.com','4534675423','4537786764','SDB 2 - (G & 1st Flr) SDB 3 - (3 - 6 Flr), Survey No. 602/3, Plot No. 1, ELCOT IT/ ITES - SEZ, Sholinganallur Village','$2a$10$dZnprbwuvlFv1EFWcLFXS.IV2hpjBUsLCTqwuSgN/wIPWv3r4/j66'),(4,'Om Phule','om1@gmail.com','7709777228','4534675423','siruseri chennai','$2a$10$6OVYngAtZ8d0WzXeQYL8yukEQWtDPlZhUCG8DKjV0RwU4f/0vx/fu'),(5,'Om Phule','om2@gmail.com','7709777228','4534675423','siruseri chennai','$2a$10$adYajXR.OQG7bVpQmc/BcOqJzt6PZ6uL7mWNSlEFRsoPNElHdbY.O'),(6,'Om Phule','om6@gmail.com','7709777228','7876545676','siruseri chennai','$2a$10$7Kp53B05U32kolGwEUh92ebOd0179X4gwdbTCEwkcY9Lm8e3t7LXq'),(7,'Om Phule','om7@gmail.com','7709777228','7876545676','siruseri chennai','$2a$10$d4g7jZv6oeTjGXS0NXxeGOBD/NKUQ0tyqo2TM1.7olDxmopcNUX2y');
+INSERT INTO `customer` VALUES (3,'Harshad Joshi','harshad@gmail.com','4534675423','4537786764','SDB 2 - (G & 1st Flr) SDB 3 - (3 - 6 Flr), Survey No. 602/3, Plot No. 1, ELCOT IT/ ITES - SEZ, Sholinganallur Village','$2a$10$dZnprbwuvlFv1EFWcLFXS.IV2hpjBUsLCTqwuSgN/wIPWv3r4/j66'),(4,'Om Phule','om1@gmail.com','7709777228','4534675423','siruseri chennai','$2a$10$6OVYngAtZ8d0WzXeQYL8yukEQWtDPlZhUCG8DKjV0RwU4f/0vx/fu'),(5,'Om Phule','om2@gmail.com','7709777228','4534675423','siruseri chennai','$2a$10$adYajXR.OQG7bVpQmc/BcOqJzt6PZ6uL7mWNSlEFRsoPNElHdbY.O'),(6,'Om Phule','om6@gmail.com','7709777228','7876545676','siruseri chennai','$2a$10$7Kp53B05U32kolGwEUh92ebOd0179X4gwdbTCEwkcY9Lm8e3t7LXq'),(7,'Om Phule','om7@gmail.com','7709777228','7876545676','siruseri chennai','$2a$10$d4g7jZv6oeTjGXS0NXxeGOBD/NKUQ0tyqo2TM1.7olDxmopcNUX2y');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,8 +126,38 @@ CREATE TABLE `delivery` (
 
 LOCK TABLES `delivery` WRITE;
 /*!40000 ALTER TABLE `delivery` DISABLE KEYS */;
-INSERT INTO `delivery` VALUES (1,'Om Prakash Phule','omphule77@gmail.com','7707777228','8626960196','Pass@123','2025-05-13','MH455665','675354687345','siruseri chennai','1'),(2,'Harshad Joshi','harshad2@gmail.com','4537786764','7878787878','$2a$10$qkTOgqZ9z0DZMR9yJcXbne7PR1e/30c2SYyhbucUwyC8PgRvlPhpy','2025-05-14','424423','2342342342','SDB 2 - (G & 1st Flr) SDB 3 - (3 - 6 Flr), Survey 602/3, Plot No. 1, ELCOT IT/ ITES - SEZ, Sholinganallur Village','1');
+INSERT INTO `delivery` VALUES (1,'Om Prakash Phule','omphule77@gmail.com','7707777228','8626960196','Pass@123','2025-05-13','MH455665','675354687345','siruseri chennai','1'),(2,'Harshad','harshad2@gmail.com','4537786764','7878787878','pass123','2025-05-14','424423','2342342342','SDB 2 - (G & 1st Flr) SDB 3 - (3 - 6 Flr), Survey 602/3, Plot No. 1, ELCOT IT/ ITES - SEZ, Sholinganallur Village','1');
 /*!40000 ALTER TABLE `delivery` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fooditems`
+--
+
+DROP TABLE IF EXISTS `fooditems`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `fooditems` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `type` varchar(45) NOT NULL,
+  `rs` varchar(45) NOT NULL,
+  `comment` varchar(45) NOT NULL,
+  `restroid` varchar(45) NOT NULL,
+  `fimg` varchar(500) NOT NULL,
+  `rname` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fooditems`
+--
+
+LOCK TABLES `fooditems` WRITE;
+/*!40000 ALTER TABLE `fooditems` DISABLE KEYS */;
+INSERT INTO `fooditems` VALUES (1,'burger','Burger','120','testy','1','https://img.freepik.com/free-photo/classic-cheese-burger-with-beef-cutlet-vegetables-onions-isolated-white-background_123827-29709.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant'),(2,'sandwitch','Sandwitch','100','testy','1','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant'),(3,'Biryani','Biryani','90','spicy','2','https://img.freepik.com/free-photo/plate-biryani-with-bunch-food-it_505751-3819.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro'),(4,'IceCream','IceCream','60','Thanda','2','https://img.freepik.com/free-photo/ice-cream-table_140725-8604.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro'),(5,'Cake','Cake','250','Vanila','1','https://img.freepik.com/premium-photo/wedding-cake-wedding-newlyweds_419896-2253.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant'),(6,'French Fries','Fries','80','Spicy','1','https://img.freepik.com/premium-photo/homemade-pile-appetizing-french-fries_488220-4209.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant'),(7,'Chicken','Chicken','350','Tadaka','2','https://img.freepik.com/premium-photo/succulent-spiced-whole-roasted-chicken-slate-with-zesty-green-sauce_968957-8828.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro'),(8,'Pizza','Pizza','110','Onion','2','https://img.freepik.com/free-photo/pizza-pizza-filled-with-tomatoes-salami-olives_140725-1200.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro');
+/*!40000 ALTER TABLE `fooditems` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -201,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-26 11:13:19
+-- Dump completed on 2025-05-27 10:18:41
