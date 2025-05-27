@@ -1,44 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Active Deliveries</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Active Deliveries | Foodie Express</title>
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css}">
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+
     <style>
         body {
-            background-color: white;
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
         }
+
+        /* Navbar Styling */
         .navbar {
             background-color: red;
+            padding: 12px;
         }
         .navbar-brand {
             color: white !important;
             font-size: 24px;
             font-weight: bold;
-            cursor: pointer;
         }
-        .profile-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            cursor: pointer;
-        }
+
+        /* Card Styling */
         .card {
             border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Button Styling */
+        .complete-btn {
+            font-size: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(90deg, #28a745, #218838);
+            color: white;
+            border: none;
+        }
+        .complete-btn:hover {
+            background: linear-gradient(90deg, #218838, #28a745);
+            transform: translateY(-3px);
+        }
+
+        /* Footer Styling */
         .footer {
             background-color: #FF6F61;
             color: white;
+            text-align: center;
+            padding: 15px;
             position: fixed;
             bottom: 0;
             width: 100%;
-            text-align: center;
-            padding: 10px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -46,59 +70,38 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href='/index'>Foodie Express</a>
-            <div class="ms-auto">
-                <img id="profileIcon" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-icon" alt="User Profile Icon" onclick="navigateToProfile()">
-            </div>
+            <a class="navbar-brand" th:href="@{/index}">Foodie Express</a>
         </div>
     </nav>
 
     <!-- Active Deliveries Section -->
     <div class="container mt-4">
         <h2 class="text-center mb-4">Active Deliveries</h2>
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="card p-3" onclick="viewOrderDetails('12345', 'Pizza Palace', '10 Baker Street', '12 Main Street', '12:30 PM', 'John Doe', '+91 9876543210', 'Pending')">
-                    <h5>Order #12345</h5>
-                    <p><strong>Restaurant:</strong> Pizza Palace</p>
-                    <p><strong>Pickup Location:</strong> 10 Baker Street</p>
-                    <p><strong>Delivery Address:</strong> 12 Main Street</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card p-3" onclick="viewOrderDetails('67890', 'Burger Hub', '15 West Road', '34 Elm Avenue', '1:00 PM', 'Jane Smith', '+91 8765432109', 'Paid')">
-                    <h5>Order #67890</h5>
-                    <p><strong>Restaurant:</strong> Burger Hub</p>
-                    <p><strong>Pickup Location:</strong> 15 West Road</p>
-                    <p><strong>Delivery Address:</strong> 34 Elm Avenue</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Order Details Modal -->
-    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Order Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Order ID:</strong> <span id="orderId"></span></p>
-                    <p><strong>Restaurant:</strong> <span id="restaurant"></span></p>
-                    <p><strong>Pickup Location:</strong> <span id="pickupLocation"></span></p>
-                    <p><strong>Delivery Address:</strong> <span id="deliveryAddress"></span></p>
-                    <p><strong>Delivery Time:</strong> <span id="deliveryTime"></span></p>
-                    <p><strong>Customer Name:</strong> <span id="customerName"></span></p>
-                    <p><strong>Customer Contact:</strong> <span id="customerContact"></span></p>
-                    <p><strong>Payment Status:</strong> <span id="paymentStatus"></span></p>
-                    <hr>
-                    <label for="otpInput"><strong>Enter OTP:</strong></label>
-                    <input type="text" id="otpInput" class="form-control" placeholder="Enter OTP received from customer">
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success" onclick="verifyOrder()">Verify & Complete Order</button>
+        <!-- Debugging statement to check order count -->
+        <p th:if="${orders != null}" th:text="'Total Active Orders: ' + ${orders.size()}"></p>
+
+        <!-- Show message if no active orders exist -->
+        <div th:if="${orders == null or #lists.isEmpty(orders)}" class="text-center text-muted">
+            🚀 No active deliveries at the moment.
+        </div>
+
+        <!-- Render active orders -->
+        <div class="row g-4" th:if="${orders != null and !#lists.isEmpty(orders)}">
+            <div class="col-md-6" th:each="order : ${orders}">
+                <div class="card p-3" th:id="'order-' + ${order.orderId}">
+                    <h5 th:text="'Order #' + ${order.orderId}"></h5>
+                    <p><strong>Restaurant:</strong> <span th:text="${order.rName}"></span></p>
+                    <p><strong>Pickup Location:</strong> <span th:text="${order.rAddress}"></span></p>
+                    <p><strong>Delivery Address:</strong> <span th:text="${order.cAddress}"></span></p>
+                    <p><strong>Customer Name:</strong> <span th:text="${order.cName}"></span></p>
+                    <p><strong>Customer Phone:</strong> <span th:text="${order.cPhone}"></span></p>
+
+                    <form th:action="@{/delivery/complete-order}" method="post">
+                        <input type="hidden" th:value="${order.orderId}" name="orderId">
+                        <input type="text" name="otp" class="form-control mb-2" placeholder="Enter OTP" required minlength="6" maxlength="6">
+                        <button type="submit" class="complete-btn">✅ Complete Order</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -108,49 +111,5 @@
     <footer class="footer">
         © 2025 Foodie Express. All rights reserved.
     </footer>
-
-    <script>
-        function navigateToProfile() {
-            window.location.href = '/profile';
-        }
-
-        function viewOrderDetails(orderId, restaurant, pickupLocation, deliveryAddress, deliveryTime, customerName, customerContact, paymentStatus) {
-            document.getElementById("orderId").innerText = orderId;
-            document.getElementById("restaurant").innerText = restaurant;
-            document.getElementById("pickupLocation").innerText = pickupLocation;
-            document.getElementById("deliveryAddress").innerText = deliveryAddress;
-            document.getElementById("deliveryTime").innerText = deliveryTime;
-            document.getElementById("customerName").innerText = customerName;
-            document.getElementById("customerContact").innerText = customerContact;
-            document.getElementById("paymentStatus").innerText = paymentStatus;
-            new bootstrap.Modal(document.getElementById("orderDetailsModal")).show();
-        }
-
-        function verifyOrder() {
-            let otp = document.getElementById("otpInput").value;
-            let paymentStatus = document.getElementById("paymentStatus").innerText;
-            let modalElement = document.getElementById("orderDetailsModal");
-            let modalInstance = bootstrap.Modal.getInstance(modalElement);
-
-            if (otp === "" || otp.length !== 6) {
-                alert("Please enter a valid 6-digit OTP.");
-                return;
-            }
-
-            if (paymentStatus !== "Paid") {
-                alert("Payment is still pending. Please confirm payment before completing the order.");
-                return;
-            }
-
-            alert("Order successfully completed!");
-            setTimeout(() => {
-                modalInstance.hide(); // Properly close the modal after alert
-                document.getElementById("orderDetailsModal").classList.remove("show");
-                document.body.classList.remove("modal-open");
-                document.querySelector(".modal-backdrop").remove();
-            }, 500); // Delay to allow alert to be dismissed
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
