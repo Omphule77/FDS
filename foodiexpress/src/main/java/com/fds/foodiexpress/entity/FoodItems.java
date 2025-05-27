@@ -34,6 +34,9 @@ public class FoodItems {
 	@Column(name = "rname")
 	private String rName;
 	
+	@Column(name = "raddress")
+	private String rAddress;
+	
 	public FoodItems(){
 		
 	}
@@ -65,7 +68,23 @@ public class FoodItems {
 	
 
 
-	public FoodItems(String name, String type, String rs, String comment, String fImg, String rName) {
+	
+
+
+
+	public String getrAddress() {
+		return rAddress;
+	}
+
+
+
+	public void setrAddress(String rAddress) {
+		this.rAddress = rAddress;
+	}
+
+
+
+	public FoodItems(String name, String type, String rs, String comment, String fImg, String rName, String rAddress) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -73,6 +92,7 @@ public class FoodItems {
 		this.comment = comment;
 		this.fImg = fImg;
 		this.rName = rName;
+		this.rAddress = rAddress;
 	}
 
 

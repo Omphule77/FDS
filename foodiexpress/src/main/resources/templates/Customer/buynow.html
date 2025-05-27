@@ -142,14 +142,16 @@
 </div>
 
 		
-  <input type="hidden" th:value="${food.id}" name="orderId">
+  
   <input type="hidden" th:value="${food.name}" name="name">
   <input type="hidden" th:value="${food.rName}" name="rName" >
   <input type="hidden" th:value="${ctm.name}" name="cName" >
  <input type="hidden" th:value="${ctm.phone}" name="cPhone">
   <input type="hidden" th:value="${ctm.altPhone}" name="cAltPhone" >
   <input type="hidden" th:value="${ctm.address}" name="cAddress" >
+   <input type="hidden" th:value="${ctm.email}" name="cEmail" >
   <input type="hidden" th:value="1" name="flag" >
+  <input type="hidden" th:value="${food.rAddress}" name="rAddress" >
  
 
 		<div style="margin-bottom: 50px">
@@ -159,6 +161,6 @@
 			</center>
 		</div>
 	</form>
-
+   
 </body>
 </html>

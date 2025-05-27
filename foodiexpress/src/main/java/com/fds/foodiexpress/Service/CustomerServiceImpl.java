@@ -9,6 +9,7 @@ import com.fds.foodiexpress.dao.CustomerDao;
 import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
 import com.fds.foodiexpress.entity.FoodItems;
+import com.fds.foodiexpress.entity.Orders;
 import com.fds.foodiexpress.entity.Restaurant;
 
 import jakarta.transaction.Transactional;
@@ -120,6 +121,13 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public FoodItems findFoodById(int id) {
 		return customerDao.findById(id);
+	}
+
+
+	@Override
+	@Transactional
+	public void addctmorder(Orders order) {
+		customerDao.addOrder(order);
 	}
 
 }

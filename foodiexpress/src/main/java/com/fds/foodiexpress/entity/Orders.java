@@ -48,12 +48,19 @@ public class Orders {
 	@Column(name = "raddress")
 	private String rAddress;
 	
+	@Column(name = "cemail")
+	private String cEmail;
+	
+	
+	
 	public Orders() {
 		
 	}
 
+	
+
 	public Orders(String name, String comment, String quantity, String price, String rName, String cName,
-			String cAddress, String cPhone, String cAltPhone, String flag, String rAddress) {
+			String cAddress, String cPhone, String cAltPhone, String flag, String rAddress, String cEmail) {
 		super();
 		this.name = name;
 		this.comment = comment;
@@ -66,7 +73,23 @@ public class Orders {
 		this.cAltPhone = cAltPhone;
 		this.flag = flag;
 		this.rAddress = rAddress;
+		this.cEmail = cEmail;
 	}
+
+
+
+	
+	public String getcEmail() {
+		return cEmail;
+	}
+
+
+
+	public void setcEmail(String cEmail) {
+		this.cEmail = cEmail;
+	}
+
+
 
 	public int getOrderId() {
 		return orderId;
@@ -164,12 +187,16 @@ public class Orders {
 		this.rAddress = rAddress;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", name=" + name + ", comment=" + comment + ", quantity=" + quantity
 				+ ", price=" + price + ", rName=" + rName + ", cName=" + cName + ", cAddress=" + cAddress + ", cPhone="
-				+ cPhone + ", cAltPhone=" + cAltPhone + ", flag=" + flag + ", rAddress=" + rAddress + "]";
+				+ cPhone + ", cAltPhone=" + cAltPhone + ", flag=" + flag + ", rAddress=" + rAddress + ", cEmail="
+				+ cEmail + "]";
 	}
+
 	
 	
 }
