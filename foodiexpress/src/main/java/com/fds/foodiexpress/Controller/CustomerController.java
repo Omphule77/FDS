@@ -21,6 +21,8 @@ import com.fds.foodiexpress.entity.FoodItems;
 import com.fds.foodiexpress.entity.Orders;
 import com.fds.foodiexpress.entity.Restaurant;
 
+import jakarta.persistence.criteria.Order;
+
 @Controller
 public class CustomerController {
 	
@@ -287,8 +289,10 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/order")
-	public String order(@ModelAttribute Orders order) {
+	public String order(@ModelAttribute Orders order,Model m) {
 		System.out.println(order);
+		userService.addctmorder(order);
+		m.addAttribute("order", order);
 		return "Customer/success";
 	}
 

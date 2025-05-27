@@ -9,6 +9,7 @@ import com.fds.foodiexpress.entity.Authorities;
 import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
 import com.fds.foodiexpress.entity.FoodItems;
+import com.fds.foodiexpress.entity.Orders;
 import com.fds.foodiexpress.entity.Restaurant;
 import com.fds.foodiexpress.entity.Users;
 
@@ -83,6 +84,12 @@ public class CustomerDaoImpl implements CustomerDao {
 		entityManager.persist(authorities);
 		entityManager.persist(restaurant);
 		
+	}
+	
+	@Override
+	public void addOrder(Orders order) {
+		
+	        entityManager.persist(order);
 	}
 
 	@Override
@@ -218,6 +225,8 @@ public class CustomerDaoImpl implements CustomerDao {
 		
 		return entityManager.find(FoodItems.class, id);
 	}
+
+	
 
 
 }

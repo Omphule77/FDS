@@ -86,22 +86,37 @@
 <div class="success-icon">✅</div>
 <div class="success-message">Order Placed Successfully!</div>
 <div class="redirect-message">Redirecting to the homepage in <span id="countdown">5</span> seconds...</div>
-<button class="home-btn" th:onclick="|window.location.href='@{/userNavBar}'|">Go to Home Now</button>
-</div>
- 
-    <script>
-        function updateCountdown() {
-            let countdownElement = document.getElementById("countdown");
-            let count = parseInt(countdownElement.innerText);
-            if (count > 1) {
-                countdownElement.innerText = count - 1;
-            } else {
-                window.location.href = "/userNavBar"; // Thymeleaf dynamically adjusts this route
-            }
-        }
- 
-        setInterval(updateCountdown, 1000); // Countdown timer for auto redirect
+<input type="hidden" id="customerEmail" th:value="${order.cEmail}">
+
+<button class="home-btn" onclick="redirectToDashboard()">Go to Home Now</button>
+
+<script>
+    function redirectToDashboard() {
+        let customerEmail = document.getElementById("customerEmail").value;
+        window.location.href = "/dashboard/" + customerEmail;
+    }
 </script>
+
+ 
+    <!-- Hidden input field to store Thymeleaf value -->
+<input type="hidden" id="customerEmail" th:value="${order.cEmail}">
+
+<script>
+    function updateCountdown() {
+        let countdownElement = document.getElementById("countdown");
+        let count = parseInt(countdownElement.innerText);
+
+        if (count > 1) {
+            countdownElement.innerText = count - 1;
+        } else {
+            let customerEmail = document.getElementById("customerEmail").value; // ✅ Retrieve Thymeleaf value correctly
+            window.location.href = "/dashboard/" + customerEmail; // ✅ Use proper dynamic route
+        }
+    }
+
+    setInterval(updateCountdown, 1000); // Countdown timer for auto redirect
+</script>
+
  
 </body>
 </html>
