@@ -5,9 +5,11 @@ import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+
 import com.fds.foodiexpress.entity.Authorities;
 import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
+import com.fds.foodiexpress.entity.Feedback;
 import com.fds.foodiexpress.entity.FoodItems;
 import com.fds.foodiexpress.entity.Orders;
 import com.fds.foodiexpress.entity.Restaurant;
@@ -224,6 +226,22 @@ public class CustomerDaoImpl implements CustomerDao {
 	public FoodItems findById(int id) {
 		
 		return entityManager.find(FoodItems.class, id);
+	}
+
+	@Override
+	public List<Orders> findctmCard(String email) {
+		// write query
+		TypedQuery<Orders> theQuery = entityManager.createQuery("SELECT o FROM Orders o WHERE o.cEmail = :email",
+				Orders.class);
+		// set parameter
+		theQuery.setParameter("email", email);
+		// return query
+		return theQuery.getResultList();
+	}
+
+	@Override
+	public void addCtmFeedback(Feedback f) {
+		entityManager.persist(f);
 	}
 
 	

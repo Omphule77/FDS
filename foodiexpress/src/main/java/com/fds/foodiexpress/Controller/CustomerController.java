@@ -2,6 +2,7 @@ package com.fds.foodiexpress.Controller;
 
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.fds.foodiexpress.Service.CustomerService;
 import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
+import com.fds.foodiexpress.entity.Feedback;
 import com.fds.foodiexpress.entity.FoodItems;
 import com.fds.foodiexpress.entity.Orders;
 import com.fds.foodiexpress.entity.Restaurant;
@@ -294,6 +296,33 @@ public class CustomerController {
 		userService.addctmorder(order);
 		m.addAttribute("order", order);
 		return "Customer/success";
+	}
+	
+	@GetMapping("/card/{email}")
+	public String card(@PathVariable String email, Model model) {
+	    List<Orders> orders = userService.findOrderCard(email);
+	    
+	    // Ensure the list isn't null or empty before passing to the view
+	    if (orders == null || orders.isEmpty()) {
+	        model.addAttribute("order", Collections.emptyList()); 
+	    } else {
+	        model.addAttribute("order", orders);
+	    }
+
+	    Feedback fb=new Feedback();
+	    if (orders != null && !orders.isEmpty()) {
+	        fb.setcEmail(orders.get(0).getcEmail()); 
+	    }
+	    model.addAttribute("fb", fb);
+	    return "Customer/card";
+	}
+	
+	@PostMapping("/feedback")
+	public String feedback(@ModelAttribute Feedback feedback,Model m) {
+		System.out.println(feedback);
+		String mail=feedback.getcEmail();
+		userService.addFeedback(feedback);
+		return "redirect:/card/"+mail;
 	}
 
 	

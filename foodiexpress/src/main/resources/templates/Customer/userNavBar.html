@@ -152,7 +152,7 @@
 
             <!-- Cart & Profile Icons -->
             <div class="d-flex align-items-center">
-                <a class="nav-link nav-item" href="#">
+                <a class="nav-link nav-item" th:href="@{/card/{email}(email=${ctm.email})}">
                     <div class="icon-container">
                         <i class="fas fa-shopping-cart fa-lg"></i>
                     </div>

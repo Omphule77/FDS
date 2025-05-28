@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.fds.foodiexpress.dao.CustomerDao;
 import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
+import com.fds.foodiexpress.entity.Feedback;
 import com.fds.foodiexpress.entity.FoodItems;
 import com.fds.foodiexpress.entity.Orders;
 import com.fds.foodiexpress.entity.Restaurant;
@@ -128,6 +129,19 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	public void addctmorder(Orders order) {
 		customerDao.addOrder(order);
+	}
+
+
+	@Override
+	public List<Orders> findOrderCard(String email) {
+		return customerDao.findctmCard(email);
+	}
+
+
+	@Override
+	@Transactional
+	public void addFeedback(Feedback f) {
+		customerDao.addCtmFeedback(f);
 	}
 
 }
