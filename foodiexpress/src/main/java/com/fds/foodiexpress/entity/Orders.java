@@ -10,7 +10,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "orders")
 public class Orders {
-<<<<<<< Updated upstream
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id")
@@ -117,174 +116,99 @@ public class Orders {
 	public int getOrderId() {
 		return orderId;
 	}
-=======
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private int orderId;
-    
-    @Column(name = "name", nullable = false)
-    private String name;
-    
-    @Column(name = "comment", columnDefinition = "TEXT")
-    private String comment;
-    
-    @Column(name = "quantity", nullable = false)
-    private String quantity;
-    
-    @Column(name = "price", nullable = false)
-    private String price;
-    
-    @Column(name = "rname", nullable = false)
-    private String rName;
-    
-    @Column(name="cname", nullable = false)
-    private String cName;
-    
-    @Column(name = "caddress", nullable = false)
-    private String cAddress;
-    
-    @Column(name = "cphone", nullable = false)
-    private String cPhone;
-    
-    @Column(name = "caltphone")
-    private String cAltPhone;
-    
-    @Column(name = "flag", nullable = false)
-    private String flag;
-    
-    @Column(name = "raddress", nullable = false)
-    private String rAddress;
-    
-    // Default constructor
-    public Orders() {
-    }
 
-    // Constructor with all fields
-    public Orders(int orderId, String name, String comment, String quantity, String price, String rName, String cName,
-            String cAddress, String cPhone, String cAltPhone, String flag, String rAddress) {
-        this.orderId = orderId;
-        this.name = name;
-        this.comment = comment;
-        this.quantity = quantity;
-        this.price = price;
-        this.rName = rName;
-        this.cName = cName;
-        this.cAddress = cAddress;
-        this.cPhone = cPhone;
-        this.cAltPhone = cAltPhone;
-        this.flag = flag;
-        this.rAddress = rAddress;
-    }
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
 
-    // Constructor without optional fields
-    public Orders(String name, String quantity, String price, String rName, String cName, String cAddress,
-            String cPhone, String flag, String rAddress) {
-        this.name = name;
-        this.quantity = quantity;
-        this.price = price;
-        this.rName = rName;
-        this.cName = cName;
-        this.cAddress = cAddress;
-        this.cPhone = cPhone;
-        this.flag = flag;
-        this.rAddress = rAddress;
-    }
->>>>>>> Stashed changes
+	public String getName() {
+		return name;
+	}
 
-    public int getOrderId() {
-        return orderId;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
+	public String getComment() {
+		return comment;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getQuantity() {
+		return quantity;
+	}
 
-    public String getComment() {
-        return comment;
-    }
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
+	}
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+	public String getPrice() {
+		return price;
+	}
 
-    public String getQuantity() {
-        return quantity;
-    }
+	public void setPrice(String price) {
+		this.price = price;
+	}
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
+	public String getrName() {
+		return rName;
+	}
 
-    public String getPrice() {
-        return price;
-    }
+	public void setrName(String rName) {
+		this.rName = rName;
+	}
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+	public String getcName() {
+		return cName;
+	}
 
-    public String getrName() {
-        return rName;
-    }
+	public void setcName(String cName) {
+		this.cName = cName;
+	}
 
-    public void setrName(String rName) {
-        this.rName = rName;
-    }
+	public String getcAddress() {
+		return cAddress;
+	}
 
-    public String getcName() {
-        return cName;
-    }
+	public void setcAddress(String cAddress) {
+		this.cAddress = cAddress;
+	}
 
-    public void setcName(String cName) {
-        this.cName = cName;
-    }
+	public String getcPhone() {
+		return cPhone;
+	}
 
-    public String getcAddress() {
-        return cAddress;
-    }
+	public void setcPhone(String cPhone) {
+		this.cPhone = cPhone;
+	}
 
-    public void setcAddress(String cAddress) {
-        this.cAddress = cAddress;
-    }
+	public String getcAltPhone() {
+		return cAltPhone;
+	}
 
-    public String getcPhone() {
-        return cPhone;
-    }
+	public void setcAltPhone(String cAltPhone) {
+		this.cAltPhone = cAltPhone;
+	}
 
-    public void setcPhone(String cPhone) {
-        this.cPhone = cPhone;
-    }
+	public String getFlag() {
+		return flag;
+	}
 
-    public String getcAltPhone() {
-        return cAltPhone;
-    }
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
-    public void setcAltPhone(String cAltPhone) {
-        this.cAltPhone = cAltPhone;
-    }
+	public String getrAddress() {
+		return rAddress;
+	}
 
-    public String getFlag() {
-        return flag;
-    }
+	public void setrAddress(String rAddress) {
+		this.rAddress = rAddress;
+	}
 
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
-
-    public String getrAddress() {
-        return rAddress;
-    }
-
-<<<<<<< Updated upstream
 
 
 
@@ -306,16 +230,4 @@ public class Orders {
 
 	
 	
-=======
-    public void setrAddress(String rAddress) {
-        this.rAddress = rAddress;
-    }
-
-    @Override
-    public String toString() {
-        return "Orders [orderId=" + orderId + ", name=" + name + ", comment=" + comment + ", quantity=" + quantity
-                + ", price=" + price + ", rName=" + rName + ", cName=" + cName + ", cAddress=" + cAddress + ", cPhone="
-                + cPhone + ", cAltPhone=" + cAltPhone + ", flag=" + flag + ", rAddress=" + rAddress + "]";
-    }
->>>>>>> Stashed changes
 }
