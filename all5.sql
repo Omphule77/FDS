@@ -131,6 +131,33 @@ INSERT INTO `delivery` VALUES (1,'Om Prakash Phule','omphule77@gmail.com','77077
 UNLOCK TABLES;
 
 --
+-- Table structure for table `feedback`
+--
+
+DROP TABLE IF EXISTS `feedback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `feedback` (
+  `f_id` int NOT NULL AUTO_INCREMENT,
+  `food_quality` varchar(45) NOT NULL,
+  `delivery_quality` varchar(45) NOT NULL,
+  `app_exp` varchar(200) NOT NULL,
+  `cemail` varchar(45) NOT NULL,
+  PRIMARY KEY (`f_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `feedback`
+--
+
+LOCK TABLES `feedback` WRITE;
+/*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+INSERT INTO `feedback` VALUES (1,'4','4','good','om7@gmail.com'),(2,'3','2','good','om7@gmail.com'),(3,'5','5','good','om7@gmail.com');
+/*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `fooditems`
 --
 
@@ -146,6 +173,7 @@ CREATE TABLE `fooditems` (
   `restroid` varchar(45) NOT NULL,
   `fimg` varchar(500) NOT NULL,
   `rname` varchar(45) NOT NULL,
+  `raddress` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -156,7 +184,7 @@ CREATE TABLE `fooditems` (
 
 LOCK TABLES `fooditems` WRITE;
 /*!40000 ALTER TABLE `fooditems` DISABLE KEYS */;
-INSERT INTO `fooditems` VALUES (1,'burger','Burger','120','testy','1','https://img.freepik.com/free-photo/classic-cheese-burger-with-beef-cutlet-vegetables-onions-isolated-white-background_123827-29709.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant'),(2,'sandwitch','Sandwitch','100','testy','1','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant'),(3,'Biryani','Biryani','90','spicy','2','https://img.freepik.com/free-photo/plate-biryani-with-bunch-food-it_505751-3819.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro'),(4,'IceCream','IceCream','60','Thanda','2','https://img.freepik.com/free-photo/ice-cream-table_140725-8604.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro'),(5,'Cake','Cake','250','Vanila','1','https://img.freepik.com/premium-photo/wedding-cake-wedding-newlyweds_419896-2253.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant'),(6,'French Fries','Fries','80','Spicy','1','https://img.freepik.com/premium-photo/homemade-pile-appetizing-french-fries_488220-4209.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant'),(7,'Chicken','Chicken','350','Tadaka','2','https://img.freepik.com/premium-photo/succulent-spiced-whole-roasted-chicken-slate-with-zesty-green-sauce_968957-8828.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro'),(8,'Pizza','Pizza','110','Onion','2','https://img.freepik.com/free-photo/pizza-pizza-filled-with-tomatoes-salami-olives_140725-1200.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro');
+INSERT INTO `fooditems` VALUES (1,'burger','Burger','120','testy','1','https://img.freepik.com/free-photo/classic-cheese-burger-with-beef-cutlet-vegetables-onions-isolated-white-background_123827-29709.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant','Solapur'),(2,'sandwitch','Sandwitch','100','testy','1','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant','Solapur'),(3,'Biryani','Biryani','90','spicy','2','https://img.freepik.com/free-photo/plate-biryani-with-bunch-food-it_505751-3819.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro','Sangole'),(4,'IceCream','IceCream','60','Thanda','2','https://img.freepik.com/free-photo/ice-cream-table_140725-8604.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro','Sangole'),(5,'Cake','Cake','250','Vanila','1','https://img.freepik.com/premium-photo/wedding-cake-wedding-newlyweds_419896-2253.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant','Solapur'),(6,'French Fries','Fries','80','Spicy','1','https://img.freepik.com/premium-photo/homemade-pile-appetizing-french-fries_488220-4209.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Anand Restaurant','Solapur'),(7,'Chicken','Chicken','350','Tadaka','2','https://img.freepik.com/premium-photo/succulent-spiced-whole-roasted-chicken-slate-with-zesty-green-sauce_968957-8828.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro','Sangole'),(8,'Pizza','Pizza','110','Onion','2','https://img.freepik.com/free-photo/pizza-pizza-filled-with-tomatoes-salami-olives_140725-1200.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','Prafful Restro','Sangole');
 /*!40000 ALTER TABLE `fooditems` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +198,7 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `order_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `comment` varchar(100) NOT NULL,
+  `comment` varchar(100) DEFAULT NULL,
   `quantity` varchar(45) NOT NULL,
   `price` varchar(45) NOT NULL,
   `rname` varchar(45) NOT NULL,
@@ -180,8 +208,11 @@ CREATE TABLE `orders` (
   `caddress` varchar(45) NOT NULL,
   `flag` varchar(45) NOT NULL,
   `raddress` varchar(45) NOT NULL,
+  `cemail` varchar(45) NOT NULL,
+  `fimg` varchar(500) NOT NULL,
+  `demail` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,6 +221,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (1,'sandwitch','','1','100.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','1','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740',NULL),(2,'burger','','1','120.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','1','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/classic-cheese-burger-with-beef-cutlet-vegetables-onions-isolated-white-background_123827-29709.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740',NULL),(3,'Chicken','takadka','2','700.00','Prafful Restro','Om Phule','7709777228','7876545676','siruseri chennai','1','Sangole','om7@gmail.com','https://img.freepik.com/premium-photo/succulent-spiced-whole-roasted-chicken-slate-with-zesty-green-sauce_968957-8828.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740',''),(4,'Biryani','special','1','90.00','Prafful Restro','Om Phule','7709777228','7876545676','siruseri chennai','1','Sangole','om7@gmail.com','https://img.freepik.com/free-photo/plate-biryani-with-bunch-food-it_505751-3819.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740',''),(5,'sandwitch','','2','200.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','1','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740',''),(6,'Cake','','1','250.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','1','Solapur','om7@gmail.com','https://img.freepik.com/premium-photo/wedding-cake-wedding-newlyweds_419896-2253.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,4 +296,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-27 15:21:46
+-- Dump completed on 2025-05-28 15:54:19
