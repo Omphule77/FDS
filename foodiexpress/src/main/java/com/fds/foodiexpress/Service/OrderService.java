@@ -18,8 +18,16 @@ public class OrderService {
         return orderDAO.findOrdersByFlag(flag);
     }
 
-    @Transactional
-    public void updateOrderStatus(int orderId, String flag) {
-        orderDAO.updateOrderFlag(orderId, flag);
+    public List<Orders> getOrdersByFlagAndDEmail(String flag, String dEmail) {
+        return orderDAO.findOrdersByFlagAndDEmail(flag, dEmail);
     }
+
+    @Transactional
+    public void updateOrderDetails(int orderId, String flag, String dEmail) {
+        orderDAO.updateOrderDetails(orderId, flag, dEmail);
+    }
+    public List<Orders> getAvailableOrdersExcludingAgent(List<String> flags, String excludedEmail) {
+        return orderDAO.getAvailableOrdersExcludingAgent(flags, excludedEmail);
+    }
+
 }

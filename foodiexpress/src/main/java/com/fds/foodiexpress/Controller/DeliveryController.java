@@ -5,12 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
 import com.fds.foodiexpress.Service.DeliveryServiceDAO;
 import com.fds.foodiexpress.Service.OrderService;
 import com.fds.foodiexpress.entity.Delivery;
 import com.fds.foodiexpress.entity.Orders;
-
 import java.util.List;
 
 @Controller
@@ -31,31 +29,64 @@ public class DeliveryController {
         }
 
         Delivery delivery = dsdao.findById(agentId);
+        if (delivery == null) {
+            throw new RuntimeException("Delivery agent not found.");
+        }
+
+        String agentEmail = delivery.getEmail();
+
+        List<Orders> activeOrders = orderService.getOrdersByFlagAndDEmail("2", agentEmail);
+        int activeCount = activeOrders.size();
+
+        List<Orders> availableOrders = orderService.getAvailableOrdersExcludingAgent(List.of("1", "3"), agentEmail);
+        int availableCount = availableOrders.size();
+
+        List<Orders> completedOrders = orderService.getOrdersByFlagAndDEmail("4", agentEmail);
+        int completedCount = completedOrders.size();
+
+        List<Orders> rejectedOrders = orderService.getOrdersByFlagAndDEmail("3", agentEmail);
+        int totalRejectedDeliveries = rejectedOrders.size();
+
+        int totalTrackedDeliveries = completedCount + totalRejectedDeliveries;
+        int successRate = (totalTrackedDeliveries > 0) ? (completedCount * 100 / totalTrackedDeliveries) : 0;
+
+        String successMessage =null;
+//        if (successRate > 90) {
+//            successMessage = "You're an exceptional performer! Customers love your service.";
+//        } else if (successRate > 80) {
+//            successMessage = "You're doing great! Keep up the consistency.";
+//        } else if (successRate > 60) {
+//            successMessage = "Your performance is decent, but there's room for improvement.";
+//        } else if (successRate > 50) {
+//            successMessage = "Focus on accepting and completing more deliveries to improve your stats.";
+//        } else {
+//            successMessage = "Try to minimize rejected orders to boost your performance.";
+//        }
+
         theModel.addAttribute("user", delivery);
-        return "Delivery/index"; 
+        theModel.addAttribute("activeCount", activeCount);
+        theModel.addAttribute("availableCount", availableCount);
+        theModel.addAttribute("completedCount", completedCount);
+        theModel.addAttribute("successRate", successRate);
+        theModel.addAttribute("successMessage", successMessage);
+
+        return "Delivery/index";
     }
 
     @GetMapping("/index")
     public String showIndex(Model theModel) {
+        return showDashboard(theModel);
+    }
+
+    @GetMapping("/details")
+    public String showActiveOrders(Model theModel) {
         int agentId = getLoggedInAgentId();
         if (agentId == 0) {
             throw new RuntimeException("User not found.");
         }
 
         Delivery delivery = dsdao.findById(agentId);
-        theModel.addAttribute("user", delivery);
-        return "Delivery/index"; 
-    }
-
-    @GetMapping("/details")
-    public String showOrders(Model theModel) {
-    	List<Orders> activeOrders = orderService.getOrdersByFlag("2");
-
-        if (activeOrders == null || activeOrders.isEmpty()) {
-            System.out.println("No active orders found."); // Debug log
-        } else {
-            System.out.println("Active Orders Retrieved: " + activeOrders); // Debug log
-        }
+        List<Orders> activeOrders = orderService.getOrdersByFlagAndDEmail("2", delivery.getEmail());
 
         theModel.addAttribute("orders", activeOrders);
         return "Delivery/details";
@@ -63,40 +94,60 @@ public class DeliveryController {
 
     @GetMapping("/orders")
     public String showAvailableOrders(Model theModel) {
-        List<Orders> pendingOrders = orderService.getOrdersByFlag("1");
-        theModel.addAttribute("orders", pendingOrders);
+        int agentId = getLoggedInAgentId();
+        if (agentId == 0) {
+            throw new RuntimeException("User not found.");
+        }
+
+        Delivery delivery = dsdao.findById(agentId);
+        String agentEmail = delivery.getEmail();
+        List<Orders> availableOrders = orderService.getAvailableOrdersExcludingAgent(List.of("1", "3"), agentEmail);
+        theModel.addAttribute("orders", availableOrders);
+
         return "Delivery/orders";
     }
 
     @PostMapping("/delivery/accept-order")
     public String acceptOrder(@RequestParam("orderId") int orderId) {
-        orderService.updateOrderStatus(orderId, "2");
-        System.out.println("Order #" + orderId + " has been accepted."); // Debug log
-        return "redirect:/orders"; // User stays on available orders page
+        int agentId = getLoggedInAgentId();
+        Delivery delivery = dsdao.findById(agentId);
+        orderService.updateOrderDetails(orderId, "2", delivery.getEmail());
+
+        return "redirect:/orders";
     }
 
     @PostMapping("/delivery/reject-order")
     public String rejectOrder(@RequestParam("orderId") int orderId) {
-        orderService.updateOrderStatus(orderId, "3");
-        System.out.println("Order #" + orderId + " has been rejected."); // Debug log
+        int agentId = getLoggedInAgentId();
+        Delivery delivery = dsdao.findById(agentId);
+        orderService.updateOrderDetails(orderId, "3", delivery.getEmail());
+
         return "redirect:/orders";
     }
 
     @PostMapping("/delivery/complete-order")
     public String completeOrder(@RequestParam("orderId") int orderId) {
-        orderService.updateOrderStatus(orderId, "4");
-        System.out.println("Order #" + orderId + " has been completed."); // Debug log
+        int agentId = getLoggedInAgentId();
+        Delivery delivery = dsdao.findById(agentId);
+        orderService.updateOrderDetails(orderId, "4", delivery.getEmail());
+
         return "redirect:/details";
     }
 
     @GetMapping("/performance")
     public String showPerformance(Model model) {
-    	List<Orders> completedOrders = orderService.getOrdersByFlag("4"); // Fetch completed orders
-        int totalCompletedDeliveries = completedOrders.size(); // Count completed deliveries
-        int completedDeliveries = orderService.getOrdersByFlag("4").size(); // Fetch completed deliveries
-        int rejectedDeliveries = orderService.getOrdersByFlag("3").size(); // Fetch rejected deliveries     
-        int totalTrackedDeliveries = completedDeliveries + rejectedDeliveries;
-        int successRate = (totalTrackedDeliveries > 0) ? (completedDeliveries * 100 / totalTrackedDeliveries) : 0;
+        int agentId = getLoggedInAgentId();
+        Delivery delivery = dsdao.findById(agentId);
+        String agentEmail = delivery.getEmail();
+
+        List<Orders> completedOrders = orderService.getOrdersByFlagAndDEmail("4", agentEmail);
+        int totalCompletedDeliveries = completedOrders.size();
+
+        List<Orders> rejectedOrders = orderService.getOrdersByFlagAndDEmail("3", agentEmail);
+        int totalRejectedDeliveries = rejectedOrders.size();
+
+        int totalTrackedDeliveries = totalCompletedDeliveries + totalRejectedDeliveries;
+        int successRate = (totalTrackedDeliveries > 0) ? (totalCompletedDeliveries * 100 / totalTrackedDeliveries) : 0;
 
         String successMessage;
         if (successRate > 90) {
@@ -111,11 +162,11 @@ public class DeliveryController {
             successMessage = "Try to minimize rejected orders to boost your performance.";
         }
 
-        model.addAttribute("totalDeliveries", completedDeliveries);
+        model.addAttribute("totalDeliveries", totalCompletedDeliveries);
         model.addAttribute("successRate", successRate);
         model.addAttribute("successMessage", successMessage);
-        model.addAttribute("totalDeliveries", totalCompletedDeliveries);
-        return "Delivery/performance"; 
+
+        return "Delivery/performance";
     }
 
     @GetMapping("/profile")
@@ -124,58 +175,28 @@ public class DeliveryController {
             agentId = getLoggedInAgentId();
         }
 
-        if (agentId == 0) {
-            throw new RuntimeException("Agent ID is required to view the profile.");
-        }
-
         Delivery theDelivery = dsdao.findById(agentId);
-        if (theDelivery == null) {
-            throw new RuntimeException("No profile found for Agent ID " + agentId);
-        }
-
         theModel.addAttribute("user", theDelivery);
-        theModel.addAttribute("agentid", agentId); 
-
         return "Delivery/profile";
     }
 
     @GetMapping("/update-profile")
     public String showUpdateProfile(@RequestParam("agentid") int theId, Model theModel) {
         Delivery theDelivery = dsdao.findById(theId);
-
-        if (theDelivery == null) {
-            throw new RuntimeException("Agent ID " + theId + " not found.");
-        }
-
         theModel.addAttribute("delivery", theDelivery);
         return "Delivery/update-profile"; 
     }
 
     @PostMapping("/save-profile")
-    public String save(@ModelAttribute("delivery") Delivery theDelivery) {
-        if (theDelivery.getAgentid() == 0) {
-            throw new RuntimeException("Agent ID is missing when saving profile.");
-        }
-
+    public String saveProfile(@ModelAttribute("delivery") Delivery theDelivery) {
         dsdao.save(theDelivery);
         return "redirect:/profile?agentid=" + theDelivery.getAgentid();
     }
 
     private int getLoggedInAgentId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication.getName() == null) {
-            System.out.println("No authenticated user found!");
-            return 0;
-        }
-
-        String loggedInUserEmail = authentication.getName();
+        String loggedInUserEmail = (authentication != null) ? authentication.getName() : null;
         Delivery theDelivery = dsdao.findByEmail(loggedInUserEmail);
-
-        if (theDelivery == null) {
-            System.out.println("No user found for email: " + loggedInUserEmail);
-            return 0;
-        }
-
-        return theDelivery.getAgentid();
+        return (theDelivery != null) ? theDelivery.getAgentid() : 0;
     }
 }

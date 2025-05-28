@@ -21,14 +21,31 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Orders> findOrdersByFlagAndDEmail(String flag, String dEmail) {
+        return entityManager.createQuery("SELECT o FROM Orders o WHERE o.flag = :flag AND o.dEmail = :dEmail", Orders.class)
+                .setParameter("flag", flag)
+                .setParameter("dEmail", dEmail)
+                .getResultList();
+    }
+
+    @Override
     @Transactional
-    public void updateOrderFlag(int orderId, String flag) {
+    public void updateOrderDetails(int orderId, String flag, String dEmail) {
         Orders order = entityManager.find(Orders.class, orderId);
         if (order != null) {
             order.setFlag(flag);
+            order.setdEmail(dEmail); // Assign delivery agent's email when order is accepted/rejected/completed
             entityManager.merge(order);
         } else {
             throw new RuntimeException("Order ID " + orderId + " not found.");
         }
     }
+    @Override
+    public List<Orders> getAvailableOrdersExcludingAgent(List<String> flags, String excludedEmail) {
+        return entityManager.createQuery("SELECT o FROM Orders o WHERE o.flag IN :flags AND (o.dEmail IS NULL OR o.dEmail != :excludedEmail)", Orders.class)
+                .setParameter("flags", flags)
+                .setParameter("excludedEmail", excludedEmail)
+                .getResultList();
+    }
+
 }
