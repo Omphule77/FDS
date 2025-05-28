@@ -53,11 +53,8 @@
             <a class="navbar-brand" href="/index">Foodie Express</a>
             <div class="ms-auto">
                 <a th:href="@{/profile(agentid=${user != null ? user.agentid : 0})}">
-				    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-icon" alt="User Profile Icon">
-				</a>
-
-
-
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-icon" alt="User Profile Icon">
+                </a>
             </div>
         </div>
     </nav>
@@ -66,7 +63,6 @@
     <div class="container mt-4">
         <div class="row text-center">
             <div class="col-12">
-                <!-- <h2 class="mb-4">Welcome, John Doe</h2> -->
                 <h2>Welcome, <span th:text="${user != null ? user.name : 'Guest'}"></span></h2>                
             </div>
         </div>
@@ -74,7 +70,7 @@
             <div class="col-md-4">
                 <div class="card p-3">
                     <h5 class="card-title">Active Deliveries</h5>
-                    <p class="card-text">2 Ongoing Deliveries</p>
+                    <p class="card-text"><span th:text="${activeCount}">0</span> Ongoing Deliveries</p>
                     <div class="mt-auto">
                         <button class="btn btn-primary w-100" onclick="navigateToDetails()">View Details</button>
                     </div>
@@ -83,7 +79,7 @@
             <div class="col-md-4">
                 <div class="card p-3">
                     <h5 class="card-title">Available Orders</h5>
-                    <p class="card-text">5 New Orders to Accept</p>
+                    <p class="card-text"><span th:text="${availableCount}">0</span> New Orders to Accept</p>
                     <div class="mt-auto">
                         <button class="btn btn-primary w-100" onclick="navigateToOrders()">View Orders</button>
                     </div>
@@ -92,7 +88,8 @@
             <div class="col-md-4">
                 <div class="card p-3">
                     <h5 class="card-title">Performance Summary</h5>
-                    <p class="card-text">Completed: 120 | Rating: 4.8/5</p>
+                    <p class="card-text">Completed: <span th:text="${completedCount}">0</span> | Rating: <span th:text="${successRate}">0</span>%</p>
+                    <p class="card-text"><span th:text="${successMessage}">Performance details loading...</span></p>
                     <div class="mt-auto">
                         <button class="btn btn-primary w-100" onclick="navigateToPerformance()">View Performance</button>
                     </div>
