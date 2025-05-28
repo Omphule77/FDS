@@ -52,16 +52,29 @@ public class Orders {
 	@Column(name = "cemail")
 	private String cEmail;
 	
+	@Column(name = "fimg")
+	private String fImg;
+	
+	@Column(name = "demail")
+	private String dEmail;
 	
 	
 	public Orders() {
 		
 	}
 
+	public String getfImg() {
+		return fImg;
+	}
+
+	public void setfImg(String fImg) {
+		this.fImg = fImg;
+	}
 	
 
 	public Orders(String name, String comment, String quantity, String price, String rName, String cName,
-			String cAddress, String cPhone, String cAltPhone, String flag, String rAddress, String cEmail) {
+			String cAddress, String cPhone, String cAltPhone, String flag, String rAddress, String cEmail, String fImg,
+			String dEmail) {
 		super();
 		this.name = name;
 		this.comment = comment;
@@ -75,11 +88,20 @@ public class Orders {
 		this.flag = flag;
 		this.rAddress = rAddress;
 		this.cEmail = cEmail;
+		this.fImg = fImg;
+		this.dEmail = dEmail;
+	}
+	
+	
+
+	public String getdEmail() {
+		return dEmail;
 	}
 
+	public void setdEmail(String dEmail) {
+		this.dEmail = dEmail;
+	}
 
-
-	
 	public String getcEmail() {
 		return cEmail;
 	}
@@ -265,13 +287,22 @@ public class Orders {
 <<<<<<< Updated upstream
 
 
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", name=" + name + ", comment=" + comment + ", quantity=" + quantity
 				+ ", price=" + price + ", rName=" + rName + ", cName=" + cName + ", cAddress=" + cAddress + ", cPhone="
 				+ cPhone + ", cAltPhone=" + cAltPhone + ", flag=" + flag + ", rAddress=" + rAddress + ", cEmail="
-				+ cEmail + "]";
+				+ cEmail + ", fImg=" + fImg + "]";
 	}
+
+
+
+	
 
 	
 	
