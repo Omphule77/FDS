@@ -77,8 +77,8 @@
             <div class="col-md-6">
                 <div class="card">
                     <h5 class="card-title">Total Deliveries</h5>
-                    <p class="card-text highlight">120</p>
-                    <p class="card-text">You’ve completed 120 deliveries this month. Great job staying consistent!</p>
+	                    <p class="card-text highlight" th:text="${totalDeliveries}">Loading...</p>
+	        			<p class="card-text">You’ve completed <span th:text="${totalDeliveries}"></span> deliveries till now. Great job staying consistent!</p>
                 </div>
             </div>
             <div class="col-md-6">
@@ -98,8 +98,8 @@
             <div class="col-md-6">
                 <div class="card">
                     <h5 class="card-title">Success Rate</h5>
-                    <p class="card-text highlight">98%</p>
-                    <p class="card-text">You successfully completed 98% of assigned orders. The 2% missed deliveries were due to traffic delays.</p>
+                    <p class="card-text highlight" th:text="${successRate + '%'}">Loading...</p>
+        			<p class="card-text" th:text="${successMessage}">Analyzing performance...</p>
                 </div>
             </div>
         </div>

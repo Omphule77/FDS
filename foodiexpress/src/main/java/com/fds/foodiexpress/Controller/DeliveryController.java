@@ -90,7 +90,31 @@ public class DeliveryController {
     }
 
     @GetMapping("/performance")
-    public String showPerformance() {
+    public String showPerformance(Model model) {
+    	List<Orders> completedOrders = orderService.getOrdersByFlag("4"); // Fetch completed orders
+        int totalCompletedDeliveries = completedOrders.size(); // Count completed deliveries
+        int completedDeliveries = orderService.getOrdersByFlag("4").size(); // Fetch completed deliveries
+        int rejectedDeliveries = orderService.getOrdersByFlag("3").size(); // Fetch rejected deliveries     
+        int totalTrackedDeliveries = completedDeliveries + rejectedDeliveries;
+        int successRate = (totalTrackedDeliveries > 0) ? (completedDeliveries * 100 / totalTrackedDeliveries) : 0;
+
+        String successMessage;
+        if (successRate > 90) {
+            successMessage = "You're an exceptional performer! Customers love your service.";
+        } else if (successRate > 80) {
+            successMessage = "You're doing great! Keep up the consistency.";
+        } else if (successRate > 60) {
+            successMessage = "Your performance is decent, but there's room for improvement.";
+        } else if (successRate > 50) {
+            successMessage = "Focus on accepting and completing more deliveries to improve your stats.";
+        } else {
+            successMessage = "Try to minimize rejected orders to boost your performance.";
+        }
+
+        model.addAttribute("totalDeliveries", completedDeliveries);
+        model.addAttribute("successRate", successRate);
+        model.addAttribute("successMessage", successMessage);
+        model.addAttribute("totalDeliveries", totalCompletedDeliveries);
         return "Delivery/performance"; 
     }
 
