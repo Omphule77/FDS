@@ -1,10 +1,18 @@
 package com.fds.foodiexpress.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -58,6 +66,24 @@ public class Restaurant {
 	@Column(name = "flag")
 	private String flag;
 	
+	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name = "restroid")
+	private List<FoodItems> foodItems;
+	
+	
+	
+	public List<FoodItems> getFoodItems() {
+		return foodItems;
+	}
+
+
+
+	public void setFoodItems(List<FoodItems> foodItems) {
+		this.foodItems = foodItems;
+	}
+
+
+
 	public Restaurant() {
 		
 	}
@@ -215,6 +241,13 @@ public class Restaurant {
 				+ ", city=" + city + ", rPhone=" + rPhone + ", gstId=" + gstId + ", oName=" + oName + ", oEmail="
 				+ oEmail + ", oPhone=" + oPhone + ", oAltPhone=" + oAltPhone + ", oTime=" + oTime + ", cTime=" + cTime
 				+ ", holiday=" + holiday + ", flag=" + flag + "]";
+	}
+	
+	public void add(FoodItems fi) {
+		if(foodItems==null) {
+			foodItems=new ArrayList<FoodItems>();
+		}
+		foodItems.add(fi);
 	}
 	
 	

@@ -13,7 +13,7 @@ public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="customerId")
+	@Column(name="customer_Id")
 	private int cId;
 	
 	@Column(name="name")
@@ -28,7 +28,7 @@ public class Customer {
 	@Column(name="altphone")
 	private String altPhone;
 	
-	@Column(name="Address")
+	@Column(name="address")
 	private String address;
 	
 	@Column(name="password")
