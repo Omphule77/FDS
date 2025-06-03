@@ -6,36 +6,54 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="customer")
+@Table(name = "customer")
 public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="customer_Id")
+	@Column(name = "customer_Id")
 	private int cId;
-	
-	@Column(name="name")
+
+	@NotNull(message = "*required")
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="email")
+
+	@NotNull(message = "*required")
+	@Email(message = "Invalid email format")
+	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@gmail\\.com$", message = "Email must be in @gmail.com format")
+	@Column(name = "email")
 	private String email;
-	
-	@Column(name="phone")
+
+	@NotNull(message = "*required")
+	@Pattern(regexp = "\\d{10}", message = "Phone number must be exactly 10 digits")
+	@Column(name = "phone")
 	private String phone;
-	
-	@Column(name="altphone")
+
+	@NotNull(message = "*required")
+	@Pattern(regexp = "\\d{10}", message = "Phone number must be exactly 10 digits")
+	@Column(name = "altphone")
 	private String altPhone;
-	
-	@Column(name="address")
+
+	@NotNull(message = "*required")
+	@Column(name = "address")
 	private String address;
-	
-	@Column(name="password")
+
+	@Pattern(
+	        regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$",
+	        message = "Password must be at least 6 characters long, include one uppercase letter, one number, and one special character"
+	    )
+	@NotNull(message = "*required")
+	@Column(name = "password")
 	private String password;
-	
+
 	public Customer() {
-		
+
 	}
 
 	public Customer(String name, String email, String phone, String altPhone, String address, String password) {
@@ -109,8 +127,5 @@ public class Customer {
 		return "Customer [cId=" + cId + ", name=" + name + ", email=" + email + ", phone=" + phone + ", altPhone="
 				+ altPhone + ", address=" + address + ", password=" + password + "]";
 	}
-	
-	
-	
-	
+
 }
