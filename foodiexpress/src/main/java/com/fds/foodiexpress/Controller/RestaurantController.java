@@ -8,7 +8,6 @@ public class RestaurantController {
 
 	 @GetMapping("/restro-dashboard")
 	    public String showDashboard() {
-	        return "Restaurant/restrohome"; // Must match index.html inside /templates/Delivery/
-	        
+	        return "Restaurant/restrohome"; 
 	    }
 }

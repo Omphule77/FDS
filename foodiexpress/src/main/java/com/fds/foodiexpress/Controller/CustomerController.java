@@ -152,11 +152,12 @@ public class CustomerController {
 	    Optional<List<FoodItems>> optionalBurger = userService.findAllBuger(); // Get Optional
 	    
 	    List<FoodItems> burger = optionalBurger.orElse(null); // Unwrap Optional safely
+
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
-	        m.addAttribute("ctm", c.get()); // Extract the Customer object
+	        m.addAttribute("ctm", c.get()); 
 	    } else {
-	        m.addAttribute("ctm", null); // Handle missing customer gracefully
+	        m.addAttribute("ctm", null); 
 	    }
 	    m.addAttribute("burger", burger); 
 	    
@@ -165,14 +166,16 @@ public class CustomerController {
 	
 	@GetMapping("/icecream/{email}")
 	public String iceCream(Model m,@PathVariable String email) {
+
 	    Optional<List<FoodItems>> optionalIce = userService.findAllIceCream(); // Get Optional
 	    
 	    List<FoodItems> ice = optionalIce.orElse(null); // Unwrap Optional safely
+
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
-	        m.addAttribute("ctm", c.get()); // Extract the Customer object
+	        m.addAttribute("ctm", c.get()); 
 	    } else {
-	        m.addAttribute("ctm", null); // Handle missing customer gracefully
+	        m.addAttribute("ctm", null); 
 	    }
 	    m.addAttribute("ice", ice); 
 	    
@@ -184,11 +187,12 @@ public class CustomerController {
 	    Optional<List<FoodItems>> optionalcake = userService.findAllCake(); // Get Optional
 	    
 	    List<FoodItems> cake = optionalcake.orElse(null); // Unwrap Optional safely
+
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
-	        m.addAttribute("ctm", c.get()); // Extract the Customer object
+	        m.addAttribute("ctm", c.get()); 
 	    } else {
-	        m.addAttribute("ctm", null); // Handle missing customer gracefully
+	        m.addAttribute("ctm", null); 
 	    }
 	    m.addAttribute("cake", cake); 
 	    
@@ -200,11 +204,12 @@ public class CustomerController {
 	    Optional<List<FoodItems>> optionalFries = userService.findAllFries(); // Get Optional
 	    
 	    List<FoodItems> fries = optionalFries.orElse(null); // Unwrap Optional safely
+
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
-	        m.addAttribute("ctm", c.get()); // Extract the Customer object
+	        m.addAttribute("ctm", c.get()); 
 	    } else {
-	        m.addAttribute("ctm", null); // Handle missing customer gracefully
+	        m.addAttribute("ctm", null);
 	    }
 	    m.addAttribute("fries", fries); 
 	    
@@ -213,14 +218,16 @@ public class CustomerController {
 	
 	@GetMapping("/biryani/{email}")
 	public String biryani(Model m,@PathVariable String email) {
+
 	    Optional<List<FoodItems>> optionalBiryani = userService.findAllBiryani(); // Get Optional
 	    
 	    List<FoodItems> biryani = optionalBiryani.orElse(null); // Unwrap Optional safely
+
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
-	        m.addAttribute("ctm", c.get()); // Extract the Customer object
+	        m.addAttribute("ctm", c.get()); 
 	    } else {
-	        m.addAttribute("ctm", null); // Handle missing customer gracefully
+	        m.addAttribute("ctm", null); 
 	    }
 	    m.addAttribute("biryani", biryani); 
 	    
@@ -229,14 +236,16 @@ public class CustomerController {
 	
 	@GetMapping("/chicken/{email}")
 	public String chicken(Model m,@PathVariable String email) {
+
 	    Optional<List<FoodItems>> optionalChicken = userService.findAllChicken(); // Get Optional
 	    
 	    List<FoodItems> chicken = optionalChicken.orElse(null); // Unwrap Optional safely
+
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
-	        m.addAttribute("ctm", c.get()); // Extract the Customer object
+	        m.addAttribute("ctm", c.get()); 
 	    } else {
-	        m.addAttribute("ctm", null); // Handle missing customer gracefully
+	        m.addAttribute("ctm", null); 
 	    }
 	    m.addAttribute("chicken", chicken); 
 	    
@@ -245,14 +254,16 @@ public class CustomerController {
 	
 	@GetMapping("/pizza/{email}")
 	public String pizza(Model m,@PathVariable String email) {
+
 	    Optional<List<FoodItems>> optionalPizza = userService.findAllPizza(); // Get Optional
 	    
 	    List<FoodItems> pizza = optionalPizza.orElse(null); // Unwrap Optional safely
+
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
-	        m.addAttribute("ctm", c.get()); // Extract the Customer object
+	        m.addAttribute("ctm", c.get()); 
 	    } else {
-	        m.addAttribute("ctm", null); // Handle missing customer gracefully
+	        m.addAttribute("ctm", null); 
 	    }
 	    m.addAttribute("pizza", pizza); 
 	    
@@ -264,11 +275,12 @@ public class CustomerController {
 	    Optional<List<FoodItems>> optionalSandwitch = userService.findAllSandwitch(); // Get Optional
 	    
 	    List<FoodItems> sandwitch = optionalSandwitch.orElse(null); // Unwrap Optional safely
+
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
-	        m.addAttribute("ctm", c.get()); // Extract the Customer object
+	        m.addAttribute("ctm", c.get()); 
 	    } else {
-	        m.addAttribute("ctm", null); // Handle missing customer gracefully
+	        m.addAttribute("ctm", null); 
 	    }
 	    m.addAttribute("sandwitch", sandwitch); 
 	    
@@ -280,9 +292,9 @@ public class CustomerController {
 		FoodItems f=userService.findFoodById(id);
 		Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
-	        m.addAttribute("ctm", c.get()); // Extract the Customer object
+	        m.addAttribute("ctm", c.get()); 
 	    } else {
-	        m.addAttribute("ctm", null); // Handle missing customer gracefully
+	        m.addAttribute("ctm", null); 
 	    }
 		m.addAttribute("food", f);
 		Orders order=new Orders();
@@ -302,7 +314,6 @@ public class CustomerController {
 	public String card(@PathVariable String email, Model model) {
 	    List<Orders> orders = userService.findOrderCard(email);
 	    
-	    // Ensure the list isn't null or empty before passing to the view
 	    if (orders == null || orders.isEmpty()) {
 	        model.addAttribute("order", Collections.emptyList()); 
 	    } else {
@@ -312,6 +323,7 @@ public class CustomerController {
 	    Feedback fb=new Feedback();
 	    if (orders != null && !orders.isEmpty()) {
 	        fb.setcEmail(orders.get(0).getcEmail()); 
+	        fb.setdEmail(orders.get(0).getdEmail());
 	    }
 	    model.addAttribute("fb", fb);
 	    return "Customer/cart";
@@ -321,9 +333,19 @@ public class CustomerController {
 	public String feedback(@ModelAttribute Feedback feedback,Model m) {
 		System.out.println(feedback);
 		String mail=feedback.getcEmail();
+		List<Orders> orders = userService.findOrderCard(mail);
+		 if (orders != null && !orders.isEmpty()) {
+			 feedback.setcEmail(orders.get(0).getcEmail()); 
+			 feedback.setdEmail(orders.get(5).getdEmail());
+	    }
+	    System.out.println("=================");
+	    System.out.println(orders);
 		userService.addFeedback(feedback);
 		return "redirect:/card/"+mail;
 	}
+	
+	
+
 
 	
 	
