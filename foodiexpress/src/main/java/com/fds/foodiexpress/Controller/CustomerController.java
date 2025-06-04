@@ -314,7 +314,7 @@ public class CustomerController {
 	        fb.setcEmail(orders.get(0).getcEmail()); 
 	    }
 	    model.addAttribute("fb", fb);
-	    return "Customer/card";
+	    return "Customer/cart";
 	}
 	
 	@PostMapping("/feedback")
