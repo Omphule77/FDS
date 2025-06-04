@@ -119,104 +119,104 @@ public class CustomerDaoImpl implements CustomerDao {
 	    }
 
 	@Override
-	public Optional<FoodItems> findBurger() {
+	public Optional<List<FoodItems>> findBurger() {
 		 try {
 	            // Create JPQL query
 	            TypedQuery<FoodItems> query = entityManager.createQuery(
 	                "SELECT f FROM FoodItems f WHERE f.type ='Burger'", FoodItems.class);
 	            
-	            return Optional.ofNullable(query.getSingleResult()); // Return Optional
+	            return Optional.ofNullable(query.getResultList()); // Return Optional
 	        } catch (NoResultException e) {
 	            return Optional.empty(); // Handle case where no customer is found
 	        }
 	}
 
 	@Override
-	public Optional<FoodItems> findIce() {
+	public Optional<List<FoodItems>> findIce() {
 		try {
             // Create JPQL query
             TypedQuery<FoodItems> query = entityManager.createQuery(
                 "SELECT f FROM FoodItems f WHERE f.type ='IceCream'", FoodItems.class);
             
-            return Optional.ofNullable(query.getSingleResult()); // Return Optional
+            return Optional.ofNullable(query.getResultList()); // Return Optional
         } catch (NoResultException e) {
             return Optional.empty(); // Handle case where no customer is found
         }
 	}
 
 	@Override
-	public Optional<FoodItems> findCake() {
+	public Optional<List<FoodItems>> findCake() {
 		try {
             // Create JPQL query
             TypedQuery<FoodItems> query = entityManager.createQuery(
                 "SELECT f FROM FoodItems f WHERE f.type ='Cake'", FoodItems.class);
             
-            return Optional.ofNullable(query.getSingleResult()); // Return Optional
+            return Optional.ofNullable(query.getResultList()); // Return Optional
         } catch (NoResultException e) {
             return Optional.empty(); // Handle case where no customer is found
         }
 	}
 
 	@Override
-	public Optional<FoodItems> findFries() {
+	public Optional<List<FoodItems>> findFries() {
 		try {
             // Create JPQL query
             TypedQuery<FoodItems> query = entityManager.createQuery(
                 "SELECT f FROM FoodItems f WHERE f.type ='Fries'", FoodItems.class);
             
-            return Optional.ofNullable(query.getSingleResult()); // Return Optional
+            return Optional.ofNullable(query.getResultList()); // Return Optional
         } catch (NoResultException e) {
             return Optional.empty(); // Handle case where no customer is found
         }
 	}
 
 	@Override
-	public Optional<FoodItems> findBiryani() {
+	public Optional<List<FoodItems>> findBiryani() {
 		try {
             // Create JPQL query
             TypedQuery<FoodItems> query = entityManager.createQuery(
                 "SELECT f FROM FoodItems f WHERE f.type ='Biryani'", FoodItems.class);
             
-            return Optional.ofNullable(query.getSingleResult()); // Return Optional
+            return Optional.ofNullable(query.getResultList()); // Return Optional
         } catch (NoResultException e) {
             return Optional.empty(); // Handle case where no customer is found
         }
 	}
 
 	@Override
-	public Optional<FoodItems> findChicken() {
+	public Optional<List<FoodItems>> findChicken() {
 		try {
             // Create JPQL query
             TypedQuery<FoodItems> query = entityManager.createQuery(
                 "SELECT f FROM FoodItems f WHERE f.type ='Chicken'", FoodItems.class);
             
-            return Optional.ofNullable(query.getSingleResult()); // Return Optional
+            return Optional.ofNullable(query.getResultList()); // Return Optional
         } catch (NoResultException e) {
             return Optional.empty(); // Handle case where no customer is found
         }
 	}
 
 	@Override
-	public Optional<FoodItems> findPizza() {
+	public Optional<List<FoodItems>> findPizza() {
 		try {
             // Create JPQL query
             TypedQuery<FoodItems> query = entityManager.createQuery(
                 "SELECT f FROM FoodItems f WHERE f.type ='Pizza'", FoodItems.class);
             
-            return Optional.ofNullable(query.getSingleResult()); // Return Optional
+            return Optional.ofNullable(query.getResultList()); // Return Optional
         } catch (NoResultException e) {
             return Optional.empty(); // Handle case where no customer is found
         }
 	}
 
 	@Override
-	public Optional<FoodItems> findSandwitch() {
+	public Optional<List<FoodItems>> findSandwitch() {
 		try {
             // Create JPQL query
             TypedQuery<FoodItems> query = entityManager.createQuery(
                 "SELECT f FROM FoodItems f WHERE f.type ='Sandwitch'", FoodItems.class);
             
-            return Optional.ofNullable(query.getSingleResult()); // Return Optional
+            return Optional.ofNullable(query.getResultList()); // Return Optional
         } catch (NoResultException e) {
             return Optional.empty(); // Handle case where no customer is found
         }

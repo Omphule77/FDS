@@ -149,9 +149,9 @@ public class CustomerController {
 	
 	@GetMapping("/burger/{email}")
 	public String burger(Model m,@PathVariable String email) {
-	    Optional<FoodItems> optionalBurger = userService.findAllBuger(); // Get Optional
+	    Optional<List<FoodItems>> optionalBurger = userService.findAllBuger(); // Get Optional
 	    
-	    FoodItems burger = optionalBurger.orElse(null); // Unwrap Optional safely
+	    List<FoodItems> burger = optionalBurger.orElse(null); // Unwrap Optional safely
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
 	        m.addAttribute("ctm", c.get()); // Extract the Customer object
@@ -165,9 +165,9 @@ public class CustomerController {
 	
 	@GetMapping("/icecream/{email}")
 	public String iceCream(Model m,@PathVariable String email) {
-	    Optional<FoodItems> optionalIce = userService.findAllIceCream(); // Get Optional
+	    Optional<List<FoodItems>> optionalIce = userService.findAllIceCream(); // Get Optional
 	    
-	    FoodItems ice = optionalIce.orElse(null); // Unwrap Optional safely
+	    List<FoodItems> ice = optionalIce.orElse(null); // Unwrap Optional safely
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
 	        m.addAttribute("ctm", c.get()); // Extract the Customer object
@@ -181,9 +181,9 @@ public class CustomerController {
 	
 	@GetMapping("/cake/{email}")
 	public String cake(Model m,@PathVariable String email) {
-	    Optional<FoodItems> optionalcake = userService.findAllCake(); // Get Optional
+	    Optional<List<FoodItems>> optionalcake = userService.findAllCake(); // Get Optional
 	    
-	    FoodItems cake = optionalcake.orElse(null); // Unwrap Optional safely
+	    List<FoodItems> cake = optionalcake.orElse(null); // Unwrap Optional safely
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
 	        m.addAttribute("ctm", c.get()); // Extract the Customer object
@@ -197,9 +197,9 @@ public class CustomerController {
 	
 	@GetMapping("/fries/{email}")
 	public String fries(Model m,@PathVariable String email) {
-	    Optional<FoodItems> optionalFries = userService.findAllFries(); // Get Optional
+	    Optional<List<FoodItems>> optionalFries = userService.findAllFries(); // Get Optional
 	    
-	    FoodItems fries = optionalFries.orElse(null); // Unwrap Optional safely
+	    List<FoodItems> fries = optionalFries.orElse(null); // Unwrap Optional safely
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
 	        m.addAttribute("ctm", c.get()); // Extract the Customer object
@@ -213,9 +213,9 @@ public class CustomerController {
 	
 	@GetMapping("/biryani/{email}")
 	public String biryani(Model m,@PathVariable String email) {
-	    Optional<FoodItems> optionalBiryani = userService.findAllBiryani(); // Get Optional
+	    Optional<List<FoodItems>> optionalBiryani = userService.findAllBiryani(); // Get Optional
 	    
-	    FoodItems biryani = optionalBiryani.orElse(null); // Unwrap Optional safely
+	    List<FoodItems> biryani = optionalBiryani.orElse(null); // Unwrap Optional safely
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
 	        m.addAttribute("ctm", c.get()); // Extract the Customer object
@@ -229,9 +229,9 @@ public class CustomerController {
 	
 	@GetMapping("/chicken/{email}")
 	public String chicken(Model m,@PathVariable String email) {
-	    Optional<FoodItems> optionalChicken = userService.findAllChicken(); // Get Optional
+	    Optional<List<FoodItems>> optionalChicken = userService.findAllChicken(); // Get Optional
 	    
-	    FoodItems chicken = optionalChicken.orElse(null); // Unwrap Optional safely
+	    List<FoodItems> chicken = optionalChicken.orElse(null); // Unwrap Optional safely
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
 	        m.addAttribute("ctm", c.get()); // Extract the Customer object
@@ -245,9 +245,9 @@ public class CustomerController {
 	
 	@GetMapping("/pizza/{email}")
 	public String pizza(Model m,@PathVariable String email) {
-	    Optional<FoodItems> optionalPizza = userService.findAllPizza(); // Get Optional
+	    Optional<List<FoodItems>> optionalPizza = userService.findAllPizza(); // Get Optional
 	    
-	    FoodItems pizza = optionalPizza.orElse(null); // Unwrap Optional safely
+	    List<FoodItems> pizza = optionalPizza.orElse(null); // Unwrap Optional safely
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
 	        m.addAttribute("ctm", c.get()); // Extract the Customer object
@@ -261,9 +261,9 @@ public class CustomerController {
 	
 	@GetMapping("/sandwitch/{email}")
 	public String sandwitch(Model m,@PathVariable String email) {
-	    Optional<FoodItems> optionalSandwitch = userService.findAllSandwitch(); // Get Optional
+	    Optional<List<FoodItems>> optionalSandwitch = userService.findAllSandwitch(); // Get Optional
 	    
-	    FoodItems sandwitch = optionalSandwitch.orElse(null); // Unwrap Optional safely
+	    List<FoodItems> sandwitch = optionalSandwitch.orElse(null); // Unwrap Optional safely
 	    Optional<Customer> c=userService.customerFind(email);
 		if (c.isPresent()) {
 	        m.addAttribute("ctm", c.get()); // Extract the Customer object
