@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Order Tracking</title>
+<style> /* Full-page background */
+body {
+	margin: 0;
+	padding: 0;
+	background:
+		url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDIINgPJ728x_iF-vaprvfFfDjFXFNX9sldQ&s')
+		no-repeat center center fixed;
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+} /* Centered white div */
+.center-div {
+	background: white;
+	padding: 30px;
+	width: 50%;
+	max-width: 500px;
+	text-align: center;
+	border-radius: 10px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tracker {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	margin: 20px 0;
+}
+
+.checkpoint {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+}
+
+.status {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background-color: lightgray;
+	transition: background-color 0.3s;
+	margin-bottom: 10px;
+	z-index: 1;
+}
+
+.completed {
+	background-color: green;
+}
+
+.line {
+	position: absolute;
+	top: 15px;
+	left: 0;
+	width: 100%;
+	height: 5px;
+	background-color: lightgray;
+	z-index: 0;
+}
+
+.line.completed {
+	background-color: green;
+}
+</style>
+</head>
+<body>
+	<div class="center-div">
+		<h1 style="text-align: left">Order Tracking</h1>
+		<div class="tracker">
+			<div class="line" id="progress-line"></div>
+			<div class="checkpoint">
+				<div class="status" id="status-0"
+					style="margin-right: 75px; margin-left: 60px;"
+					th:classappend="${t.tFlag >= '0' ? 'completed' : ''}"></div>
+				<i>Ordered</i>
+			</div>
+			<div class="checkpoint">
+				<div class="status" id="status-1" style="margin-right: 75px;"
+					th:classappend="${t.tFlag >= '1' ? 'completed' : ''}"></div>
+				<i>Order Packed</i>
+			</div>
+			<div class="checkpoint">
+				<div class="status" id="status-2" style="margin-right: 75px;"
+					th:classappend="${t.tFlag >= '2' ? 'completed' : ''}"></div>
+				<i>On the way</i>
+			</div>
+			<div class="checkpoint">
+				<div class="status" id="status-3" style="margin-right: 75px;"
+					th:classappend="${t.tFlag == '3' ? 'completed' : ''}"></div>
+				<i>Product Delivered</i>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

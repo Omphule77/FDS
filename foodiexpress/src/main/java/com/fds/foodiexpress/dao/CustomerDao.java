@@ -21,14 +21,15 @@ public interface CustomerDao{
 	void addCtmFeedback(Feedback f);
 	List<FoodItems> findAll();
 	Optional<Customer> findCtm(String email);
-	Optional<FoodItems> findBurger();
-	Optional<FoodItems> findIce();
-	Optional<FoodItems> findCake();
-	Optional<FoodItems> findFries();
-	Optional<FoodItems> findBiryani();
-	Optional<FoodItems> findChicken();
-	Optional<FoodItems> findPizza();
-	Optional<FoodItems> findSandwitch();
+	Optional<List<FoodItems>> findBurger();
+	Optional<List<FoodItems>> findIce();
+	Optional<List<FoodItems>> findCake();
+	Optional<List<FoodItems>> findFries();
+	Optional<List<FoodItems>> findBiryani();
+	Optional<List<FoodItems>> findChicken();
+	Optional<List<FoodItems>> findPizza();
+	Optional<List<FoodItems>> findSandwitch();
 	FoodItems findById(int id);
+	Orders findOById(int id);
 	List<Orders> findctmCard(String email);
 }
