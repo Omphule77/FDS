@@ -29,5 +29,6 @@ public interface CustomerService {
 	Optional<FoodItems> findAllSandwitch();
 	FoodItems findFoodById(int id);
 	List<Orders> findOrderCard(String email);
+	List<Customer> findAllCustomer();
 	
 }

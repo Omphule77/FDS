@@ -1,9 +1,14 @@
 package com.fds.foodiexpress.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
+import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -53,5 +58,14 @@ public class DeliveryDaoImpl implements DeliveryDAO {
             .setParameter("oldEmail", delivery.getEmail()) // Keep username unchanged
             .executeUpdate();
     }
+    
+    @Override
+	public List<Delivery> findAllDeliveryPartner() {
+		// write Query
+		TypedQuery theQuery = entityManager.createQuery("select d From Delivery d",Delivery.class);
+
+		// Return Query
+		return theQuery.getResultList();
+	}
 
 }

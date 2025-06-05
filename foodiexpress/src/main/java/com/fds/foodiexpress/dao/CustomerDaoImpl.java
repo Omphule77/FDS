@@ -243,8 +243,16 @@ public class CustomerDaoImpl implements CustomerDao {
 	public void addCtmFeedback(Feedback f) {
 		entityManager.persist(f);
 	}
-
 	
+
+	@Override
+	public List<Customer> findAllCustomer() {
+		// write Query
+		TypedQuery theQuery = entityManager.createQuery("select c From Customer c",Customer.class);
+
+		// Return Query
+		return theQuery.getResultList();
+	}
 
 
 }
