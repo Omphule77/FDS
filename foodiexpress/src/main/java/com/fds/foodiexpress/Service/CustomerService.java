@@ -21,15 +21,16 @@ public interface CustomerService {
     void updateCustomerDetails( String name, String address, String phone, String altPhone, String email);
 	List<FoodItems> findAllFood();
 	Optional<Customer> customerFind(String email);
-	Optional<FoodItems> findAllBuger();
-	Optional<FoodItems> findAllIceCream();
-	Optional<FoodItems> findAllCake();
-	Optional<FoodItems> findAllFries();
-	Optional<FoodItems> findAllBiryani();
-	Optional<FoodItems> findAllChicken();
-	Optional<FoodItems> findAllPizza();
-	Optional<FoodItems> findAllSandwitch();
+	Optional<List<FoodItems>> findAllBuger();
+	Optional<List<FoodItems>> findAllIceCream();
+	Optional<List<FoodItems>> findAllCake();
+	Optional<List<FoodItems>> findAllFries();
+	Optional<List<FoodItems>> findAllBiryani();
+	Optional<List<FoodItems>> findAllChicken();
+	Optional<List<FoodItems>> findAllPizza();
+	Optional<List<FoodItems>> findAllSandwitch();
 	FoodItems findFoodById(int id);
+	Orders findOrderById(int id);
 	List<Orders> findOrderCard(String email);
 	
 	

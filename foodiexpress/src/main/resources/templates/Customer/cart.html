@@ -309,15 +309,17 @@
                         <h4 >Total: <strong style="margin-left: 20px">Rs. <span th:text="${c.price}">150.00</span></strong></h4>
                     </div>
 
-                    <div class="action-buttons">
-                        <button type="button" class="btn btn-feedback" data-bs-toggle="modal" data-bs-target="#feedbackModal">
-                            <i class="fas fa-comment-dots me-2"></i> Send Feedback
-                        </button>
-                        <button type="button" class="btn btn-track-order">
-                            <a href="#" style="text-decoration: none; color:white;">
-                                <i class="fas fa-map-marker-alt me-2"></i> Track Order
-                            </a>
-                        </button>  
+                    
+                        <div class="action-buttons">
+                            <button type="button" class="btn btn-feedback" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                <i class="fas fa-comment-dots me-2"></i> Send Feedback
+                            </button>
+                            <button type="button" class="btn btn-track-order">
+                                <a th:href="@{/track/{email}/{orderId}(email=${c.cEmail},orderId=${c.orderId})}" style="text-decoration: none; color:white;">
+                                    <i class="fas fa-map-marker-alt me-2"></i> Track Order
+                                </a>
+                            </button>  
+                        </div>
                     </div>
                 </div>
             </div>
