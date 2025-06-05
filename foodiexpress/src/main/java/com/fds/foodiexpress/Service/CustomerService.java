@@ -17,6 +17,8 @@ public interface CustomerService {
 	void registerRestaurant(Restaurant restaurant);
 	void addctmorder(Orders order);
 	void addFeedback(Feedback f);
+	void updateCustomer(Customer customer);
+    void updateCustomerDetails( String name, String address, String phone, String altPhone, String email);
 	List<FoodItems> findAllFood();
 	Optional<Customer> customerFind(String email);
 	Optional<FoodItems> findAllBuger();
@@ -29,5 +31,6 @@ public interface CustomerService {
 	Optional<FoodItems> findAllSandwitch();
 	FoodItems findFoodById(int id);
 	List<Orders> findOrderCard(String email);
+	
 	
 }

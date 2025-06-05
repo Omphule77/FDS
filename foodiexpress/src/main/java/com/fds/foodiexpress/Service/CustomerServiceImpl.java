@@ -29,6 +29,29 @@ public class CustomerServiceImpl implements CustomerService {
 	public void register(Customer customer) {
 		customerDao.addCustomer(customer);
 	}
+	
+	@Override
+	 @Transactional
+	public void updateCustomer(Customer customer) {
+	    customerDao.save(customer); // Save updated details
+	}
+	
+	@Override
+    @Transactional
+    public void updateCustomerDetails(String email, String name, String address, String phone, String altPhone) {
+        Customer customer = customerDao.findByEmail(email);
+
+        if (customer != null) {
+            if (name != null) customer.setName(name);
+            if (address != null) customer.setAddress(address);
+            if (phone != null) customer.setPhone(phone);
+            if (altPhone != null) customer.setAltPhone(altPhone);
+
+            customerDao.updateCustomer(customer);
+//            customerDao.updateAuthoritiesTable(customer);
+//            customerDao.updateAuthoritiesTable(customer);
+        }
+    }
 
 
 	@Override
@@ -143,5 +166,6 @@ public class CustomerServiceImpl implements CustomerService {
 	public void addFeedback(Feedback f) {
 		customerDao.addCtmFeedback(f);
 	}
+
 
 }
