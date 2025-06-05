@@ -57,6 +57,9 @@ public class Orders {
 	@Column(name = "demail")
 	private String dEmail;
 	
+	@Column(name = "tflag")
+	private String tFlag;
+	
 	
 	public Orders() {
 		
@@ -71,9 +74,20 @@ public class Orders {
 	}
 	
 
+	
+	
+
+	public String gettFlag() {
+		return tFlag;
+	}
+
+	public void settFlag(String tFlag) {
+		this.tFlag = tFlag;
+	}
+
 	public Orders(String name, String comment, String quantity, String price, String rName, String cName,
 			String cAddress, String cPhone, String cAltPhone, String flag, String rAddress, String cEmail, String fImg,
-			String dEmail) {
+			String dEmail, String tFlag) {
 		super();
 		this.name = name;
 		this.comment = comment;
@@ -89,9 +103,8 @@ public class Orders {
 		this.cEmail = cEmail;
 		this.fImg = fImg;
 		this.dEmail = dEmail;
+		this.tFlag = tFlag;
 	}
-	
-	
 
 	public String getdEmail() {
 		return dEmail;
@@ -214,17 +227,9 @@ public class Orders {
 		return "Orders [orderId=" + orderId + ", name=" + name + ", comment=" + comment + ", quantity=" + quantity
 				+ ", price=" + price + ", rName=" + rName + ", cName=" + cName + ", cAddress=" + cAddress + ", cPhone="
 				+ cPhone + ", cAltPhone=" + cAltPhone + ", flag=" + flag + ", rAddress=" + rAddress + ", cEmail="
-				+ cEmail + ", fImg=" + fImg + ", dEmail=" + dEmail + "]";
+				+ cEmail + ", fImg=" + fImg + ", dEmail=" + dEmail + ", tFlag=" + tFlag + "]";
 	}
 
-
-
-
-
-
-
-
-	
 
 
 

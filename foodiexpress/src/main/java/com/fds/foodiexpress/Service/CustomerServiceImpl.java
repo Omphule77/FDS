@@ -144,4 +144,11 @@ public class CustomerServiceImpl implements CustomerService {
 		customerDao.addCtmFeedback(f);
 	}
 
+
+	@Override
+	public Orders findOrderById(int id) {
+		// TODO Auto-generated method stub
+		return customerDao.findOById(id);
+	}
+
 }

@@ -244,6 +244,12 @@ public class CustomerDaoImpl implements CustomerDao {
 		entityManager.persist(f);
 	}
 
+	@Override
+	public Orders findOById(int id) {
+		// TODO Auto-generated method stub
+		return entityManager.find(Orders.class, id);
+	}
+
 	
 
 

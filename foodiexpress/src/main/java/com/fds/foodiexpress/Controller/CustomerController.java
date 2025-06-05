@@ -344,6 +344,14 @@ public class CustomerController {
 		return "redirect:/card/"+mail;
 	}
 	
+	@GetMapping("/track/{email}/{orderId}")
+	public String track(@PathVariable String email,@PathVariable int orderId,Model m) {
+		Orders o=userService.findOrderById(orderId);
+		System.out.println(o);
+		m.addAttribute("t", o);
+		return "Customer/trackOrder";
+	}
+	
 	
 
 
