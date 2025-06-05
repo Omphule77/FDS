@@ -20,6 +20,9 @@ public interface CustomerDao{
 	void addRestaurant(Restaurant restaurant);
 	void addCtmFeedback(Feedback f);
 	List<FoodItems> findAll();
+	void save(Customer customer);
+	void updateCustomer(Customer customer);
+    Customer findByEmail(String email);
 	Optional<Customer> findCtm(String email);
 	Optional<List<FoodItems>> findBurger();
 	Optional<List<FoodItems>> findIce();
@@ -32,4 +35,6 @@ public interface CustomerDao{
 	FoodItems findById(int id);
 	Orders findOById(int id);
 	List<Orders> findctmCard(String email);
+	
+	
 }

@@ -44,10 +44,10 @@ public class Customer {
 	@Column(name = "address")
 	private String address;
 
-	@Pattern(
-	        regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$",
-	        message = "Password must be at least 6 characters long, include one uppercase letter, one number, and one special character"
-	    )
+//	@Pattern(
+//	        regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$",
+//	        message = "Password must be at least 6 characters long, include one uppercase letter, one number, and one special character"
+//	    )
 	@NotNull(message = "*required")
 	@Column(name = "password")
 	private String password;

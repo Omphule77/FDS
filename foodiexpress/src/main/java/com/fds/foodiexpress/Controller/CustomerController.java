@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fds.foodiexpress.Service.CustomerService;
 import com.fds.foodiexpress.entity.Customer;
@@ -146,6 +149,22 @@ public class CustomerController {
 		System.out.println("Done!");
 		return "login";
 	}
+	
+	@PostMapping("/updateCustomer")
+	public String updateCustomer(@RequestParam(required = false) String email, 
+	                             @RequestParam(required = false) String name, 
+	                             @RequestParam(required = false) String address, 
+	                             @RequestParam(required = false) String phone, 
+	                             @RequestParam(required = false) String altPhone,
+	                             RedirectAttributes redirectAttributes) {
+	    userService.updateCustomerDetails(email, name, address, phone, altPhone);
+	    redirectAttributes.addFlashAttribute("message", "Profile updated successfully!");
+	    
+	    // Redirect to userProfile page
+	    return "redirect:/userProfile/"+email;
+	}
+
+
 	
 	@GetMapping("/burger/{email}")
 	public String burger(Model m,@PathVariable String email) {
@@ -329,6 +348,22 @@ public class CustomerController {
 	    return "Customer/cart";
 	}
 	
+	@GetMapping("/userProfile/{email}")
+	public String userProfile(Model m, @PathVariable String email) {
+	    System.out.println("UserName: " + email);
+	    Optional<Customer> c = userService.customerFind(email);
+
+	    if (c.isPresent()) {
+	        m.addAttribute("ctm", c.get());
+	    } else {
+	        m.addAttribute("ctm", null);
+	    }
+	    System.out.println(c);
+	   
+	    return "Customer/userProfile";
+	}
+
+	
 	@PostMapping("/feedback")
 	public String feedback(@ModelAttribute Feedback feedback,Model m) {
 		System.out.println(feedback);
@@ -344,6 +379,7 @@ public class CustomerController {
 		return "redirect:/card/"+mail;
 	}
 	
+
 	@GetMapping("/track/{email}/{orderId}")
 	public String track(@PathVariable String email,@PathVariable int orderId,Model m) {
 		Orders o=userService.findOrderById(orderId);
@@ -351,11 +387,5 @@ public class CustomerController {
 		m.addAttribute("t", o);
 		return "Customer/trackOrder";
 	}
-	
-	
-
-
-	
-	
 	
 }

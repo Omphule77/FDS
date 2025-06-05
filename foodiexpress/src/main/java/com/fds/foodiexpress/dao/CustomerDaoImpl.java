@@ -245,12 +245,33 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
+	@Transactional
+	 public void save(Customer customer) {
+        entityManager.merge(customer); 
+    }
+	
+	@Override
+    public Customer findByEmail(String email) {
+		 try {
+	            return entityManager.createQuery("SELECT d FROM Customer d WHERE d.email = :email", Customer.class)
+	                .setParameter("email", email)
+	                .getSingleResult();
+	        } catch (NoResultException e) {
+	            return null;
+	        }
+    }
+	
+	@Override
+	@Transactional
+    public void updateCustomer(Customer customer) {
+        entityManager.merge(customer);
+    }
+	
+
 	public Orders findOById(int id) {
 		// TODO Auto-generated method stub
 		return entityManager.find(Orders.class, id);
 	}
-
 	
-
 
 }

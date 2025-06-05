@@ -91,7 +91,7 @@
             padding: 25px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: space-between;  
             height: 100%;
         }
 
@@ -274,6 +274,8 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
+        
+        
 
         /* Font Awesome for Icons */
         @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
@@ -284,29 +286,30 @@
     <h3 class="page-header">Your Recent Orders</h3>
 
     <div class="main-content-wrapper">
-        <div class="row">
-            <div th:each="c : ${order}" class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="food-details">
-                            <img th:src="${c.fImg}" alt="Food Image">
-                            <div class="food-info">
-                                <h4 th:text="${c.name}">Delicious Burger</h4>
-                                <div class="restaurant-name">
-                                    <i class="fas fa-utensils"></i> <span th:text="${c.rName}">The Grill House</span>
-                                </div>
+    <div class="row">
+        <div th:each="c : ${order}" class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="food-details">
+                        <img th:src="${c.fImg}" alt="Food Image">
+                        <div class="food-info">
+                            <h4 th:text="${c.name}">Delicious Burger</h4>
+                            <div class="restaurant-name">
+                                <i class="fas fa-utensils"></i> 
+                                <span th:text="${c.rName}">The Grill House</span>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="price-quantity-section">
-                            <div>
-                                <h4>Quantity: <span th:text="${c.quantity}">1</span></h4>
-                            </div>
-                            <div>
-                                <h4>Total: <strong>Rs. <span th:text="${c.price}">150.00</span></strong></h4>
-                            </div>
-                        </div>
+                 
+                    <div class="price-quantity-section">
+                        <h4>Quantity: <span style="margin-left: 20px" th:text="${c.quantity}">1</span></h4>
+                    </div>
+                    <div class="price-quantity-section">
+                        <h4 >Total: <strong style="margin-left: 20px">Rs. <span th:text="${c.price}">150.00</span></strong></h4>
+                    </div>
 
+                    
                         <div class="action-buttons">
                             <button type="button" class="btn btn-feedback" data-bs-toggle="modal" data-bs-target="#feedbackModal">
                                 <i class="fas fa-comment-dots me-2"></i> Send Feedback
@@ -320,11 +323,15 @@
                     </div>
                 </div>
             </div>
-            <div th:if="${#lists.isEmpty(order)}" class="col-12 text-center py-5">
-                <p class="lead text-muted">You haven't placed any orders yet. Start ordering now!</p>
-            </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(order)}" class="col-12 text-center py-5">
+            <p class="lead text-muted">You haven't placed any orders yet. Start ordering now!</p>
         </div>
     </div>
+</div>
+
+
 
     <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
