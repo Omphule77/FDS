@@ -376,7 +376,7 @@ public class CustomerController {
 	    System.out.println("=================");
 	    System.out.println(orders);
 		userService.addFeedback(feedback);
-		return "redirect:/card/"+mail;
+		return "redirect:/cart/"+mail;
 	}
 	
 
