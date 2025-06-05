@@ -1,370 +1,532 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Foodie Express</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: black;
-            position: relative;
-            min-height: 100vh;
-        }
-        .navbar {
-            background-color: rgb(202, 169, 135) !important; /* Peach Color */
-            padding: 10px;
-        }
-        .icon-container {
-            background-color: white;
-            padding: 8px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-        }
-        .search-container {
-            position: relative;
-            background-color: white;
-            border-radius: 25px;
-            padding: 5px;
-            flex-grow: 1;
-            margin-top: 10px;
-        }
-        .search-container input:focus {
-            outline: none;
-            box-shadow: none;
-        }
-        .search-container input {
-            padding-right: 35px;
-            border: none;
-            outline: none;
-            width: 100%;
-            background: transparent;
-        }
-        .search-container .search-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: gray;
-        }
-        .nav-item {
-            margin-left: 15px;
-        }
-        .page-content {
-            padding: 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foodie Express</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+	rel="stylesheet">
+<style>
+body {
+	font-family: 'Poppins', sans-serif;
+	color: #333; /* Darker text for better readability */
+	position: relative;
+	min-height: 100vh;
+	background-color: #f8f9fa;
+	/* Light grey background for a softer look */
+}
 
-        /* Responsive adjustments */
-        @media (max-width: 700px) {
-            .navbar-content {
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
-            .search-container {
-                width: 100%;
-                order: 2;
-            }
-            .logo-icons {
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                order: 1;
-            }
-        }
+.navbar {
+	background-color: rgb(202, 169, 135) !important; /* Peach Color */
+	padding: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
 
-        @media (min-width: 700px) {
-            .navbar-content {
-                flex-wrap: nowrap;
-                justify-content: space-between;
-            }
-            .search-container {
-                max-width: 500px;
-                margin-top: 0;
-            }
-        }
-        
-         .scrolling-wrapper {
-      overflow-x: scroll;
-      overflow-y: hidden;
-      white-space: nowrap;
-      display: flex;
-      flex-wrap: nowrap;
-    }
-    .card {
-      flex: 0 0 auto;
-      width: 300px; /* Adjust as needed */
-      margin-right: 10px; /* Adjust spacing between cards */
-      border: none;
-    }
-    
-   /*  end the card scrolling */
-   
-   .card-img-top{
-   		height: 200px;
-   }
-    </style>
-    <script>
-        function showProfilePage() {
-        fetch('userProfile.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('pageContent').innerHTML = data;
-        })
-        .catch(error => console.error('Error loading page:', error));
+.navbar-brand {
+	font-weight: 700; /* Bold Foodie Express text */
+	color: #fff !important; /* White color for brand text */
+}
+
+.icon-container {
+	background-color: white;
+	padding: 8px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.icon-container:hover {
+	background-color: #e2e6ea; /* Lighten on hover */
+	transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.search-container {
+	position: relative;
+	background-color: white;
+	border-radius: 25px;
+	padding: 5px;
+	flex-grow: 1;
+	margin-top: 10px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	/* Subtle shadow for search bar */
+}
+
+.search-container input:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.search-container input {
+	padding-right: 35px;
+	border: none;
+	outline: none;
+	width: 100%;
+	background: transparent;
+	font-size: 0.95rem; /* Slightly smaller font size */
+}
+
+.search-container .search-icon {
+	position: absolute;
+	right: 15px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #888; /* Slightly darker grey for search icon */
+}
+
+.nav-item {
+	margin-left: 15px;
+}
+
+.page-content {
+	padding: 20px;
+}
+
+/* Responsive adjustments */
+@media ( max-width : 700px) {
+	.navbar-content {
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	.search-container {
+		width: 100%;
+		order: 2;
+	}
+	.logo-icons {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		order: 1;
+	}
+}
+
+@media ( min-width : 700px) {
+	.navbar-content {
+		flex-wrap: nowrap;
+		justify-content: space-between;
+	}
+	.search-container {
+		max-width: 500px;
+		margin-top: 0;
+	}
+}
+
+.scrolling-wrapper {
+	overflow-x: auto; /* Use auto for better behavior on smaller screens */
+	overflow-y: hidden;
+	white-space: nowrap;
+	display: flex;
+	gap:30px;
+	flex-wrap: nowrap;
+	padding-bottom: 15px; /* Add padding for scrollbar */
+}
+
+.scrolling-wrapper .card {
+	flex: 0 0 auto;
+	width: 180px; /* Adjusted width for interest cards */
+	margin-right: 15px;
+	border: 1px solid #ddd; /* Lighter border */
+	border-radius: 15px; /* More rounded corners */
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Finer shadow */
+	transition: all 0.3s ease; /* Smooth transition for hover effects */
+	overflow: hidden; /* Ensure content stays within border-radius */
+}
+
+.scrolling-wrapper .card:hover {
+	transform: translateY(-5px); /* Lift card on hover */
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	/* More pronounced shadow on hover */
+}
+
+.scrolling-wrapper .card img {
+	width: 100%; /* Make image fill the card */
+	height: 120px; /* Fixed height for consistency */
+	object-fit: cover; /* Cover the area, crop if necessary */
+	border-radius: 15px 15px 0 0; /* Match card border-radius */
+}
+
+.scrolling-wrapper .card-body {
+	padding: 10px;
+	text-align: center;
+}
+
+.scrolling-wrapper .card-title {
+	font-size: 1.1rem; /* Slightly larger title */
+	font-weight: 600; /* Bolder title */
+	margin-bottom: 0;
+	gao
+	color: #555; /* Darker color for titles */
+}
+
+.card-img-top {
+	height: 200px;
+}
+
+/* Stylish Section Headings */
+.section-heading {
+	text-align: center;
+	font-size: 2.2rem; /* Larger font size */
+	font-weight: 700; /* Extra bold */
+	background-color: rgb(202, 169, 135) !important; /* A vibrant green color */
+	margin: 40px;
+	color:white;
+	position: relative;
+	padding-bottom: 10px;
 }
 
 
-        function goBack() {
-            document.getElementById('pageContent').innerHTML = `
-                <div class="container">
-                    <h2>Welcome to Foodie Express!</h2>
-                    <p>Explore delicious meals and enjoy a seamless ordering experience.</p>
-                </div>
-            `;
-        }
-    </script>
+
+/* Food Item Cards */
+.food-card .card {
+	border: 1px solid #e0e0e0; /* Lighter border */
+	border-radius: 15px; /* Rounded corners */
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* More prominent shadow */
+	transition: all 0.3s ease;
+	margin-top: 20px;
+	overflow: hidden; /* Ensure inner elements conform to border-radius */
+}
+
+.food-card .card:hover {
+	transform: translateY(-5px); /* Lift card on hover */
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+	/* More pronounced shadow on hover */
+}
+
+.food-card .card-img-top {
+	height: 220px; /* Slightly taller images for food items */
+	object-fit: cover; /* Cover the area, crop if necessary */
+	border-radius: 15px 15px 0 0;
+}
+
+.food-card .card-body {
+	background-color: #fff; /* White background for card body */
+	border-radius: 0 0 15px 15px; /* Match outer border-radius */
+	padding: 20px; /* More padding */
+}
+
+.food-card .card-title {
+	font-size: 1.5rem; /* Larger food name */
+	font-weight: 600;
+	color: #333;
+	margin-bottom: 8px;
+}
+
+.food-card .card-text {
+	font-size: 0.95rem;
+	color: #666;
+	margin-bottom: 15px;
+}
+
+.food-card .card-subtitle strong {
+	color: #dc3545; /* Red color for price */
+	font-size: 28px; /* Larger price font */
+}
+
+.food-card .btn-primary {
+	background-color: rgb(202, 169, 135) !important; /* Tomato red for Buy Now button */
+	border-color: white;
+	font-weight: 600;
+	padding: 10px 20px;
+	border-radius: 8px;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.food-card .btn-primary:hover {
+	background-color: white; /* Darker red on hover */
+	border-color: white;
+}
+
+.food-card p {
+	display: flex;
+	align-items: center;
+	font-size: 1rem;
+	color: #555;
+	margin-bottom: 10px;
+}
+
+.food-card p img {
+	margin-right: 8px;
+}
+
+/* Carousel Indicators and Controls */
+.carousel-indicators li {
+	background-color: #ccc;
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
+	margin: 0 5px;
+	
+}
+
+.carousel-indicators .active {
+	background-color: #FF6347; /* Active indicator color */
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+	background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+	border-radius: 50%;
+	padding: 15px;
+}
+
+.carousel-item img {
+	width: 100%;
+	height: 500px; /* Set a fixed height */
+	object-fit: cover; /* Ensures proper scaling */
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+</style>
+
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid navbar-content">
-            <!-- Logo & Icons -->
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="https://tse2.mm.bing.net/th/id/OIP.CjsUJdgYICIZTmog0x0NOAHaGL?rs=1&pid=ImgDetMain" alt="Foodie Express Logo" width="40" height="40" class="d-inline-block align-top me-2">
-                <span class="fw-bold">Foodie Express</span>
-            </a>
+	<nav class="navbar navbar-expand-lg navbar-light">
+		<div class="container-fluid navbar-content">
+			<a class="navbar-brand d-flex align-items-center" href="#"> <img
+				src="https://tse2.mm.bing.net/th/id/OIP.CjsUJdgYICIZTmog0x0NOAHaGL?rs=1&pid=ImgDetMain"
+				alt="Foodie Express Logo" width="40" height="40"
+				class="d-inline-block align-top me-2"> <span class="fw-bold">Foodie
+					Express</span>
+			</a>
 
-            <!-- Search Bar -->
-            <div class="search-container">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                <i class="fas fa-search search-icon"></i>
-            </div>
+			<div class="search-container">
+				<input class="form-control" type="search"
+					placeholder="Search for food items or restaurants..."
+					aria-label="Search" id="searchInput"> <i
+					class="fas fa-search search-icon"></i>
+			</div>
 
-            <!-- Cart & Profile Icons -->
-            <div class="d-flex align-items-center">
-                <a class="nav-link nav-item" th:href="@{/card/{email}(email=${ctm.email})}">
-                    <div class="icon-container">
-                        <i class="fas fa-shopping-cart fa-lg"></i>
-                    </div>
-                </a>
-                <a class="nav-link nav-item" href="#" onclick="showProfilePage()">
-                    <div class="icon-container">
-                        <i class="fas fa-user fa-lg"></i>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </nav>
+			<div class="d-flex align-items-center">
+				<a class="nav-link nav-item"
+					th:href="@{/card/{email}(email=${ctm.email})}">
+					<div class="icon-container">
+						<i class="fas fa-shopping-cart fa-lg"></i>
+					</div>
+				</a> <a class="nav-link nav-item" th:if="${ctm != null}"
+					th:href="@{/userProfile/{email}(email=${ctm.email})}">
+					<div class="icon-container">
+						<i class="fas fa-user fa-lg"></i>
+					</div>
+				</a>
 
-    <!-- Page Content -->
-    <div id="pageContent" class="page-content">
+				<form th:action="@{/logout}" method="post">
+					<button type="submit" class="logout-button nav-link nav-item">
+					<div class="icon-container">
+						<i class="fas fa-sign-out-alt"></i>
+						</div>
+					</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+
+	<div id="pageContent" class="page-content"></div>
+
+
+	<div class="container my-4">
+		<div id="mycarousel" class="carousel slide" data-bs-ride="carousel">
+			<ul class="carousel-indicators" style="list-style: none;">
+				<li data-bs-target="#mycarousel" data-bs-slide-to="0" class="active"></li>
+				<li data-bs-target="#mycarousel" data-bs-slide-to="1"></li>
+				<li data-bs-target="#mycarousel" data-bs-slide-to="2"></li>
+				<li data-bs-target="#mycarousel" data-bs-slide-to="3"></li>
+				<li data-bs-target="#mycarousel" data-bs-slide-to="4"></li>
+			</ul>
+
+			<div class="carousel-inner"
+				style="border-radius: 15px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+				<div class="carousel-item active" style="text-align: center;">
+					<img src="/img/ice1.jpg" class="d-block w-100"
+						style="max-height: 500px; object-fit: cover;">
+				</div>
+
+				<div class="carousel-item " style="text-align: center;">
+					<img src="/img/burger.png" class="d-block w-100"
+						style="max-height: 500px; object-fit: cover;">
+				</div>
+
+				<div class="carousel-item " style="text-align: center;">
+					<img src="/img/coffee.jpg" class="d-block w-100"
+						style="max-height: 500px; object-fit: cover;">
+				</div>
+
+				<div class="carousel-item " style="text-align: center;">
+					<img src="/img/cake.png" class="d-block w-100"
+						style="max-height: 500px; object-fit: cover;">
+				</div>
+
+				<div class="carousel-item " style="text-align: center;">
+					<img src="/img/thali.png" class="d-block w-100"
+						style="max-height: 500px; object-fit: cover;">
+				</div>
+			</div>
+
+			<a class="carousel-control-prev" href="#mycarousel"
+				data-bs-slide="prev"> <span class="carousel-control-prev-icon"></span>
+			</a> <a class="carousel-control-next" href="#mycarousel"
+				data-bs-slide="next"> <span class="carousel-control-next-icon"></span>
+			</a>
+		</div>
+	</div>
+
+	<h3 class="section-heading">Where is your interest</h3>
+
+	<div class="container mt-3">
+		<div class="scrolling-wrapper">
+			<div class="card">
+				<a th:href="@{/burger/{email}(email=${ctm.email})}"><img
+					src="/img/burgerc.png" alt="burger"></a>
+				<div class="card-body">
+					<h5 class="card-title">Burger</h5>
+				</div>
+			</div>
+
+			<div class="card">
+				<a th:href="@{/icecream/{email}(email=${ctm.email})}"><img
+					src="/img/icec.png" alt="ice-cream"></a>
+				<div class="card-body">
+					<h5 class="card-title">Ice-Cream</h5>
+				</div>
+			</div>
+
+			<div class="card">
+				<a th:href="@{/cake/{email}(email=${ctm.email})}"><img
+					src="/img/cakec.png" alt="cake"></a>
+				<div class="card-body">
+					<h5 class="card-title">Cake</h5>
+				</div>
+			</div>
+
+			<div class="card">
+				<a th:href="@{/fries/{email}(email=${ctm.email})}"><img
+					src="/img/fries.png" alt="fries"></a>
+				<div class="card-body">
+					<h5 class="card-title">Fries</h5>
+				</div>
+			</div>
+
+			<div class="card">
+				<a th:href="@{/biryani/{email}(email=${ctm.email})}"><img
+					src="/img/biryanic.png" alt="biryani"></a>
+				<div class="card-body">
+					<h5 class="card-title">Biryani</h5>
+				</div>
+			</div>
+
+			<div class="card">
+				<a th:href="@{/chicken/{email}(email=${ctm.email})}"><img
+					src="/img/chickenc1.png" alt="chicken"></a>
+				<div class="card-body">
+					<h5 class="card-title">Chicken</h5>
+				</div>
+			</div>
+
+			<div class="card">
+				<a th:href="@{/pizza/{email}(email=${ctm.email})}"><img
+					src="/img/pizzac.png" alt="pizza"></a>
+				<div class="card-body">
+					<h5 class="card-title">Pizza</h5>
+				</div>
+			</div>
+
+			<div class="card">
+				<a th:href="@{/sandwitch/{email}(email=${ctm.email})}"><img
+					src="/img/sandwitchc.png" alt="sandwitch"></a>
+				<div class="card-body">
+					<h5 class="card-title">Sandwich</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<h3 class="section-heading">Here Is All Types Of Food</h3>
+
+	<div class="container">
+		<div class="row justify-content-center" id="foodItemsContainer">
+			<div th:each="p : ${food}"
+				class="col-lg-4 col-md-6 col-sm-12 mb-4 food-card">
+				<div class="card cl4">
+					<img class="card-img-top" th:src="${p.fImg}" alt="Card image cap">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${p.name}"></h5>
+						<p>
+							<img width="25" height="25"
+								src="https://img.icons8.com/color/48/restaurant-.png"
+								alt="restaurant-" /> <span th:text="${p.rName}"></span>
+						</p>
+						<h6 class="card-subtitle mb-2 text-muted">
+							<img width="24" height="24"
+								src="https://img.icons8.com/material-rounded/24/rupee.png"
+								alt="rupee" /> <strong style="color: black; font-size: 24px;"
+								th:text="${p.rs}"></strong>
+						</h6>
+						<p class="card-text" th:text="${p.comment}"></p>
+						<button class="btn btn-primary w-100">
+							<a
+								th:href="@{/buynow/{id}/{email}(id=${p.id},email=${ctm.email})}"
+								style="text-decoration: none; color: white;"> Buy Now </a>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script>
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                window.location.reload();
+            }
+        });
         
-    </div>
-    
-    
-    <!-- This is sliding img -->
-    <div class="container">
-        <div id="mycarousel" class="carousel slide" data-bs-ride="carousel">
-            <ul class="carousel-indicators" style="list-style: none">
-                <li data-bs-target="#mycarousel" data-bs-slide-to="0" class="active"></li>
-                <li data-bs-target="#mycarousel" data-bs-slide-to="1" ></li>
-                <li data-bs-target="#mycarousel" data-bs-slide-to="2" ></li>               <!--  THIS ORDER LIST INDICATE THAT THE -->
-                <li data-bs-target="#mycarousel" data-bs-slide-to="3" ></li>               <!--  BOTTOM INDICATORS-->
-                <li data-bs-target="#mycarousel" data-bs-slide-to="4" ></li>
+        document.addEventListener("DOMContentLoaded", function() {
+            var element = document.getElementById("mycarousel");
+            var mycarousel = new bootstrap.Carousel(element, {interval: 500});
 
-            </ul>
-            
+            const searchInput = document.getElementById('searchInput');
+            const foodItemsContainer = document.getElementById('foodItemsContainer');
+            const foodCards = foodItemsContainer.getElementsByClassName('food-card');
 
-            <div class="carousel-inner">
-                <div class="carousel-item active" style="text-align: center;">
-                    <img src="/img/ice1.jpg" width="90%" height="500px" >
-                </div>
+            searchInput.addEventListener('keyup', function() {
+                const searchTerm = searchInput.value.toLowerCase();
 
-                <div class="carousel-item " style="text-align: center;">
-                    <img src="/img/burger.png"width="90%" height="500px" >
-                </div>
-                                                                               
-                <div class="carousel-item " style="text-align: center;">
-                    <img src="/img/coffee.jpg" width="90%" height="500px" >
-                </div>
+                Array.from(foodCards).forEach(card => {
+                    const foodName = card.querySelector('.card-title').textContent.toLowerCase();
+                    const restaurantName = card.querySelector('p span').textContent.toLowerCase();
 
-                <div class="carousel-item " style="text-align: center;">
-                    <img src="/img/cake.png" width="90%" height="500px" >
-                </div>
-
-                <div class="carousel-item " style="text-align: center;">
-                    <img src="/img/thali.png" width="90%" height="500px" >
-                </div>
-            </div>
-
-
-
-
-
-            <a class="carousel-control-prev" href="#mycarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </a>                                                                       <!--THIS IS ANCHOR TAG FOR PREVIOUS AND NEXT BUTTON-->
-
-            <a class="carousel-control-next" href="#mycarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </a>
-
-
-
-
-        </div>
-
-    </div>
-    <br>
-    
-    
-    <!-- Carousel completed -->
-
-
-
-
- <h3 style="text-align:center;">-----------Where is your interest----------</h3>
-    <br>
-    
-<div class="container mt-3">
-  
-  <div class="scrolling-wrapper">
-    <div class="card">
-      <center><a th:href="@{/burger/{email}(email=${ctm.email})}"><img src="/img/burgerc.png" alt="burger" width="200px"></a></center>
-      <div class="card-body">
-        <h5 class="card-title" style="text-align: center;" >Burger</h5>
-        
-      </div>
-    </div>
-
-    <div class="card">
-        <center><a th:href="@{/icecream/{email}(email=${ctm.email})}"><img src="/img/icec.png" alt="burger" width="200px" style="margin-top: 35px;"></a></center>
-        <div class="card-body">
-          <h5 class="card-title" style="text-align: center;margin-top: 30px;" >Ice-Cream</h5>
-          
-        </div>
-      </div>
-
-      <div class="card">
-        <center><a th:href="@{/cake/{email}(email=${ctm.email})}"><img src="/img/cakec.png"  alt="burger" width="200px"></a></center>
-        <div class="card-body">
-          <h5 class="card-title" style="text-align: center;" >Cake</h5>
-          
-        </div>
-      </div>
-
-      <div class="card">
-        <center><a th:href="@{/fries/{email}(email=${ctm.email})}"><img src="/img/fries.png" alt="burger" width="200px"></a></center>
-        <div class="card-body">
-          <h5 class="card-title" style="text-align: center;" >Fries</h5>
-          
-        </div>
-      </div>
-
-      <div class="card">
-        <center><a th:href="@{/biryani/{email}(email=${ctm.email})}"><img src="/img/biryanic.png" alt="burger" width="200px"></a></center>
-        <div class="card-body">
-          <h5 class="card-title" style="text-align: center;" >Biryani</h5>
-          
-        </div>
-      </div>
-
-      <div class="card">
-        <center><a th:href="@{/chicken/{email}(email=${ctm.email})}"><img src="/img/chickenc1.png"  alt="burger" width="200px"></a></center>
-        <div class="card-body">
-          <h5 class="card-title" style="text-align: center;" >Chicken</h5>
-          
-        </div>
-      </div>
-
-      <div class="card">
-        <center><a th:href="@{/pizza/{email}(email=${ctm.email})}"><img src="/img/pizzac.png"   alt="burger" width="200px"></a></center>
-        <div class="card-body">
-          <h5 class="card-title" style="text-align: center;" >Pizza</h5>
-          
-        </div>
-      </div>
-
-      <div class="card">
-        <center><a th:href="@{/sandwitch/{email}(email=${ctm.email})}"><img src="/img/sandwitchc.png" alt="burger" width="200px"></a></center>
-        <div class="card-body">
-          <h5 class="card-title" style="text-align: center;" >Sandwitch</h5>
-          
-        </div>
-      </div>
-    
-    <!-- Add more cards here -->
-  </div>
-</div>
-
-
-
-
-<!-- Here is all of the food items -->
-<br>
-<h3 style="text-align:center;">-----------Here Is All Types Of Food----------</h3>
-    <br>
-
-<div class="container">
-  
-  
-    <div class="row justify-content-center">
-        <div th:each="p : ${food}" class="col-lg-4 col-md-6 col-sm-12 mb-3">
-            <div class="card cl4" style="border: 2px black solid; border-radius: 20px; box-shadow: 5px 5px 5px 5px; margin-top:20px;">
-                <img class="card-img-top" th:src="${p.fImg}" alt="Card image cap" style="border-radius:20px 20px 0 0;">
-                <div class="card-body" style="background-color: #E6E6FA; border-radius: 0 0 20px 20px;">
-                    <h5 class="card-title" th:text="${p.name}"></h5>
-                    <p>
-                        <img width="25" height="25" src="https://img.icons8.com/color/48/restaurant-.png" alt="restaurant-"/>
-                        <span th:text="${p.rName}"></span>
-                    </p>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/rupee.png" alt="rupee"/>
-                        <strong style="color:black; font-size:24px;" th:text="${p.rs}"></strong>
-                    </h6>
-                    <p class="card-text" th:text="${p.comment}"></p>
-                    <button class="btn btn-primary">
-                        <a th:href="@{/buynow/{id}/{email}(id=${p.id},email=${ctm.email})}" style="text-decoration: none; color:white;">
-                            Buy Now
-                        </a>
-                    </button> 
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-    
-    
-    <form th:action="@{/logout}" method="post">
-      <button type="submit">Logout</button>
-    </form>
-    
-    <script>
-  window.addEventListener('pageshow' , function (event) {
-		if(event.persisted || (window.performance && window.performance.navigation.type === 2)){
-			window.location.reload();
-		}
-});
-  
-  document.addEventListener("DOMcontentloaded",function()
-  {
-      var element=document.getElementById("mycarousel");
-      var mycarousel=new bootstrap.Carousel(element,{interval:500});
-  });
-  </script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+                    if (foodName.includes(searchTerm) || restaurantName.includes(searchTerm)) {
+                        card.style.display = 'block'; // Show the card
+                    } else {
+                        card.style.display = 'none';  // Hide the card
+                    }
+                });
+            });
+        });
+    </script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -29,6 +29,29 @@ public class CustomerServiceImpl implements CustomerService {
 	public void register(Customer customer) {
 		customerDao.addCustomer(customer);
 	}
+	
+	@Override
+	 @Transactional
+	public void updateCustomer(Customer customer) {
+	    customerDao.save(customer); // Save updated details
+	}
+	
+	@Override
+    @Transactional
+    public void updateCustomerDetails(String email, String name, String address, String phone, String altPhone) {
+        Customer customer = customerDao.findByEmail(email);
+
+        if (customer != null) {
+            if (name != null) customer.setName(name);
+            if (address != null) customer.setAddress(address);
+            if (phone != null) customer.setPhone(phone);
+            if (altPhone != null) customer.setAltPhone(altPhone);
+
+            customerDao.updateCustomer(customer);
+//            customerDao.updateAuthoritiesTable(customer);
+//            customerDao.updateAuthoritiesTable(customer);
+        }
+    }
 
 
 	@Override
@@ -64,56 +87,56 @@ public class CustomerServiceImpl implements CustomerService {
 
 
 	@Override
-	public Optional<FoodItems> findAllBuger() {
+	public Optional<List<FoodItems>> findAllBuger() {
 		
 		return customerDao.findBurger();
 	}
 
 
 	@Override
-	public Optional<FoodItems> findAllIceCream() {
+	public Optional<List<FoodItems>> findAllIceCream() {
 		// TODO Auto-generated method stub
 		return customerDao.findIce();
 	}
 
 
 	@Override
-	public Optional<FoodItems> findAllCake() {
+	public Optional<List<FoodItems>> findAllCake() {
 		// TODO Auto-generated method stub
 		return customerDao.findCake();
 	}
 
 
 	@Override
-	public Optional<FoodItems> findAllFries() {
+	public Optional<List<FoodItems>> findAllFries() {
 		// TODO Auto-generated method stub
 		return customerDao.findFries();
 	}
 
 
 	@Override
-	public Optional<FoodItems> findAllBiryani() {
+	public Optional<List<FoodItems>> findAllBiryani() {
 		// TODO Auto-generated method stub
 		return customerDao.findBiryani();
 	}
 
 
 	@Override
-	public Optional<FoodItems> findAllChicken() {
+	public Optional<List<FoodItems>> findAllChicken() {
 		// TODO Auto-generated method stub
 		return customerDao.findChicken();
 	}
 
 
 	@Override
-	public Optional<FoodItems> findAllPizza() {
+	public Optional<List<FoodItems>> findAllPizza() {
 		// TODO Auto-generated method stub
 		return customerDao.findPizza();
 	}
 
 
 	@Override
-	public Optional<FoodItems> findAllSandwitch() {
+	public Optional<List<FoodItems>> findAllSandwitch() {
 		// TODO Auto-generated method stub
 		return customerDao.findSandwitch();
 	}
@@ -149,4 +172,11 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDao.findAllCustomer();
 	}
 
+
+
+	@Override
+	public Orders findOrderById(int id) {
+		// TODO Auto-generated method stub
+		return customerDao.findOById(id);
+	}
 }

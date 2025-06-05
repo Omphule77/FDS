@@ -28,17 +28,34 @@ public class Feedback {
 	@Column(name = "cemail")
 	private String cEmail;
 	
+	@Column(name = "demail")
+	private String dEmail;
+	
 	public Feedback() {
 		
 	}
 
-	public Feedback(String foodQuality, String deliveryQuality, String appExp, String cEmail) {
+
+	public Feedback(String foodQuality, String deliveryQuality, String appExp, String cEmail, String dEmail) {
 		super();
 		this.foodQuality = foodQuality;
 		this.deliveryQuality = deliveryQuality;
 		this.appExp = appExp;
 		this.cEmail = cEmail;
+		this.dEmail = dEmail;
 	}
+
+	
+
+	public String getdEmail() {
+		return dEmail;
+	}
+
+
+	public void setdEmail(String dEmail) {
+		this.dEmail = dEmail;
+	}
+
 
 	public int getfId() {
 		return fId;
@@ -80,11 +97,14 @@ public class Feedback {
 		this.cEmail = cEmail;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Feedback [fId=" + fId + ", foodQuality=" + foodQuality + ", deliveryQuality=" + deliveryQuality
-				+ ", appExp=" + appExp + ", cEmail=" + cEmail + "]";
+				+ ", appExp=" + appExp + ", cEmail=" + cEmail + ", dEmail=" + dEmail + "]";
 	}
+
+	
 	
 	
 }

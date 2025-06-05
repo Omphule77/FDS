@@ -7,42 +7,92 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style >
-    	 .card {
-      flex: 0 0 auto;
-      width: 300px; /* Adjust as needed */
-      margin-right: 10px; /* Adjust spacing between cards */
-      border: none;
-    }
-    
-   /*  end the card scrolling */
-   
-   .card-img-top{
-   		height: 200px;
-   }
-    </style>
+     <style >
+    	 /* Food Item Cards */
+        .food-card .card {
+            border: 1px solid #e0e0e0; /* Lighter border */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* More prominent shadow */
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            overflow: hidden; /* Ensure inner elements conform to border-radius */
+        }
+        .food-card .card:hover {
+            transform: translateY(-5px); /* Lift card on hover */
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15); /* More pronounced shadow on hover */
+        }
+        .food-card .card-img-top {
+            height: 220px; /* Slightly taller images for food items */
+            object-fit: cover; /* Cover the area, crop if necessary */
+            border-radius: 15px 15px 0 0;
+        }
+        .food-card .card-body {
+            background-color: #fff; /* White background for card body */
+            border-radius: 0 0 15px 15px; /* Match outer border-radius */
+            padding: 20px; /* More padding */
+        }
+        .food-card .card-title {
+            font-size: 1.5rem; /* Larger food name */
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .food-card .card-text {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .food-card .card-subtitle strong {
+            color: #dc3545; /* Red color for price */
+            font-size: 28px; /* Larger price font */
+        }
+       
+.food-card .btn-primary {
+	background-color: rgb(202, 169, 135) !important; /* Tomato red for Buy Now button */
+	border-color: white;
+	font-weight: 600;
+	padding: 10px 20px;
+	border-radius: 8px;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.food-card .btn-primary:hover {
+	background-color: white; /* Darker red on hover */
+	border-color: white;
+}
+
+        .food-card p {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .food-card p img {
+            margin-right: 8px;
+        }
+        
+       
+
+    </style>  
 </head>
 <body>
-     <div class="container">
-  
-  
-    <div class="row justify-content-center">
-        <div th:each="p : ${cake}" class="col-lg-4 col-md-6 col-sm-12 mb-3">
-            <div class="card cl4" style="border: 2px black solid; border-radius: 20px; box-shadow: 5px 5px 5px 5px; margin-top:20px;">
-                <img class="card-img-top" th:src="${p.fImg}" alt="Card image cap" style="border-radius:20px 20px 0 0;">
-                <div class="card-body" style="background-color: #E6E6FA; border-radius: 0 0 20px 20px;">
+    <div class="container">
+    <div class="row justify-content-center" id="foodItemsContainer">
+        <div th:each="p : ${cake}" class="col-lg-4 col-md-6 col-sm-12 mb-4 food-card"> <div class="card cl4">
+                <img class="card-img-top" th:src="${p.fImg}" alt="Card image cap">
+                <div class="card-body">
                     <h5 class="card-title" th:text="${p.name}"></h5>
                     <p>
                         <img width="25" height="25" src="https://img.icons8.com/color/48/restaurant-.png" alt="restaurant-"/>
                         <span th:text="${p.rName}"></span>
                     </p>
-                    <h6 class="card-subtitle mb-2 text-muted">
+                    <h6 class="card-subtitle mb-2 text-muted txt">
                         <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/rupee.png" alt="rupee"/>
                         <strong style="color:black; font-size:24px;" th:text="${p.rs}"></strong>
                     </h6>
                     <p class="card-text" th:text="${p.comment}"></p>
-                    <button class="btn btn-primary">
-                        <a th:href="@{/buynow/{id}/{email}(id=${p.id},email=${ctm.email})}" style="text-decoration: none; color:white;">
+                    <button class="btn btn-primary w-100"> <a th:href="@{/buynow/{id}/{email}(id=${p.id},email=${ctm.email})}" style="text-decoration: none; color:white;">
                             Buy Now
                         </a>
                     </button> 
@@ -50,7 +100,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </body>
 </html>
