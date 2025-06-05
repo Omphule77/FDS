@@ -32,6 +32,7 @@ public interface CustomerService {
 	FoodItems findFoodById(int id);
 	Orders findOrderById(int id);
 	List<Orders> findOrderCard(String email);
+	List<Customer> findAllCustomer();
 	
 	
 }

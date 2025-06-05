@@ -166,6 +166,11 @@ public class CustomerServiceImpl implements CustomerService {
 	public void addFeedback(Feedback f) {
 		customerDao.addCtmFeedback(f);
 	}
+	
+	@Override
+	public List<Customer> findAllCustomer(){
+		return customerDao.findAllCustomer();
+	}
 
 
 
