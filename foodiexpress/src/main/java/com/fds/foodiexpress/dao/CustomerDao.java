@@ -35,6 +35,7 @@ public interface CustomerDao{
 	FoodItems findById(int id);
 	Orders findOById(int id);
 	List<Orders> findctmCard(String email);
+	List<Customer> findAllCustomer();
 	
 	
 }
