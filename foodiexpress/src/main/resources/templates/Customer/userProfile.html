@@ -91,6 +91,14 @@ body {
 .btn-primary:hover {
 	background-color: #e55338;
 }
+
+.foot {
+	margin-top:40px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	
+}
 </style>
 </head>
 <body>
@@ -149,7 +157,13 @@ body {
 		<div th:if="${ctm == null}" class="text-center py-4">
 			<p class="text-muted">No customer information available.</p>
 		</div>
+		
+		
 	</div>
+	
+	
+
+		
 
 
 	<script>
@@ -187,6 +201,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<div class="foot">
+			<p class="mb-2">&copy; 2025 Foodie Express. All Rights Reserved.</p>
 
+</div>
+	
 </body>
 </html>

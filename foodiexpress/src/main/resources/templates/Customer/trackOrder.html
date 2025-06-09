@@ -3,100 +3,268 @@
 <head>
 <meta charset="UTF-8">
 <title>Order Tracking</title>
-<style> /* Full-page background */
-body {
-	margin: 0;
-	padding: 0;
-	background:
-		url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDIINgPJ728x_iF-vaprvfFfDjFXFNX9sldQ&s')
-		no-repeat center center fixed;
-	background-size: cover;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-} /* Centered white div */
-.center-div {
-	background: white;
-	padding: 30px;
-	width: 50%;
-	max-width: 500px;
-	text-align: center;
-	border-radius: 10px;
-	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    body {
+        margin: auto;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+       background-color: rgb(202, 169, 135) !important;
+        display: block;
+        justify-content: center;
+        align-content: center;
+        min-height: 100vh;
+        color: #333;
+        overflow-x: hidden;
+    }
 
-.tracker {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	margin: 20px 0;
-}
+    .tracking-container {
+    margin:auto;
+        background: #ffffff;
+        padding: 50px;
+        width: 90%;
+        max-width: 800px;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #e0e6ed;
+    }
 
-.checkpoint {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	position: relative;
-}
+    h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 40px;
+        font-weight: 700;
+        font-size: 2.2em;
+    }
 
-.status {
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	background-color: lightgray;
-	transition: background-color 0.3s;
-	margin-bottom: 10px;
-	z-index: 1;
-}
+    .tracker {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        position: relative;
+        margin: 50px 0;
+        padding: 0 20px;
+    }
 
-.completed {
-	background-color: green;
-}
+    .progress-line-container {
+        position: absolute;
+        top: 25px;
+        left: 20px;
+        right: 20px;
+        height: 6px;
+        background-color: #e0e6ed;
+        border-radius: 3px;
+        z-index: 1;
+    }
 
-.line {
-	position: absolute;
-	top: 15px;
-	left: 0;
-	width: 100%;
-	height: 5px;
-	background-color: lightgray;
-	z-index: 0;
-}
+    .progress-line-fill {
+        height: 100%;
+        background: linear-gradient(to right, #4CAF50, #8BC34A);
+        border-radius: 3px;
+        width: 0%;
+        transition: width 0.7s ease-out;
+    }
 
-.line.completed {
-	background-color: green;
+    .checkpoint {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        flex: 1;
+        z-index: 2;
+    }
+
+    .checkpoint-icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background-color: #f0f4f8;
+        border: 3px solid #ced4da;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.8em;
+        color: #7b8d9c;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .checkpoint-icon.completed {
+        background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        border-color: #388e3c;
+        color: white;
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 8px 15px rgba(76, 175, 80, 0.3);
+    }
+
+    .checkpoint-icon:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .checkpoint-label {
+        font-size: 1em;
+        color: #555;
+        font-weight: 500;
+        text-align: center;
+        transition: color 0.3s ease;
+    }
+
+    .checkpoint-icon.completed + .checkpoint-label {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .tracking-container {
+            padding: 30px 20px;
+            width: 95%;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+        }
+
+        .tracker {
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 30px 0;
+            padding: 0;
+            position: static;
+        }
+
+        .progress-line-container {
+            left: 25px;
+            top: 70px;
+            bottom: 70px;
+            width: 6px;
+            height: calc(100% - 140px);
+            background-color: #e0e6ed;
+            border-radius: 3px;
+        }
+
+        .progress-line-fill {
+            width: 100%;
+            height: 0%;
+            transition: height 0.7s ease-out;
+            background: linear-gradient(to bottom, #4CAF50, #8BC34A);
+        }
+
+        .checkpoint {
+            flex-direction: row;
+            justify-content: flex-start;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .checkpoint:last-child {
+            margin-bottom: 0;
+        }
+
+        .checkpoint-icon {
+            margin-right: 15px;
+            margin-bottom: 0;
+            width: 45px;
+            height: 45px;
+            font-size: 1.5em;
+        }
+
+        .checkpoint-icon.completed {
+            transform: translateY(0) scale(1.05);
+        }
+
+        .checkpoint-icon:hover {
+            transform: translateY(0) scale(1.02);
+        }
+
+        .checkpoint-label {
+            text-align: left;
+        }
+    }
+    .foot {
+	margin-top: 30px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	background-color: rgb(202, 169, 135);
 }
 </style>
 </head>
 <body>
-	<div class="center-div">
-		<h1 style="text-align: left">Order Tracking</h1>
-		<div class="tracker">
-			<div class="line" id="progress-line"></div>
-			<div class="checkpoint">
-				<div class="status" id="status-0"
-					style="margin-right: 75px; margin-left: 60px;"
-					th:classappend="${t.tFlag >= '0' ? 'completed' : ''}"></div>
-				<i>Ordered</i>
-			</div>
-			<div class="checkpoint">
-				<div class="status" id="status-1" style="margin-right: 75px;"
-					th:classappend="${t.tFlag >= '1' ? 'completed' : ''}"></div>
-				<i>Order Packed</i>
-			</div>
-			<div class="checkpoint">
-				<div class="status" id="status-2" style="margin-right: 75px;"
-					th:classappend="${t.tFlag >= '2' ? 'completed' : ''}"></div>
-				<i>On the way</i>
-			</div>
-			<div class="checkpoint">
-				<div class="status" id="status-3" style="margin-right: 75px;"
-					th:classappend="${t.tFlag == '3' ? 'completed' : ''}"></div>
-				<i>Product Delivered</i>
-			</div>
+    <div class="tracking-container" >
+        <h1>Order Tracking</h1>
+
+        <div class="tracker">
+            <div class="progress-line-container">
+                <div class="progress-line-fill" id="progress-line-fill"></div>
+            </div>
+
+            <div class="checkpoint">
+                <div class="checkpoint-icon" th:classappend="${t.tFlag >= '0' ? 'completed' : ''}">
+                    <i class="fas fa-box-open"></i> </div>
+                <span class="checkpoint-label">Ordered</span>
+            </div>
+
+            <div class="checkpoint">
+                <div class="checkpoint-icon" th:classappend="${t.tFlag >= '1' ? 'completed' : ''}">
+                    <i class="fas fa-boxes"></i> </div>
+                <span class="checkpoint-label">Order Packed</span>
+            </div>
+
+            <div class="checkpoint">
+                <div class="checkpoint-icon" th:classappend="${t.tFlag >= '2' ? 'completed' : ''}">
+                    <i class="fas fa-truck-fast"></i> </div>
+                <span class="checkpoint-label">On the way</span>
+            </div>
+
+            <div class="checkpoint">
+                <div class="checkpoint-icon" th:classappend="${t.tFlag == '3' ? 'completed' : ''}">
+                    <i class="fas fa-house-chimney-crack"></i> </div>
+                <span class="checkpoint-label">Product Delivered</span>
+            </div>
+        </div>
+    </div>
+    
+    <footer class=" foot text-center py-3 text-white  w-100">
+
+		<div class="container  ">
+			<p class="mb-2">&copy; 2025 Foodie Express. All Rights Reserved.</p>
+
 		</div>
-	</div>
+	</footer>
+
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const tFlag = /*[[${t.tFlag}]]*/ '0';
+            const progressLineFill = document.getElementById('progress-line-fill');
+            const checkpoints = document.querySelectorAll('.checkpoint');
+            const totalCheckpoints = checkpoints.length;
+
+            let completedPercentage = 0;
+            if (tFlag === '0') {
+                completedPercentage = 0;
+            } else if (tFlag === '1') {
+                completedPercentage = (1 / (totalCheckpoints - 1)) * 100;
+            } else if (tFlag === '2') {
+                completedPercentage = (2 / (totalCheckpoints - 1)) * 100;
+            } else if (tFlag === '3') {
+                completedPercentage = 100;
+            }
+
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+            if (isMobile) {
+                progressLineFill.style.height = completedPercentage + '%';
+            } else {
+                progressLineFill.style.width = completedPercentage + '%';
+            }
+        });
+    </script>
 </body>
 </html>
