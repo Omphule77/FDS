@@ -58,7 +58,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		delivery.setPassword(passwordEncoder.encode(delivery.getPassword()));
 		user.setUsername(delivery.getEmail());
 		user.setPassword(delivery.getPassword());
-		user.setEnabled("1");
+		user.setEnabled("0");
 		
 		authorities.setAuthority("ROLE_DELIVERY");
 		authorities.setUsername(delivery.getEmail());
@@ -77,7 +77,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		restaurant.setPassword(passwordEncoder.encode(restaurant.getPassword()));
 		user.setUsername(restaurant.getoEmail());
 		user.setPassword(restaurant.getPassword());
-		user.setEnabled("1");
+		user.setEnabled("0");
 		
 		authorities.setAuthority("ROLE_RESTAURANT");
 		authorities.setUsername(restaurant.getoEmail());
