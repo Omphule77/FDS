@@ -8,7 +8,8 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <link
@@ -291,12 +292,44 @@ body {
 	display: none;
 }
 
+.foot {
+	margin-top: 30px;	
+	background-color: rgb(202, 169, 135);
+}
+/* Pagination styles */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.pagination .page-item .page-link {
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 0 5px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: rgb(202, 169, 135) !important;
+    border-color: rgb(202, 169, 135) !important;
+    color: white;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
 </style>
 
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-light">
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top">
 		<div class="container-fluid navbar-content">
 			<a class="navbar-brand d-flex align-items-center" href="#"> <img
 				src="https://tse2.mm.bing.net/th/id/OIP.CjsUJdgYICIZTmog0x0NOAHaGL?rs=1&pid=ImgDetMain"
@@ -336,7 +369,7 @@ body {
 		</div>
 	</nav>
 
-	<div id="pageContent" class="page-content"></div>
+	<div id="pageContent" class="page-content" style="margin-top: 30px;"></div>
 
 
 	<div class="container my-4">
@@ -457,7 +490,7 @@ body {
 
 
 
-	<h3 class="section-heading">Here Is All Types Of Food</h3>
+	<h3 class="section-heading" id="allFoodSection">Here Is All Types Of Food</h3>
 
 	<div class="container">
 		<div class="row justify-content-center" id="foodItemsContainer">
@@ -488,45 +521,165 @@ body {
 				</div>
 			</div>
 		</div>
+		<nav aria-label="Food item pagination" class="pagination-container">
+            <ul class="pagination" id="foodPagination">
+                </ul>
+        </nav>
 	</div>
+	<footer class=" foot text-center py-3 text-white  w-100">
 
+		<div class="container  ">
+			<p class="mb-2">&copy; 2025 Foodie Express. All Rights Reserved.</p>
+
+		</div>
+	</footer>
 
 
 	<script>
-        window.addEventListener('pageshow', function (event) {
-            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
-                window.location.reload();
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                window.location.reload();
+            }
+        });
+        
+document.addEventListener("DOMContentLoaded", function() {
+    var element = document.getElementById("mycarousel");
+    var mycarousel = new bootstrap.Carousel(element, { interval: 3000 });
+
+    const searchInput = document.getElementById('searchInput');
+    const foodItemsContainer = document.getElementById('foodItemsContainer');
+    const foodCards = Array.from(foodItemsContainer.getElementsByClassName('food-card')); // Convert to array
+    const foodPagination = document.getElementById('foodPagination');
+    const itemsPerRow = 3; // Number of items per row
+    const rowsPerPage = 3; // Number of rows per page
+    const itemsPerPage = itemsPerRow * rowsPerPage; // 9 items per page
+
+    let currentPage = 1;
+    let filteredFoodCards = foodCards; // Initialize with all cards
+
+    // Function to display food items for a given page
+    function displayFoodItems(page) {
+        foodItemsContainer.innerHTML = ''; // Clear current items
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        const paginatedItems = filteredFoodCards.slice(startIndex, endIndex);
+
+        paginatedItems.forEach(card => {
+            foodItemsContainer.appendChild(card);
+            card.style.display = 'block'; // Ensure it's visible
+        });
+
+        // Hide any cards that are not part of the current page
+        foodCards.forEach(card => {
+            if (!paginatedItems.includes(card)) {
+                card.style.display = 'none';
             }
         });
-        
-        document.addEventListener("DOMContentLoaded", function() {
-            var element = document.getElementById("mycarousel");
-            var mycarousel = new bootstrap.Carousel(element, {interval: 500});
 
-            const searchInput = document.getElementById('searchInput');
-            const foodItemsContainer = document.getElementById('foodItemsContainer');
-            const foodCards = foodItemsContainer.getElementsByClassName('food-card');
+        updatePaginationButtons();
+    }
 
-            searchInput.addEventListener('keyup', function() {
-                const searchTerm = searchInput.value.toLowerCase();
+    // Function to generate pagination buttons
+    function setupPagination(cards) {
+        foodPagination.innerHTML = ''; // Clear existing pagination
+        const pageCount = Math.ceil(cards.length / itemsPerPage);
 
-                Array.from(foodCards).forEach(card => {
-                    const foodName = card.querySelector('.card-title').textContent.toLowerCase();
-                    const restaurantName = card.querySelector('p span').textContent.toLowerCase();
-
-                    if (foodName.includes(searchTerm) || restaurantName.includes(searchTerm)) {
-                        card.style.display = 'block'; // Show the card
-                    } else {
-                        card.style.display = 'none';  // Hide the card
-                    }
-                });
-            });
+        // Previous button
+        const prevLi = document.createElement('li');
+        prevLi.classList.add('page-item');
+        prevLi.innerHTML = `<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>`;
+        prevLi.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentPage > 1) {
+                currentPage--;
+                displayFoodItems(currentPage);
+            }
         });
-    </script>
+        foodPagination.appendChild(prevLi);
+
+        for (let i = 1; i <= pageCount; i++) {
+            const li = document.createElement('li');
+            li.classList.add('page-item');
+            li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            li.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentPage = i;
+                displayFoodItems(currentPage);
+            });
+            foodPagination.appendChild(li);
+        }
+
+        // Next button
+        const nextLi = document.createElement('li');
+        nextLi.classList.add('page-item');
+        nextLi.innerHTML = `<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>`;
+        nextLi.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentPage < pageCount) {
+                currentPage++;
+                displayFoodItems(currentPage);
+            }
+        });
+        foodPagination.appendChild(nextLi);
+
+        updatePaginationButtons();
+    }
+
+    // Function to update active state of pagination buttons
+    function updatePaginationButtons() {
+        const pageLinks = foodPagination.querySelectorAll('.page-item');
+        pageLinks.forEach(link => link.classList.remove('active'));
+
+        // Set active class for the current page number
+        if (pageLinks[currentPage]) { // Check if the page number button exists
+            pageLinks[currentPage].classList.add('active');
+        }
+
+        // Disable/enable Prev/Next buttons
+        const prevButton = pageLinks[0];
+        const nextButton = pageLinks[pageLinks.length - 1];
+        const totalPages = Math.ceil(filteredFoodCards.length / itemsPerPage);
+
+        if (currentPage === 1) {
+            prevButton.classList.add('disabled');
+        } else {
+            prevButton.classList.remove('disabled');
+        }
+
+        if (currentPage === totalPages || totalPages === 0) {
+            nextButton.classList.add('disabled');
+        } else {
+            nextButton.classList.remove('disabled');
+        }
+    }
+
+
+    // Initial setup of pagination
+    setupPagination(foodCards);
+    displayFoodItems(currentPage);
+
+    searchInput.addEventListener('keyup', function() {
+        const searchTerm = searchInput.value.toLowerCase();
+        filteredFoodCards = foodCards.filter(card => {
+            const foodName = card.querySelector('.card-title').textContent.toLowerCase();
+            const restaurantName = card.querySelector('p span').textContent.toLowerCase();
+            return foodName.includes(searchTerm) || restaurantName.includes(searchTerm);
+        });
+
+        currentPage = 1; // Reset to first page on search
+        setupPagination(filteredFoodCards);
+        displayFoodItems(currentPage);
+
+        // Scroll to the "Here Is All Types Of Food" section
+        document.getElementById('allFoodSection').scrollIntoView({ behavior: 'smooth' });
+    });
+});
+    </script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
-
+	
 </body>
 </html>

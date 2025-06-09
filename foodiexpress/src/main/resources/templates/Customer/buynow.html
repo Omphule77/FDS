@@ -45,25 +45,31 @@
 body {
 	background-color: #f0f2f5; /* A soft, light background */
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	display: flex; /* Use flexbox for centering content */
+	display: block;
 	justify-content: center;
-	align-items: flex-start; /* Align to the top */
+	align-items: center; /* Align to the top */
 	min-height: 100vh; /* Full viewport height */
 	padding: 30px 0; /* Add some padding top/bottom */
 }
 
 .main-content-wrapper {
-	max-width: 900px; /* Increased max-width for side-by-side layout */
+	margin: 0 auto; max-width : 900px;
+	/* Increased max-width for side-by-side layout */
 	width: 100%; /* Ensure it takes full width within max-width */
 	background-color: rgb(202, 169, 135); /* Dark Cream background */
 	border-radius: 20px; /* More rounded corners for the main wrapper */
-	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Stronger, softer shadow */
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+	/* Stronger, softer shadow */
 	padding: 40px; /* More internal padding */
+	justify-content: center;
+	align-items: center;
+	max-width: 900px;
 }
 
 .card {
 	border-radius: 15px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Slightly less prominent card shadow */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+	/* Slightly less prominent card shadow */
 	margin-bottom: 25px; /* More spacing between cards, if stacking */
 	background-color: #ffffff; /* White background for internal cards */
 	border: none; /* Remove default card border */
@@ -147,11 +153,17 @@ textarea.form-control {
 .text-muted-custom {
 	color: #6c757d !important;
 }
+
+.foot {
+	margin-top: 30px;
+	
+	background-color: rgb(202, 169, 135);
+}
 </style>
 </head>
 <body>
 
-	<div class="main-content-wrapper">
+	<div class="main-content-wrapper ">
 		<h1 class="billing-header">
 			<i class="fas fa-receipt me-2"></i> Billing Area
 		</h1>
@@ -185,11 +197,29 @@ textarea.form-control {
 						</div>
 						<hr>
 						<div class="mt-3">
-							<label for="comment" class="form-label">Add a note for the
-								restaurant:</label>
+							<label for="comment" class="form-label">Add a note for
+								the restaurant:</label>
 							<textarea class="form-control" id="comment" rows="3"
 								placeholder="E.g., No onions, extra spicy, or allergy information..."
 								name="comment" th:field="*{comment}"></textarea>
+						</div>
+
+						<br>
+						<h4 class="mb-3">From</h4>
+						<div class="delivery-info mb-4">
+							<div class="d-flex align-items-center mb-2">
+								<img width="22" height="22"
+									src="https://as2.ftcdn.net/v2/jpg/02/38/67/23/1000_F_238672311_IY5p9PT4h9pwsEhf1ikdXBCH3fC6wDS5.jpg"
+									alt="delivery time icon" />
+
+								<p class="mb-0" th:text="${food.rName}"><p>
+								</p>
+								,
+								</p><p style="margin-left: 5px" class="mb-0"
+									th:text="${food.rAddress}"></p>
+							</div>
+
+
 						</div>
 					</div>
 				</div>
@@ -228,23 +258,74 @@ textarea.form-control {
 								th:value="${food.rs} + '.00'" readonly name="price">
 						</div>
 						<div class="mb-3 payment-options">
-							<label class="form-label d-block">Choose Payment Method:</label>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="paymentMethod"
-									id="paymentOnline" value="Online" checked> <label
-									class="form-check-label" for="paymentOnline">Online
-									Payment</label>
+							<div class="mb-3 payment-options">
+								<label class="form-label d-block">Choose Payment Method:</label>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio"
+										name="paymentMethod" id="paymentOnline" value="Online"
+										onclick="togglePaymentOptions()"> <label
+										class="form-check-label" for="paymentOnline">Online
+										Payment</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio"
+										name="paymentMethod" id="paymentCOD" value="COD"
+										onclick="togglePaymentOptions()"> <label
+										class="form-check-label" for="paymentCOD">Cash On
+										Delivery (COD)</label>
+								</div>
 							</div>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="paymentMethod"
-									id="paymentCOD" value="COD"> <label
-									class="form-check-label" for="paymentCOD">Cash On
-									Delivery (COD)</label>
+
+							<!-- QR Code Section (Initially Hidden) -->
+							<div id="qr-container" style="display: none; text-align: center;">
+								<h4>Scan & Pay</h4>
+								<img id="qr-image" style="width: 150px; height: 150px;"
+									src="https://i.pinimg.com/originals/8d/3e/9f/8d3e9f23fdcc10dabe15567c0c8f612e.jpg"
+									alt="QR Code">
+								<p id="qr-details"></p>
 							</div>
+
+							<!-- Confirm Payment Button (Hidden by Default) -->
+							<div class="text-center mt-4">
+								<button id="confirmPaymentBtn" class="btn btn-success"
+									style="display: none;" onclick="enablePlaceOrder()">Confirm
+									Payment</button>
+							</div>
+
+
+
+							<script>
+								function togglePaymentOptions() {
+									let qrContainer = document
+											.getElementById("qr-container");
+									let confirmPaymentBtn = document
+											.getElementById("confirmPaymentBtn");
+									let placeOrderBtn = document
+											.getElementById("placeOrderBtn");
+
+									if (document
+											.getElementById("paymentOnline").checked) {
+										qrContainer.style.display = "block";
+										confirmPaymentBtn.style.display = "block"; // Show Confirm Payment button
+										placeOrderBtn.disabled = true; // Disable Place Order until payment is confirmed
+									} else {
+										qrContainer.style.display = "none";
+										confirmPaymentBtn.style.display = "none";
+										placeOrderBtn.disabled = false; // Enable Place Order for COD
+									}
+								}
+
+								function enablePlaceOrder() {
+									document.getElementById("placeOrderBtn").disabled = false; // Enable Place Order after confirmation
+									alert("Payment Confirmed! You can now place your order.");
+								}
+							</script>
 						</div>
 					</div>
 				</div>
 			</div>
+
+
 
 
 			<input type="hidden" th:value="${food.name}" name="name"> <input
@@ -255,20 +336,34 @@ textarea.form-control {
 				type="hidden" th:value="${ctm.address}" name="cAddress"> <input
 				type="hidden" th:value="${ctm.email}" name="cEmail"> <input
 				type="hidden" th:value="${food.fImg}" name="fImg"> <input
-				type="hidden" th:value="1" name="flag">
-				<input
-				type="hidden" th:value="1" name="tFlag">
-				 <input
-				type="hidden" name="dEmail"> <input type="hidden"
+				type="hidden" th:value="1" name="flag"> <input type="hidden"
+				th:value="1" name="tFlag"> <input type="hidden"
+				name="dEmail"> <input type="hidden"
 				th:value="${food.rAddress}" name="rAddress">
 
-			<div class="text-center mt-5">
-				<button type="submit" class="btn btn-primary">Place Order</button>
+			<!-- Place Order Button (Initially Disabled) -->
+			<div class="text-center mt-4 ">
+				<button id="placeOrderBtn" type="submit" class="btn btn-primary"
+					disabled>Place Order</button>
 			</div>
+
+
 		</form>
 
+
+
 	</div>
+	<footer class=" foot text-center py-3 text-white  w-100">
+
+		<div class="container  ">
+			<p class="mb-2">&copy; 2025 Foodie Express. All Rights Reserved.</p>
+
+		</div>
+	</footer>
+
 	<script src="https://kit.fontawesome.com/a076d05399.js"
 		crossorigin="anonymous"></script>
 </body>
+
+
 </html>
