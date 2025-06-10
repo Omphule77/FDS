@@ -55,6 +55,12 @@ public class OrderDaoImpl implements OrderDao {
         .setParameter("orderId", orderId)
         .executeUpdate();
     }
+    @Override
+    public Orders findOrderById(int orderId) {
+        return entityManager.find(Orders.class, orderId);
+    }
+    
+
 
 
 

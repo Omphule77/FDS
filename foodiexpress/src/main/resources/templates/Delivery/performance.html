@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Performance Summary</title>
+    
+    <!-- Bootstrap & jQuery -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
         body {
             background-color: white;
             padding-top: 100px; /* Fix navbar overlap */
         }
+
         .navbar {
             background-color: rgb(202, 169, 135) !important;
             width: 100%;
@@ -18,12 +22,14 @@
             top: 0;
             z-index: 1000;
         }
+
         .navbar-brand {
             color: white !important;
             font-size: 24px;
             font-weight: bold;
             cursor: pointer;
         }
+
         .profile-icon {
             width: 40px;
             height: 40px;
@@ -31,23 +37,32 @@
             object-fit: cover;
             cursor: pointer;
         }
+
         .container {
             max-width: 900px;
         }
+
         .card {
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            height:150px;
             margin-bottom: 15px;
         }
+        .mcard{
+        	height: 200px;
+        }
+
         .highlight {
             font-weight: bold;
             color: red;
         }
+
         .insights-list {
             text-align: left;
             padding-left: 20px;
         }
+
         .footer {
             background-color: rgb(202, 169, 135) !important;
             color: white;
@@ -65,7 +80,8 @@
         <div class="container-fluid">
             <a class="navbar-brand" href='/index'>Foodie Express</a>
             <div class="ms-auto">
-                <img id="profileIcon" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-icon" alt="User Profile Icon" onclick="navigateToProfile()">
+                <img id="profileIcon" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
+                     class="profile-icon" alt="User Profile Icon" onclick="navigateToProfile()">
             </div>
         </div>
     </nav>
@@ -73,62 +89,61 @@
     <!-- Performance Summary Section -->
     <div class="container mt-4">
         <h2 class="text-center mb-4">Performance Summary</h2>
+
         <div class="row g-4">
+            <!-- Total Deliveries -->
             <div class="col-md-6">
-                <div class="card">
+                <div class="card ">
                     <h5 class="card-title">Total Deliveries</h5>
-	                    <p class="card-text highlight" th:text="${totalDeliveries}">Loading...</p>
-        				<p class="card-text">You’ve completed <span th:text="${totalDeliveries}"></span> deliveries till now. Great job staying consistent!</p>
+                    <p class="card-text highlight" th:text="${totalDeliveries}">Loading...</p>
+                    <p class="card-text">
+                        You’ve completed <span th:text="${totalDeliveries}"></span> deliveries till now. 
+                        Great job staying consistent!
+                    </p>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <h5 class="card-title">Average Delivery Time</h5>
-                    <p class="card-text highlight">25 minutes</p>
-                    <p class="card-text">Your average delivery time is below 30 minutes, which is excellent! Keep it up.</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <h5 class="card-title">Customer Ratings</h5>
-                    <p class="card-text highlight">4.8/5</p>
-                    <p class="card-text">Your high ratings reflect your dedication. Customers appreciate your timely service.</p>
-                </div>
-            </div>
+
+            <!-- Success Rate -->
             <div class="col-md-6">
                 <div class="card">
                     <h5 class="card-title">Success Rate</h5>
                     <p class="card-text highlight" th:text="${successRate + '%'}">Loading...</p>
-        			<p class="card-text" th:text="${successMessage}">Analyzing performance...</p>
+                    <p class="card-text" th:text="${successMessage}">Analyzing performance...</p>
                 </div>
             </div>
         </div>
-        <div class="card mt-4">
+
+        <!-- Insights and Suggestions -->
+        <div class="card mt-4 mcard">
             <h5>Insights and Suggestions</h5>
             <ul class="insights-list">
-                <li><strong>Strength:</strong> Your on-time delivery rate is outstanding!</li>
-                <li><strong>Improvement Area:</strong> Focus on optimizing routes during peak traffic hours.</li>
-                <li><strong>Recommendation:</strong> Use the map integration feature to plan the shortest routes.</li>
-            </ul>
+                    <li><strong>Consistency:</strong> Maintaining a steady pace ensures better efficiency.</li>
+                    <li><strong>Peak Hour Strategy:</strong> Planning ahead can minimize delays during rush hours.</li>
+                    <li><strong>Customer Communication:</strong> Clear and friendly updates improve customer satisfaction.</li>
+                    <li><strong>Route Optimization:</strong> Using navigation tools helps shorten delivery time.</li>
+                    <li><strong>Growth Mindset:</strong> Every delivery is a chance to improve and refine your skills!</li>
+                </ul>
         </div>
     </div>
+
     <!-- Footer -->
     <div class="footer">
         &copy; 2025 Foodie Express. All rights reserved.
     </div>
 
+    <!-- JavaScript -->
     <script>
         function navigateToProfile() {
             window.location.href = '/profile';
         }
+
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                window.location.reload();
+            }
+        });
     </script>
-    <script>
-  window.addEventListener('pageshow' , function (event) {
-		if(event.persisted || (window.performance && window.performance.navigation.type === 2)){
-			window.location.reload();
-		}
-});
-  </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
