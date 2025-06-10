@@ -29,6 +29,7 @@ public class RestaurantController {
 	        return "Restaurant/restrohome"; 
 	    }
 	 
+
 	 @GetMapping("/addFood/{remail}")
 	 public String addFood(@PathVariable String remail, Model m) {
 	     System.out.println(remail);

@@ -34,7 +34,7 @@ public class OrderDaoImpl implements OrderDao {
         Orders order = entityManager.find(Orders.class, orderId);
         if (order != null) {
             order.setFlag(flag);
-            order.setdEmail(dEmail); // Assign delivery agent's email when order is accepted/rejected/completed
+            order.setdEmail(dEmail); 
             entityManager.merge(order);
         } else {
             throw new RuntimeException("Order ID " + orderId + " not found.");

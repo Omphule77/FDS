@@ -90,10 +90,11 @@
             color: white;
             text-align: center;
             padding: 15px;
-            position: fixed;
+            position: relative;
             bottom: 0;
             width: 100%;
             font-size: 14px;
+            
         }
     </style>
 </head>
@@ -119,42 +120,46 @@
 
         <!-- Render active orders -->
         <div class="row g-4" th:if="${orders != null and !#lists.isEmpty(orders)}">
-            <div class="col-md-6" th:each="order : ${orders}">
-                <div class="card p-3" th:id="'order-' + ${order.orderId}">
-                    <h5 th:text="'Order #' + ${order.orderId}"></h5>
-                    <p><strong>Restaurant:</strong> <span th:text="${order.rName}"></span></p>
-                    <p><strong>Pickup Location:</strong> <span th:text="${order.rAddress}"></span></p>
-                    <p><strong>Delivery Address:</strong> <span th:text="${order.cAddress}"></span></p>
-                    <p><strong>Customer Name:</strong> <span th:text="${order.cName}"></span></p>
-                    <p><strong>Customer Phone:</strong> <span th:text="${order.cPhone}"></span></p>
+    <div class="col-md-6" th:each="order : ${orders}">
+        <div class="card p-3" th:id="'order-' + ${order.orderId}">
+            <h5 th:text="'Order #' + ${order.orderId}"></h5>
+            <p><strong>Restaurant:</strong> <span th:text="${order.rName}"></span></p>
+            <p><strong>Pickup Location:</strong> <span th:text="${order.rAddress}"></span></p>
+            <p><strong>Delivery Address:</strong> <span th:text="${order.cAddress}"></span></p>
+            <p><strong>Customer Name:</strong> <span th:text="${order.cName}"></span></p>
+            <p><strong>Customer Phone:</strong> <span th:text="${order.cPhone}"></span></p>
 
-               
-					<a th:href="@{/delivery/reciveOrder(orderId=${order.orderId})}" class="receive-btn" th:id="'receiveBtn-' + ${order.orderId}"> Receive Order</a>
+            <!-- Receive Order Button -->
+            <!-- Show order-specific success message -->
+			<div th:if="${successMessageMap != null and successMessageMap.containsKey(order.orderId)}" class="alert alert-success text-center">
+			    <span th:text="${successMessageMap[order.orderId]}"></span>
+			</div>
 
-					<div th:if="${errorMessage}" class="alert alert-danger">
-					    <span th:text="${errorMessage}"></span>
-					</div>
-					
+            
+            <a th:href="@{/delivery/reciveOrder(orderId=${order.orderId})}" class="receive-btn" th:id="'receiveBtn-' + ${order.orderId}"> Receive Order</a>
 
-					<!-- Complete Order Form -->
-					<form th:action="@{/delivery/complete-order}" method="post" th:id="'complete-' + ${order.orderId}">
-					    <input type="hidden" th:value="${order.orderId}" name="orderId">
-					    <input type="text" name="otp" class="form-control mb-2" placeholder="Enter OTP" required minlength="6" maxlength="6">
-					    <button type="submit" class="complete-btn">
-					        ✅ Complete Order
-					    </button>
-					</form>
-                    
-                </div>
-            </div>
+            <!-- Show error only for that specific order -->
+			<div th:if="${errorMessageMap != null and errorMessageMap.containsKey(order.orderId)}" class="alert alert-danger">
+			    <span th:text="${errorMessageMap[order.orderId]}"></span>
+			</div>
+
+            <!-- Complete Order Form -->
+            <form th:action="@{/delivery/complete-order}" method="post" th:id="'complete-' + ${order.orderId}">
+                <input type="hidden" th:value="${order.orderId}" name="orderId">
+                <input type="text" name="otp" class="form-control mb-2" placeholder="Enter OTP" required minlength="6" maxlength="6">
+                <button type="submit" class="complete-btn">✅ Complete Order</button>
+            </form>
         </div>
     </div>
+</div>
+
+    </div>
     <script>
-  window.addEventListener('pageshow' , function (event) {
-		if(event.persisted || (window.performance && window.performance.navigation.type === 2)){
-			window.location.reload();
-		}
-});
+		  window.addEventListener('pageshow' , function (event) {
+				if(event.persisted || (window.performance && window.performance.navigation.type === 2)){
+					window.location.reload();
+				}
+		});
   </script>
 
     <!-- Footer -->
