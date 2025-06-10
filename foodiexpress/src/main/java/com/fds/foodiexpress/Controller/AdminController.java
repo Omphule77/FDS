@@ -5,28 +5,38 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fds.foodiexpress.Service.AdminService;
 import com.fds.foodiexpress.entity.Admin;
+import com.fds.foodiexpress.entity.Authorities;
 import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
 import com.fds.foodiexpress.entity.Restaurant;
+import com.fds.foodiexpress.entity.Users;
+
+import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
 	private final AdminService adminService;
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	public AdminController(AdminService adminService) {
+	public AdminController(AdminService adminService , PasswordEncoder passwordEncoder) {
 		this.adminService = adminService;
+		this.passwordEncoder=passwordEncoder;
 	}
 
 	@GetMapping("/admin-dashboard")
@@ -45,14 +55,14 @@ public class AdminController {
 		return "Admin/adminhome";
 	}
 
-	@PostMapping("/admin/toggleFlag")
+	@PostMapping("/admintoggleFlag")
 	public String toggleFlag(@RequestParam String email, @RequestParam String tab,
 			RedirectAttributes redirectAttributes) {
 		// Use the email as the unique identifier to toggle the flag.
 		adminService.toggleCustomerFlag(email);
 		redirectAttributes.addFlashAttribute("message", " flag updated successfully!");
 		// return "redirect:/admin-dashboard";
-		return "redirect:/admin-dashboard?tab=" + tab;
+		return "redirect:/admin/admin-dashboard?tab=" + tab;
 	}
 
 	@GetMapping("/admin-profile")
@@ -68,8 +78,41 @@ public class AdminController {
 	}
 	
 	@PostMapping("/updateAdmin")
-	public String updateAdmin(@ModelAttribute("admin") Admin admin){
+	public String updateAdmin(@ModelAttribute("admin") Admin admin,RedirectAttributes redirectAttributes){
 		adminService.updateAdmin(admin);
-		return "redirect:/admin-profile";		
+		redirectAttributes.addFlashAttribute("successMessage","Your Profiles Detail are successfully updated");
+		return "redirect:/admin/admin-profile";		
+	}
+	
+	@GetMapping("/admin-operations")
+	public String adminOperations(Model model) {
+		model.addAttribute("admin", new Admin());
+		return "Admin/admin-operations";
+	}
+	
+	@PostMapping("/addAdmin")
+	public String addAdmin( @Valid @ModelAttribute Admin admin,BindingResult bindingResult ,RedirectAttributes redirectAttributes,Model model){
+		
+		if (bindingResult.hasErrors()) {
+            // If there are validation errors
+            model.addAttribute("admin", admin); 
+            return "Admin/admin-operations"; 
+        }
+		System.out.println(admin);
+		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+		Users user = new Users();
+		Authorities authority = new Authorities();
+		
+		user.setUsername(admin.getEmail());
+		user.setPassword(admin.getPassword());
+		user.setEnabled("1");
+		
+		authority.setUsername(admin.getEmail());
+		authority.setAuthority("ROLE_ADMIN");
+		
+		adminService.addAdmin(user, authority, admin);
+        redirectAttributes.addFlashAttribute("successMessage", "Admin added successfully!");
+		return "redirect:/admin/admin-operations";
+		
 	}
 }

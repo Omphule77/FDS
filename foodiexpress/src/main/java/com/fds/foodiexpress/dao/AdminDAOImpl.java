@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.fds.foodiexpress.dao.AdminDAO;
 import com.fds.foodiexpress.dao.CustomerDao;
 import com.fds.foodiexpress.entity.Admin;
+import com.fds.foodiexpress.entity.Authorities;
 import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
 import com.fds.foodiexpress.entity.Restaurant;
@@ -142,6 +143,13 @@ public class AdminDAOImpl implements AdminDAO {
 		}
 		entityManager.merge(admin);
 		
+	}
+
+	@Override
+	public void add(Users user,Authorities authority,Admin admin) {
+		entityManager.persist(user);
+		entityManager.persist(authority);
+		entityManager.persist(admin);
 	}
 
 }

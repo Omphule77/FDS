@@ -41,6 +41,12 @@ public class CustomerController {
 		this.userService=userService;
 	}
 	
+	@GetMapping("/")
+	public String homePage() {
+	
+		return "redirect:showLogin";
+	}
+	
 	@GetMapping("/dashboard/{username}")
 	public String afterLogin(Model m,@PathVariable String username) {
 		System.out.println("UserName: "+username);
@@ -76,7 +82,7 @@ public class CustomerController {
 		            return "redirect:/delivery-dashboard";
 		        case "ROLE_ADMIN":
 		            System.out.println("Redirecting to Admin Panel...");
-		            return "redirect:/admin-dashboard";
+		            return "redirect:/admin/admin-dashboard";
 		        default:
 		            System.out.println("Redirecting to Default Dashboard...");
 		            return "redirect:/login";

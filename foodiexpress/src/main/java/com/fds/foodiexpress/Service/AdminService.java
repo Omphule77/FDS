@@ -3,9 +3,11 @@ package com.fds.foodiexpress.Service;
 import java.util.Map;
 
 import com.fds.foodiexpress.entity.Admin;
+import com.fds.foodiexpress.entity.Authorities;
 import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
 import com.fds.foodiexpress.entity.Restaurant;
+import com.fds.foodiexpress.entity.Users;
 
 public interface AdminService {
 
@@ -18,4 +20,5 @@ public interface AdminService {
 	void toggleCustomerFlag(String email);
 	Admin getAdminDetails(String email);
 	void updateAdmin(Admin admin);
+	void addAdmin(Users user,Authorities authority,Admin admin);
 }
