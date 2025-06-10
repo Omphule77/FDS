@@ -8,4 +8,5 @@ public interface OrderDao {
     List<Orders> findOrdersByFlagAndDEmail(String flag, String dEmail); 
     void updateOrderDetails(int orderId, String flag, String dEmail); 
     List<Orders> getAvailableOrdersExcludingAgent(List<String> flags, String excludedEmail);
+    void updateOrderTFlag(int orderId, String newTFlag);
 }
