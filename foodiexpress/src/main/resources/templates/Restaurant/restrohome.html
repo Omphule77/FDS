@@ -40,15 +40,15 @@
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card" style="width: 100%; border-top-left-radius: 100px;">
-                <img src="/img/seeorder.jpg" class="card-img-top" alt="See Orders" style="border-top-left-radius: 50px; margin-top:20px;">
+        <div class="col-md-3"> <div class="card">
+                <img src="/img/seeorder.jpg" class="card-img-top" alt="See Orders" style="margin-top:20px;">
                 <div class="card-body">
-                    <h6 style="text-align: center;">See Orders</h6>
+                    <h6>View Pending Orders</h6>
                     <hr>
-                   <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #10a710; border-radius: 20px;">
-                        <a th:href="@{/addFood}" style="text-decoration: none; color: white;">Check In</a>
-                    </button>   </div>
+                    <button type="submit" class="btn btn-check-in">
+                        <a th:href="@{/restaurant/orders(email=${restaurantEmail}, flag=0)}" style="text-decoration: none; color: white;">Check In</a>
+                    </button>
+                </div>
             </div>
         </div>
 
