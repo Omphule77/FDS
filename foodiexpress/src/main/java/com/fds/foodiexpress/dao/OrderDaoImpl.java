@@ -47,5 +47,15 @@ public class OrderDaoImpl implements OrderDao {
                 .setParameter("excludedEmail", excludedEmail)
                 .getResultList();
     }
+    @Override
+    @Transactional
+    public void updateOrderTFlag(int orderId, String newTFlag) {
+    	entityManager.createQuery("UPDATE Orders o SET o.tFlag = :newTFlag WHERE o.orderId = :orderId")
+        .setParameter("newTFlag", newTFlag)
+        .setParameter("orderId", orderId)
+        .executeUpdate();
+    }
+
+
 
 }

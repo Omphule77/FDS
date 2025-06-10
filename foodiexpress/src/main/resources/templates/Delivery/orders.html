@@ -9,13 +9,13 @@
 
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: white;
             font-family: 'Arial', sans-serif;
         }
 
         /* Navbar Styling */
         .navbar {
-            background-color: red;
+            background-color: rgb(202, 169, 135) !important;
             padding: 10px 20px;
         }
         .navbar-brand {
@@ -69,7 +69,7 @@
 
         /* Footer Styling */
         .footer {
-            background-color: #FF6F61;
+            background-color: rgb(202, 169, 135) !important;
             color: white;
             text-align: center;
             padding: 15px;
@@ -142,7 +142,7 @@
     <!-- Available Orders Section -->
     <div class="container mt-4">
         <h2 class="text-center mb-4">Available Orders</h2>
-        <div id="noOrdersMessage" class="no-orders-message">🚀 You don't have any new orders.</div>
+        <div id="noOrdersMessage" class="no-orders-message">You don't have any new orders.</div>
         
         <div class="row g-4" th:if="${orders != null and !#lists.isEmpty(orders)}">
             <div class="col-md-6 fade-in" th:each="order : ${orders}">
