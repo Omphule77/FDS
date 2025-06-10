@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,6 +27,7 @@ import com.fds.foodiexpress.entity.Users;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
 	private final AdminService adminService;
@@ -53,14 +55,14 @@ public class AdminController {
 		return "Admin/adminhome";
 	}
 
-	@PostMapping("/admin/toggleFlag")
+	@PostMapping("/admintoggleFlag")
 	public String toggleFlag(@RequestParam String email, @RequestParam String tab,
 			RedirectAttributes redirectAttributes) {
 		// Use the email as the unique identifier to toggle the flag.
 		adminService.toggleCustomerFlag(email);
 		redirectAttributes.addFlashAttribute("message", " flag updated successfully!");
 		// return "redirect:/admin-dashboard";
-		return "redirect:/admin-dashboard?tab=" + tab;
+		return "redirect:/admin/admin-dashboard?tab=" + tab;
 	}
 
 	@GetMapping("/admin-profile")
@@ -78,7 +80,7 @@ public class AdminController {
 	@PostMapping("/updateAdmin")
 	public String updateAdmin(@ModelAttribute("admin") Admin admin){
 		adminService.updateAdmin(admin);
-		return "redirect:/admin-profile";		
+		return "redirect:/admin/admin-profile";		
 	}
 	
 	@GetMapping("/admin-operations")
@@ -109,7 +111,7 @@ public class AdminController {
 		
 		adminService.addAdmin(user, authority, admin);
         redirectAttributes.addFlashAttribute("successMessage", "Admin added successfully!");
-		return "redirect:/admin-operations";
+		return "redirect:/admin/admin-operations";
 		
 	}
 }

@@ -55,6 +55,7 @@ public class SecurityConfig {
                 .requestMatchers("/dashboard").hasRole("CUSTOMER")
                 .requestMatchers("/restro-dashboard").hasRole("RESTAURANT")
                 .requestMatchers("/delivery-dashboard").hasRole("DELIVERY")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .headers(headers -> headers
