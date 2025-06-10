@@ -3,6 +3,7 @@ package com.fds.foodiexpress.dao;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +28,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	private EntityManager entityManager;
 	private PasswordEncoder passwordEncoder;
 	 
+	@Autowired
 	public CustomerDaoImpl(EntityManager em,PasswordEncoder passwordEncoder ) {
 		entityManager=em;
 		this.passwordEncoder = passwordEncoder;
@@ -58,7 +60,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		delivery.setPassword(passwordEncoder.encode(delivery.getPassword()));
 		user.setUsername(delivery.getEmail());
 		user.setPassword(delivery.getPassword());
-		user.setEnabled("1");
+		user.setEnabled("0");
 		
 		authorities.setAuthority("ROLE_DELIVERY");
 		authorities.setUsername(delivery.getEmail());
@@ -77,7 +79,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		restaurant.setPassword(passwordEncoder.encode(restaurant.getPassword()));
 		user.setUsername(restaurant.getoEmail());
 		user.setPassword(restaurant.getPassword());
-		user.setEnabled("1");
+		user.setEnabled("0");
 		
 		authorities.setAuthority("ROLE_RESTAURANT");
 		authorities.setUsername(restaurant.getoEmail());

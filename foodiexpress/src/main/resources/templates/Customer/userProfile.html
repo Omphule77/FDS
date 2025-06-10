@@ -91,6 +91,14 @@ body {
 .btn-primary:hover {
 	background-color: #e55338;
 }
+
+.foot {
+	margin-top:40px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	
+}
 </style>
 </head>
 <body>
@@ -109,28 +117,38 @@ body {
 			<form action="/updateCustomer" method="post">
 				<div class="form-container">
 					<div class="form-group">
+					    <div class="text-danger" th:if="${#fields.hasErrors('ctm.name')}" th:errors="*{ctm.name}"></div>
+					
 						<label for="name">Name</label> <input type="text" id="name"
 							name="name" th:value="${ctm.name}" class="form-control">
 					</div>
 
 					<div class="form-group">
+						<div class="text-danger" th:if="${#fields.hasErrors('ctm.email')}" th:errors="*{ctm.email}"></div>
+					
 						<label for="email">Email</label> <input type="email" id="email"
-							name="email" th:value="${ctm.email}" class="form-control">
+							name="email" th:value="${ctm.email}" class="form-control" readonly>
 					</div>
 
 
 
 					<div class="form-group">
+						<div class="text-danger" th:if="${#fields.hasErrors('ctm.phone')}" th:errors="*{ctm.phone}"></div>
+					
 						<label for="phone">Phone</label> <input type="tel" id="phone"
 							name="phone" th:value="${ctm.phone}" class="form-control">
 					</div>
 
 					<div class="form-group">
+						<div class="text-danger" th:if="${#fields.hasErrors('ctm.altPhone')}" th:errors="*{ctm.altPhone}"></div>
+					
 						<label for="altPhone">Alternate Phone</label> <input type="tel"
 							id="altPhone" name="altPhone" th:value="${ctm.altPhone}"
 							class="form-control">
 					</div>
 					<div class="form-group add">
+						<div class="text-danger" th:if="${#fields.hasErrors('ctm.address')}" th:errors="*{ctm.address}"></div>
+					
 						<label for="address">Address</label> <input type="text"
 							id="address" name="address" th:value="${ctm.address}"
 							class="form-control">
@@ -149,7 +167,13 @@ body {
 		<div th:if="${ctm == null}" class="text-center py-4">
 			<p class="text-muted">No customer information available.</p>
 		</div>
+		
+		
 	</div>
+	
+	
+
+		
 
 
 	<script>
@@ -187,6 +211,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<div class="foot">
+			<p class="mb-2">&copy; 2025 Foodie Express. All Rights Reserved.</p>
 
+</div>
+	
 </body>
 </html>
