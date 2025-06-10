@@ -3,6 +3,7 @@ package com.fds.foodiexpress.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fds.foodiexpress.dao.CustomerDao;
@@ -19,6 +20,7 @@ import jakarta.transaction.Transactional;
 public class CustomerServiceImpl implements CustomerService {
 	
 	CustomerDao customerDao;
+	@Autowired
 	public CustomerServiceImpl(CustomerDao customerDao) {
 		this.customerDao=customerDao;
 	}

@@ -70,7 +70,7 @@
             border-radius: 25px;
             z-index: 0;
         }
-
+		
         .order-card {
             position: relative;
             z-index: 1;
@@ -274,11 +274,39 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
+        .foot {
+            margin-top: 30px;	
+            background-color: rgb(202, 169, 135);
+        }
         
-        
+        /* Pagination styles */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
 
-        /* Font Awesome for Icons */
-        @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+        .pagination .page-item .page-link {
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 0 5px;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: rgb(202, 169, 135) !important; /* Match your header underline color */
+            border-color: rgb(202, 169, 135) !important;
+            color: white;
+        }
+
+        .pagination .page-item .page-link:hover {
+            background-color: #f0f2f5;
+            border-color: #dcdcdc;
+        }
     </style>
 </head>
 
@@ -286,30 +314,28 @@
     <h3 class="page-header">Your Recent Orders</h3>
 
     <div class="main-content-wrapper">
-    <div class="row">
-        <div th:each="c : ${order}" class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="food-details">
-                        <img th:src="${c.fImg}" alt="Food Image">
-                        <div class="food-info">
-                            <h4 th:text="${c.name}">Delicious Burger</h4>
-                            <div class="restaurant-name">
-                                <i class="fas fa-utensils"></i> 
-                                <span th:text="${c.rName}">The Grill House</span>
+        <div class="row" id="orderItemsContainer">
+            <div th:each="c : ${order}" class="col-md-4 mb-4 order-card-item" style="display: none;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="food-details">
+                            <img th:src="${c.fImg}" alt="Food Image">
+                            <div class="food-info">
+                                <h4 th:text="${c.name}">Delicious Burger</h4>
+                                <div class="restaurant-name">
+                                    <i class="fas fa-utensils"></i> 
+                                    <span th:text="${c.rName}">The Grill House</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                 
-                    <div class="price-quantity-section">
-                        <h4>Quantity: <span style="margin-left: 20px" th:text="${c.quantity}">1</span></h4>
-                    </div>
-                    <div class="price-quantity-section">
-                        <h4 >Total: <strong style="margin-left: 20px">Rs. <span th:text="${c.price}">150.00</span></strong></h4>
-                    </div>
-
-                    
+                     
+                        <div class="price-quantity-section">
+                            <h4>Quantity: <span style="margin-left: 20px" th:text="${c.quantity}">1</span></h4>
+                        </div>
+                        <div class="price-quantity-section">
+                            <h4>Total: <strong style="margin-left: 20px">Rs. <span th:text="${c.price}">150.00</span></strong></h4>
+                        </div>
+                        
                         <div class="action-buttons">
                             <button type="button" class="btn btn-feedback" data-bs-toggle="modal" data-bs-target="#feedbackModal">
                                 <i class="fas fa-comment-dots me-2"></i> Send Feedback
@@ -329,8 +355,11 @@
             <p class="lead text-muted">You haven't placed any orders yet. Start ordering now!</p>
         </div>
     </div>
-</div>
 
+    <nav aria-label="Order item pagination" class="pagination-container">
+        <ul class="pagination" id="orderPagination">
+            </ul>
+    </nav>
 
 
     <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
@@ -408,7 +437,155 @@
             </div>
         </div>
     </div>
+    
+   
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const orderItemsContainer = document.getElementById('orderItemsContainer');
+            // Select all order cards initially present in the HTML (hidden by default)
+            const orderCards = Array.from(orderItemsContainer.getElementsByClassName('col-md-4 mb-4'));
+            const orderPagination = document.getElementById('orderPagination');
+
+            const itemsPerRow = 3; // Number of items (columns) per row in your Bootstrap grid
+            const rowsPerPage = 3; // Number of rows you want to display per page
+            const itemsPerPage = itemsPerRow * rowsPerPage; // Total items per page (e.g., 3 * 3 = 9)
+
+            let currentPage = 1;
+
+            // Function to display order items for a given page
+            function displayOrderItems(page) {
+                // Hide all order cards first
+                orderCards.forEach(card => card.style.display = 'none');
+
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+
+                // Show only the cards for the current page
+                for (let i = startIndex; i < endIndex && i < orderCards.length; i++) {
+                    orderCards[i].style.display = 'block';
+                }
+
+                updatePaginationButtons();
+            }
+
+            // Function to generate pagination buttons
+            function setupPagination() {
+                orderPagination.innerHTML = ''; // Clear existing pagination
+                const pageCount = Math.ceil(orderCards.length / itemsPerPage);
+
+                // Don't show pagination if there's only one page or no orders
+                if (pageCount <= 1 && orderCards.length > 0) { // Only show if there's more than one page needed, but if there are orders show a single page.
+                    // If only one page, still show the page number but without prev/next
+                    if (orderCards.length > 0) {
+                        const li = document.createElement('li');
+                        li.classList.add('page-item', 'active');
+                        li.innerHTML = `<a class="page-link" href="#">1</a>`;
+                        orderPagination.appendChild(li);
+                    }
+                    return;
+                }
+                
+                // Previous button
+                const prevLi = document.createElement('li');
+                prevLi.classList.add('page-item');
+                prevLi.innerHTML = `<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>`;
+                prevLi.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (currentPage > 1) {
+                        currentPage--;
+                        displayOrderItems(currentPage);
+                    }
+                });
+                orderPagination.appendChild(prevLi);
+
+                // Page number buttons
+                for (let i = 1; i <= pageCount; i++) {
+                    const li = document.createElement('li');
+                    li.classList.add('page-item');
+                    li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                    li.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        currentPage = i;
+                        displayOrderItems(currentPage);
+                    });
+                    orderPagination.appendChild(li);
+                }
+
+                // Next button
+                const nextLi = document.createElement('li');
+                nextLi.classList.add('page-item');
+                nextLi.innerHTML = `<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>`;
+                nextLi.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (currentPage < pageCount) {
+                        currentPage++;
+                        displayOrderItems(currentPage);
+                    }
+                });
+                orderPagination.appendChild(nextLi);
+
+                updatePaginationButtons();
+            }
+
+            // Function to update active state and enable/disable of pagination buttons
+            function updatePaginationButtons() {
+                const pageLinks = orderPagination.querySelectorAll('.page-item');
+                pageLinks.forEach(link => link.classList.remove('active', 'disabled'));
+
+                const totalPages = Math.ceil(orderCards.length / itemsPerPage);
+
+                // Set active class for the current page number
+                // Check if the current page button actually exists in the generated links
+                if (orderCards.length > 0) { // Only try to set active if there are orders
+                    const currentPageButtonIndex = currentPage; // +1 if you count previous button
+                    // The first child is 'Prev', then 1, 2, 3...
+                    if (pageLinks[currentPageButtonIndex] ) { // Accounts for 'Prev' button
+                        pageLinks[currentPageButtonIndex].classList.add('active');
+                    }
+                }
+
+
+                // Disable/enable Prev/Next buttons
+                const prevButton = pageLinks[0];
+                const nextButton = pageLinks[pageLinks.length - 1];
+                
+                if (currentPage === 1) {
+                    prevButton.classList.add('disabled');
+                } else {
+                    prevButton.classList.remove('disabled');
+                }
+
+                if (currentPage === totalPages || totalPages === 0) {
+                    nextButton.classList.add('disabled');
+                } else {
+                    nextButton.classList.remove('disabled');
+                }
+            }
+
+            // Initial setup and display
+            if (orderCards.length > 0) {
+                setupPagination();
+                displayOrderItems(currentPage);
+            } else {
+                // If no orders, ensure the "You haven't placed any orders yet" message is visible.
+                // The th:if="${#lists.isEmpty(order)}" handles this on the server-side.
+                // No need for client-side display logic here unless you dynamically add/remove content later.
+            }
+        });
+    </script>
+    <script>
+  window.addEventListener('pageshow' , function (event) {
+		if(event.persisted || (window.performance && window.performance.navigation.type === 2)){
+			window.location.reload();
+		}
+});
+  </script>
 </body>
+ <footer class=" foot text-center py-3 text-white  w-100">
+		<div class="container  ">
+			<p class="mb-2">&copy; 2025 Foodie Express. All Rights Reserved.</p>
+		</div>
+	</footer>
 </html>
