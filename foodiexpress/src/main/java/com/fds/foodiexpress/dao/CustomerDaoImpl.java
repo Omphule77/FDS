@@ -3,6 +3,7 @@ package com.fds.foodiexpress.dao;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +28,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	private EntityManager entityManager;
 	private PasswordEncoder passwordEncoder;
 	 
+	@Autowired
 	public CustomerDaoImpl(EntityManager em,PasswordEncoder passwordEncoder ) {
 		entityManager=em;
 		this.passwordEncoder = passwordEncoder;
