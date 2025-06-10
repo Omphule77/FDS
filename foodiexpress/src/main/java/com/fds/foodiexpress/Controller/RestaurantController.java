@@ -27,16 +27,6 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
 
-    @GetMapping("/restro-dashboard/{username}")
-    public String showDashboard(@PathVariable String username, Model model) {
-        System.out.println(username);
-        Optional<Restaurant> restro = restaurantService.findRByEmail(username);
-        if (restro.isPresent()) {
-            model.addAttribute("restaurantName", restro.get().getrName()); // Pass restaurant name to the dashboard
-        }
-        System.out.println(restro);
-        return "Restaurant/restrohome";
-    }
 
     @GetMapping("/restaurant/{rName}") 
     public String viewAllRestaurantOrders(@PathVariable String rName, Model model) {
@@ -100,15 +90,18 @@ public class RestaurantController {
     }
     
    
-//
-//	 @GetMapping("/restro-dashboard/{username}")
-//	    public String showDashboard(@PathVariable String username,Model model) {
-//		    System.out.println(username);
-//		    Optional<Restaurant> restro =restaurantService.findRByEmail(username);
-//		    model.addAttribute("remail", username);
-//	        return "Restaurant/restrohome"; 
-//	    }
-//	 
+
+	 @GetMapping("/restro-dashboard/{username}")
+	    public String showDashboard(@PathVariable String username,Model model) {
+		    System.out.println(username);
+		    Optional<Restaurant> restro =restaurantService.findRByEmail(username);
+		    if (restro.isPresent()) {
+            model.addAttribute("restaurantName", restro.get().getrName()); // Pass restaurant name to the dashboard
+        }
+		    model.addAttribute("remail", username);
+	        return "Restaurant/restrohome"; 
+	    }
+	 
 
 	 @GetMapping("/addFood/{remail}")
 	 public String addFood(@PathVariable String remail, Model m) {
