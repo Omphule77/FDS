@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.fds.foodiexpress.entity.Orders;
+import com.fds.foodiexpress.entity.Customer;
+import com.fds.foodiexpress.entity.Delivery;
+import com.fds.foodiexpress.entity.FoodItems;
 import com.fds.foodiexpress.entity.Restaurant;
 
 import jakarta.persistence.EntityManager;
@@ -62,4 +65,10 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 			entityManager.merge(order); // Merge the updated order
 		}
 	}
+
+	public void addFoodItem(FoodItems f) {
+		entityManager.persist(f);
+		
+	}
+
 }

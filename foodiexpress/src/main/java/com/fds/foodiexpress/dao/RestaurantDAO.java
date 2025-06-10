@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.fds.foodiexpress.entity.Orders;
+import com.fds.foodiexpress.entity.FoodItems;
 import com.fds.foodiexpress.entity.Restaurant;
 
 
@@ -12,4 +13,7 @@ public interface RestaurantDAO {
 	Optional<Restaurant> findByEmail(String email);
 	List<Orders> findOrdersByRestaurantNameAndTFlag(String restName, String tFlag); // New method
 	void updateOrderTFlag(int orderId, String newTFlag); // New method
+
+	void addFoodItem(FoodItems f);
+
 }

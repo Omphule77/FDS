@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -61,10 +60,9 @@ public class DeliveryDaoImpl implements DeliveryDAO {
     
     @Override
 	public List<Delivery> findAllDeliveryPartner() {
-		// write Query
+
 		TypedQuery theQuery = entityManager.createQuery("select d From Delivery d",Delivery.class);
 
-		// Return Query
 		return theQuery.getResultList();
 	}
 

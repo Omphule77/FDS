@@ -3,13 +3,17 @@ package com.fds.foodiexpress.Controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.fds.foodiexpress.Service.DeliveryServiceDAO;
 import com.fds.foodiexpress.Service.OrderService;
 import com.fds.foodiexpress.entity.Delivery;
 import com.fds.foodiexpress.entity.Orders;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DeliveryController {
@@ -115,25 +119,53 @@ public class DeliveryController {
     }
     
     @GetMapping("/delivery/reciveOrder")
-    public String receiveOrder(@RequestParam("orderId") int orderId) {
+    public String receiveOrder(@RequestParam("orderId") int orderId, RedirectAttributes redirectAttributes) {
         int agentId = getLoggedInAgentId();
-
         Delivery delivery = dsdao.findById(agentId);
+        
         orderService.updateOrderDetails(orderId, "2", delivery.getEmail());
         orderService.updateOrderTFlag(orderId, "2");
+
+        // Pass success message for the specific order
+        Map<Integer, String> successMessageMap = new HashMap<>();
+        successMessageMap.put(orderId, "✅ Order #" + orderId + " received successfully.");
+
+        redirectAttributes.addFlashAttribute("successMessageMap", successMessageMap);
+
         return "redirect:/details";
     }
 
 
+
     @PostMapping("/delivery/complete-order")
-    public String completeOrder(@RequestParam("orderId") int orderId) {
+    public String completeOrder(@RequestParam("orderId") int orderId, 
+                                @RequestParam("otp") String otp, 
+                                RedirectAttributes redirectAttributes) {
+        Orders order = orderService.findOrderById(orderId);
+
+        if (order == null) {
+            Map<Integer, String> errorMessageMap = new HashMap<>();
+            errorMessageMap.put(orderId, "Order not found.");
+            redirectAttributes.addFlashAttribute("errorMessageMap", errorMessageMap);
+            return "redirect:/details";
+        }
+
+        if (!order.getOtp().equals(otp)) {
+            Map<Integer, String> errorMessageMap = new HashMap<>();
+            errorMessageMap.put(orderId, "❌ Invalid OTP! Please try again.");
+            redirectAttributes.addFlashAttribute("errorMessageMap", errorMessageMap);
+            return "redirect:/details";
+        }
+
         int agentId = getLoggedInAgentId();
         Delivery delivery = dsdao.findById(agentId);
+
         orderService.updateOrderDetails(orderId, "4", delivery.getEmail());
         orderService.updateOrderTFlag(orderId, "3");
 
         return "redirect:/details";
     }
+
 
     @GetMapping("/performance")
     public String showPerformance(Model model) {

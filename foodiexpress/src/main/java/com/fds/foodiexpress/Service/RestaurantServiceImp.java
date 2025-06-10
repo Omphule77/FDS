@@ -6,8 +6,13 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.fds.foodiexpress.dao.RestaurantDAO;
+
 import com.fds.foodiexpress.entity.Orders;
+
+import com.fds.foodiexpress.entity.FoodItems;
 import com.fds.foodiexpress.entity.Restaurant;
+import jakarta.transaction.Transactional;
+
 import jakarta.transaction.Transactional;
 
 @Service
@@ -40,4 +45,13 @@ public class RestaurantServiceImp implements RestaurantService {
 	public void markOrderAsCompleted(int orderId) {
 		restaurantDAO.updateOrderTFlag(orderId, "1"); // Set tFlag to "1" for completed
 	}
+
+	@Override
+	@Transactional
+	public void addFood(FoodItems f) {
+		restaurantDAO.addFoodItem(f);
+		
+	}
+    
+    
 }

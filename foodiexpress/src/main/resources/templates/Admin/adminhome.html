@@ -62,7 +62,21 @@
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1">FOODIEXPRESS <span th:text="${adminName}"></span></span>
       <div class="d-flex gap-2">
-        <form th:action="@{/admin-profile}" method="get">
+      
+					<a th:href="@{/admin/admin-dashboard}"><button type="submit" class="btn btn-outline-dark">
+					<div class="icon-container">
+						<i class="fa-solid fa-house fa-lg"></i>
+						</div>
+					</button></a>
+				
+      	<form th:action="@{/admin/admin-operations}" method="get">
+					<button type="submit" class="btn btn-outline-dark">
+					<div class="icon-container">
+						<i class="fa-solid fa-screwdriver-wrench fa-lg"></i>
+						</div>
+					</button>
+				</form>
+        <form th:action="@{/admin/admin-profile}" method="get">
 					<button type="submit" class="btn btn-outline-dark">
 					<div class="icon-container">
 						<i class="fas fa-user fa-lg"></i>
@@ -104,7 +118,7 @@
               <td th:text="${entry.key.name}">Name</td>
               <td th:text="${entry.key.email}">Email</td>
               <td>
-                <form th:action="@{/admin/toggleFlag}" method="post">
+                <form th:action="@{/admin/admintoggleFlag}" method="post">
                   <input type="hidden" name="email" th:value="${entry.key.email}" />
                   <input type="hidden" name="tab" value="customer" />
                   <button type="submit" class="btn btn-sm btn-primary"
@@ -136,7 +150,7 @@
               <td th:text="${entry.key.name}">Name</td>
               <td th:text="${entry.key.email}">Email</td>
               <td>
-                <form th:action="@{/admin/toggleFlag}" method="post">
+                <form th:action="@{/admin/admintoggleFlag}" method="post">
                   <input type="hidden" name="email" th:value="${entry.key.email}" />
                   <input type="hidden" name="tab" value="delivery" />
                   <button type="submit" class="btn btn-sm btn-primary"
@@ -168,7 +182,7 @@
               <td th:text="${entry.key.rName}">Name</td>
               <td th:text="${entry.key.oEmail}">Email</td>
               <td>
-                <form th:action="@{/admin/toggleFlag}" method="post">
+                <form th:action="@{/admin/admintoggleFlag}" method="post">
                   <input type="hidden" name="email" th:value="${entry.key.oEmail}" />
                   <input type="hidden" name="tab" value="restaurant" />
                   <button type="submit" class="btn btn-sm btn-primary"

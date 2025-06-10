@@ -11,7 +11,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
+ 
 <style>
 body {
 	font-family: 'Poppins', sans-serif;
@@ -19,7 +19,7 @@ body {
 	color: black;
 	min-height: 100vh;
 }
-
+ 
 .signup-container {
 	background-color: rgb(202, 169, 135);
 	border-radius: 15px;
@@ -28,18 +28,18 @@ body {
 	z-index: 1;
 	
 }
-
+ 
 .btn-black {
 	background-color: black;
 	color: white;
 	font-weight: 600;
 }
-
+ 
 .btn-black:hover {
 	background-color: #333;
 }
 </style>
-
+ 
 <!-- <script>
 	function showForm() {
 		let userType = document.getElementById("userType").value;
@@ -56,11 +56,11 @@ body {
 <script>
 	function showForm(userTypeToDisplay) {
 		let userType = userTypeToDisplay || document.getElementById("userType").value;
-
+ 
 		document.getElementById("restaurantForm").style.display = "none";
 		document.getElementById("deliveryForm").style.display = "none";
 		document.getElementById("customerForm").style.display = "none";
-
+ 
 		// Clear fields when hiding (optional, but good for UX)
 		document.getElementById("restaurantForm").closest('form').reset();
 		document.getElementById("deliveryForm").closest('form').reset();
@@ -77,13 +77,13 @@ body {
 			document.getElementById("userType").value = "customer";
 		}
 	}
-
+ 
 	document.addEventListener("DOMContentLoaded", function() {
 		// Get values from model attributes, default to false if not present
 		let showCustomer = [[${showCustomerForm != null ? showCustomerForm : false}]];
 		let showRestaurant = [[${showRestaurantForm != null ? showRestaurantForm : false}]];
 		let showDelivery = [[${showDeliveryForm != null ? showDeliveryForm : false}]];
-
+ 
 		if (showRestaurant) {
 			showForm('restaurant');
 		} else if (showDelivery) {
@@ -95,22 +95,22 @@ body {
 		}
 	});
 </script>
-
+ 
 </head>
 <body>
-
+ 
 	<div class="bg-overlay"></div>
-
+ 
 	<div
 		class="container d-flex align-items-center justify-content-center min-vh-100">
 		<div class="col-md-8 col-lg-8"> <div class="text-center mb-4">
 				<h1 class="fw-bold" style="color: #ff5b03;">Foodie Express</h1>
 				<p>Delicious food at your doorstep</p>
 			</div>
-
+ 
 			<div class="signup-container shadow-lg">
 				<h2 class="text-center fw-bold mb-4">Create an Account</h2>
-
+ 
 				<label for="userType" class="form-label fw-medium">Select
 					User Type</label> <select class="form-select py-3 mb-3" id="userType"
 					onchange="showForm()" required>
@@ -118,7 +118,7 @@ body {
 					<option value="restaurant">Restaurant</option>
 					<option value="delivery">Delivery Boy</option>
 				</select>
-
+ 
 				<form th:action="@{/restaurantRegister}" method="post" th:object="${restro}">
     <div id="restaurantForm" style="display: none;">
         <div class="row">
@@ -127,38 +127,38 @@ body {
                 <div class="text-danger" th:if="${#fields.hasErrors('rName')}" th:errors="*{rName}"></div>
                 <input type="text" th:field="*{rName}" class="form-control mb-3"
                     placeholder="Restaurant Name">
-
+ 
                 <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
                 <input type="text" th:field="*{address}" class="form-control mb-3"
                     placeholder="Restaurant Address">
-
+ 
                 <div class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></div>
                 <input type="text" th:field="*{city}" class="form-control mb-3"
                     placeholder="City">
-
+ 
                 <div class="text-danger" th:if="${#fields.hasErrors('rPhone')}" th:errors="*{rPhone}"></div>
                 <input type="tel" th:field="*{rPhone}" class="form-control mb-3"
                     placeholder="Restaurant Phone Number">
-
+ 
                 <div class="text-danger" th:if="${#fields.hasErrors('gstId')}" th:errors="*{gstId}"></div>
                 <input type="text" th:field="*{gstId}" class="form-control mb-3"
                     placeholder="GST ID">
             </div>
-
+ 
             <div class="col-md-6">
                 <h4 class="fw-bold mt-3">Owner Details</h4>
                 <div class="text-danger" th:if="${#fields.hasErrors('oName')}" th:errors="*{oName}"></div>
                 <input type="text" th:field="*{oName}" class="form-control mb-3"
                     placeholder="Owner Name">
-
+ 
                 <div class="text-danger" th:if="${#fields.hasErrors('oEmail')}" th:errors="*{oEmail}"></div>
                 <input type="email" th:field="*{oEmail}" class="form-control mb-3"
                     placeholder="Owner Email ID">
-
+ 
                 <div class="text-danger" th:if="${#fields.hasErrors('oPhone')}" th:errors="*{oPhone}"></div>
                 <input type="tel" th:field="*{oPhone}" class="form-control mb-3"
                     placeholder="Owner Phone Number 1">
-
+ 
                 <div class="text-danger" th:if="${#fields.hasErrors('oAltPhone')}" th:errors="*{oAltPhone}"></div>
                 <input th:field="*{oAltPhone}" type="tel" class="form-control mb-3"
                     placeholder="Owner Phone Number 2 (Optional)">
@@ -169,7 +169,7 @@ body {
                     placeholder="Password">
             </div>
         </div>
-
+ 
         <h4 class="fw-bold mt-3">Operational Hours & Holidays</h4>
         <div class="row">
             <div class="col-md-6">
@@ -203,7 +203,7 @@ body {
         </div>
     </div>
 </form>
-
+ 
 				<form th:action="@{/deliveryRegister}" method="post"
 					th:object="${dvr}">
 					<div id="deliveryForm" style="display: none;">
@@ -213,15 +213,15 @@ body {
 								<div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
 								<input type="text" class="form-control mb-3"
 									placeholder="Full Name" th:field="*{name}"  >
-
+ 
 								<div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 								<input type="email" class="form-control mb-3" th:field="*{email}"
 									placeholder="Email" >
-
+ 
 								<div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
 								<input type="password" th:field="*{password}" class="form-control mb-3"
 									placeholder="Password" >
-
+ 
 								<div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
 								<input type="tel" class="form-control mb-3" th:field="*{phone}"
 									placeholder="Phone Number 1" >
@@ -232,19 +232,19 @@ body {
 							</div>
 							<div class="col-md-6">
 								
-
+ 
 								<div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
 								<input type="text" th:field="*{address}" class="form-control mb-3"
 									placeholder="Address"  >
-
+ 
 								<label>Date of Birth:</label>
 								<div class="text-danger" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></div>
 								<input type="date" th:field="*{dob}" class="form-control mb-3" >
-
+ 
 								<div class="text-danger" th:if="${#fields.hasErrors('vehicle')}" th:errors="*{vehicle}"></div>
 								<input type="text" th:field="*{vehicle}" class="form-control mb-3"
 									placeholder="Vehicle Number"  >
-
+ 
 								<div class="text-danger" th:if="${#fields.hasErrors('adharcard')}" th:errors="*{adharcard}"></div>
 								<input type="text" class="form-control mb-3" th:field="*{adharcard}"
 									placeholder="Aadhar Card Number"  >
@@ -255,7 +255,7 @@ body {
 						</div>
 					</div>
 				</form>
-
+ 
 				<form th:action="@{/customerRegister}" method="post"
 					th:object="${ctm}">
 					<div id="customerForm">
@@ -266,7 +266,7 @@ body {
 									th:errors="*{name}"></div>
 								<input type="text" class="form-control mb-3" th:field="*{name}"
 									placeholder="Full Name">
-
+ 
 								<div class="text-danger" th:if="${#fields.hasErrors('email')}"
 									th:errors="*{email}"></div>
 								<input type="email" class="form-control mb-3" th:field="*{email}"
@@ -287,29 +287,30 @@ body {
 									th:errors="*{address}"></div>
 								<input type="text" class="form-control mb-3" th:field="*{address}"
 									placeholder="Address">
-
+ 
 								<div class="text-danger" th:if="${#fields.hasErrors('password')}"
 									th:errors="*{password}"></div>
 								<input type="password" class="form-control mb-3"
 									th:field="*{password}" placeholder="Password">
 							</div>
 						</div>
-
+ 
 						<div class="d-grid mt-4">
 							<button type="submit" class="btn btn-black">Sign Up</button>
 						</div>
 					</div>
 				</form>
-
+ 
 				<div class="text-center " style="margin-top: 20px">
               <p>Already have an account? <a th:href="@{/showLogin}"
                   class="text-black text-decoration-underline fw-medium fw-bold">Login
                   </a></p>
             </div>
-
+ 
 			</div>
 		</div>
 	</div>
-
+ 
 </body>
 </html>
+ 
