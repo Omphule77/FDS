@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import com.fds.foodiexpress.entity.Orders;
 import com.fds.foodiexpress.entity.Restaurant;
 
 import jakarta.persistence.criteria.Order;
+import jakarta.validation.Valid;
 
 @Controller
 public class CustomerController {
@@ -81,37 +83,43 @@ public class CustomerController {
 		return "login";
 	}
 	
-	@GetMapping("/showLogin")
-	public String showLogin(Authentication authentication) {
-		if (authentication != null && authentication.isAuthenticated()) {
-//		    String username = authentication.getName();
-//		    String role = authentication.getAuthorities().stream()
-//		                                .map(GrantedAuthority::getAuthority)
-//		                                .findFirst()
-//		                                .orElse("ROLE_DEFAULT"); // Default role if none found
+//	@GetMapping("/showLogin")
+//	public String showLogin(Authentication authentication) {
+//		if (authentication != null && authentication.isAuthenticated()) {
 //
-//		    System.out.println("Username: " + username);
-//		    System.out.println("Role: " + role);
+//		            return "redirect:/goto";
+//		    }
+//		
 //
-//		    switch (role) {
-//		        case "ROLE_CUSTOMER":
-//		            System.out.println("Redirecting to Admin Dashboard...");
-//		            return "redirect:/dashboard";
-//		        case "ROLE_RESTAURANT":
-//		            System.out.println("Redirecting to Restro Dashboard...");
-//		            return "redirect:/restro-dashboard";
-//		        case "ROLE_DELIVERY":
-//		            System.out.println("Redirecting to Moderator Panel...");
-//		            return "redirect:/delivery-dashboard";
-//		        default:
-//		            System.out.println("Redirecting to Default Dashboard...");
-		            return "redirect:/login";
-		    }
-		
+//		
+//		return "login";
+//	}
+	
+	 @GetMapping("/showLogin")
+	    public String showLoginPage(Authentication authentication, Model model,
+	                                @RequestParam(value = "error", required = false) String error,
+	                                @RequestParam(value = "logout", required = false) String logout,
+	                                @RequestParam(value = "registered", required = false) String registered) {
+	        if (authentication != null && authentication.isAuthenticated()) {
+	            // User is already logged in, redirect them to their dashboard
+	            return "redirect:/goto";
+	        }
 
-		
-		return "login";
-	}
+	        // Add attributes to the model for displaying messages on the login page
+	        if (error != null) {
+	            model.addAttribute("loginError", true);
+	            // Optionally, you could add a more specific message based on the error type
+	            // (e.g., from Spring Security's exception handling)
+	        }
+	        if (logout != null) {
+	            model.addAttribute("logoutSuccess", true);
+	        }
+	        if (registered != null) {
+	            model.addAttribute("registrationSuccess", true);
+	        }
+
+	        return "login";
+	    }
 	
 	@GetMapping("/showRegister")
 	public String showRegister(Model model) {
@@ -124,31 +132,94 @@ public class CustomerController {
 		return "multiSignUp";
 	}
 
-	@PostMapping("/customerRegister")
-	public String userRegister(@ModelAttribute("ctm") Customer customer) {
-		System.out.println(customer);
-		userService.register(customer);
-		System.out.println("Done!");
-		return "redirect:/showLogin";
-	}
+//	@PostMapping("/customerRegister")
+//	public String userRegister(@ModelAttribute("ctm") Customer customer) {
+//		System.out.println(customer);
+//		userService.register(customer);
+//		System.out.println("Done!");
+//		return "redirect:/showLogin";
+//	}
+	
+	//************************
+	 @PostMapping("/customerRegister")
+	    public String userRegister(@Valid @ModelAttribute("ctm") Customer customer,
+	                               BindingResult bindingResult,
+	                               Model model) {
+	        System.out.println("Customer registration attempt: " + customer);
+
+	        if (bindingResult.hasErrors()) {
+	            System.out.println("Customer form validation errors: " + bindingResult.getAllErrors());
+	            // If errors, add back the customer object (with errors) and other empty objects
+	            model.addAttribute("ctm", customer);
+	            model.addAttribute("dvr", new Delivery());
+	            model.addAttribute("restro", new Restaurant());
+	            // Set flag to show the customer form again
+	            model.addAttribute("showCustomerForm", true);
+	            model.addAttribute("showRestaurantForm", false);
+	            model.addAttribute("showDeliveryForm", false);
+	            return "multiSignUp"; // Return to the signup page
+	        }
+
+	        userService.register(customer);
+	        System.out.println("Customer registered successfully!");
+	        return "redirect:/showLogin"; // Redirect to login page on success
+	    }
+
+	 
+	 
+	 
+	 
+	//*****************************
 	
 	@PostMapping("/deliveryRegister")
-	public String deliveryRegister(@ModelAttribute("dvr") Delivery delivery) {
+	public String deliveryRegister( @Valid @ModelAttribute("dvr") Delivery delivery,BindingResult bindingResult,Model model) {
+		
+		
+		if (bindingResult.hasErrors()) {
+			  // If errors, add back the customer object (with errors) and other empty objects
+          model.addAttribute("ctm", new Customer());
+          model.addAttribute("dvr", delivery);
+          model.addAttribute("restro",new Restaurant());
+          // Set flag to show the customer form again
+          model.addAttribute("showCustomerForm", false);
+          model.addAttribute("showRestaurantForm", false);
+          model.addAttribute("showDeliveryForm", true);
+			return "multiSignUp";
+	 }
 		delivery.setFlag("1");
 		System.out.println(delivery);
 		userService.registerDelivery(delivery);
 		System.out.println("Done!");
-		return "login";
+		 return "redirect:/showLogin";
 	}
 	
+	
+	
+	//**********************************************
+	
 	@PostMapping("/restaurantRegister")
-	public String restaurantRegister(@ModelAttribute("restro") Restaurant restaurant) {
-		restaurant.setFlag("1");
+	public String restaurantRegister(@Valid @ModelAttribute("restro") Restaurant restaurant ,
+			BindingResult bindingResult,
+			Model model) {
+		 if (bindingResult.hasErrors()) {
+				  // If errors, add back the customer object (with errors) and other empty objects
+	            model.addAttribute("ctm", new Customer());
+	            model.addAttribute("dvr", new Delivery());
+	            model.addAttribute("restro", restaurant);
+	            // Set flag to show the customer form again
+	            model.addAttribute("showCustomerForm", false);
+	            model.addAttribute("showRestaurantForm", true);
+	            model.addAttribute("showDeliveryForm", false);
+				return "multiSignUp";
+		 }
 		System.out.println(restaurant);
+		restaurant.setFlag("1"); 
 		userService.registerRestaurant(restaurant);
 		System.out.println("Done!");
-		return "login";
+		 return "redirect:/showLogin";
 	}
+	
+	//******************************************
 	
 	@PostMapping("/updateCustomer")
 	public String updateCustomer(@RequestParam(required = false) String email, 

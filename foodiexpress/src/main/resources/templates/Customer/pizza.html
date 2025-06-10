@@ -72,12 +72,23 @@
             margin-right: 8px;
         }
         
-       
+        .section-heading {
+	text-align: center;
+	font-size: 2.2rem; /* Larger font size */
+	font-weight: 700; /* Extra bold */
+	border-radius:20px;
+	background-color: rgb(202, 169, 135) !important; /* A vibrant green color */
+	/* margin: 40px; */
+	color:white;
+	position: relative;
+	padding-bottom: 5px;
+}
 
     </style>  
 </head>
 <body>
     <div class="container">
+    <h3 class="section-heading">Pizza</h3>
     <div class="row justify-content-center" id="foodItemsContainer">
         <div th:each="p : ${pizza}" class="col-lg-4 col-md-6 col-sm-12 mb-4 food-card"> <div class="card cl4">
                 <img class="card-img-top" th:src="${p.fImg}" alt="Card image cap">
