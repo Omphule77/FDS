@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Food Items Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: #E6E6FA;">
+    <div class="container mt-5">
+        <h2 class="text-center">Add Food Item</h2>
+        <form th:action="@{/addFoodItem}" method="post" th:object="${foodItem}">
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label">Food Name:</label>
+                    <input type="text" class="form-control" th:field="*{name}" required>
+                </div>
+                <div class="col-md-6">
+    <label class="form-label">Food Type:</label>
+    <select class="form-control" th:field="*{type}" required>
+        <option value="">Select Food Type</option>
+        <option value="Burger">Burger</option>
+        <option value="Sandwich">Sandwich</option>
+        <option value="Biryani">Biryani</option>
+        <option value="IceCream">Ice Cream</option>
+        <option value="Cake">Cake</option>
+        <option value="Fries">Fries</option>
+        <option value="Chicken">Chicken</option>
+        <option value="Pizza">Pizza</option>
+    </select>
+</div>
+
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label class="form-label">Price (Rs):</label>
+                    <input type="text" class="form-control" th:field="*{rs}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Comment:</label>
+                    <input type="text" class="form-control" th:field="*{comment}">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label class="form-label">Food Image URL:</label>
+                    <input type="text" class="form-control" th:field="*{fImg}">
+                </div>
+                <div class="col-md-6">
+                    <input type="hidden" class="form-control" name="rName" th:value="${restro.rName}" required>
+               <input type="hidden" class="form-control" name="rAddress" th:value="${restro.address}" required>
+               <input type="hidden" name="remail" th:value="${remail}" >
+                 </div>
+            </div>
+
+            
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success">Add Food Item</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
