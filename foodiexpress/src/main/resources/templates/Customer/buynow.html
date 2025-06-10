@@ -269,8 +269,8 @@ textarea.form-control {
 								</div>
 								<div class="form-check form-check-inline">
 									<input class="form-check-input" type="radio"
-										name="paymentMethod" id="paymentCOD" value="COD"
-										onclick="togglePaymentOptions()"> <label
+										 id="paymentCOD" 
+										onclick="togglePaymentOptions()" th:value="COD" name="payment"> <label
 										class="form-check-label" for="paymentCOD">Cash On
 										Delivery (COD)</label>
 								</div>
@@ -337,9 +337,9 @@ textarea.form-control {
 				type="hidden" th:value="${ctm.email}" name="cEmail"> <input
 				type="hidden" th:value="${food.fImg}" name="fImg"> <input
 				type="hidden" th:value="1" name="flag"> <input type="hidden"
-				th:value="1" name="tFlag"> <input type="hidden"
-				name="dEmail"> <input type="hidden"
-				th:value="${food.rAddress}" name="rAddress">
+				th:value="0" name="tFlag"> <input type="hidden" name="dEmail"> <input
+				type="hidden" th:value="${food.rAddress}" name="rAddress">
+				
 
 			<!-- Place Order Button (Initially Disabled) -->
 			<div class="text-center mt-4 ">
@@ -365,5 +365,11 @@ textarea.form-control {
 		crossorigin="anonymous"></script>
 </body>
 
-
+<script>
+  window.addEventListener('pageshow' , function (event) {
+		if(event.persisted || (window.performance && window.performance.navigation.type === 2)){
+			window.location.reload();
+		}
+});
+  </script>
 </html>

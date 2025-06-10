@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import com.fds.foodiexpress.dao.AdminDAO;
 import com.fds.foodiexpress.dao.CustomerDao;
+import com.fds.foodiexpress.entity.Admin;
 import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
 import com.fds.foodiexpress.entity.Restaurant;
@@ -121,6 +125,23 @@ public class AdminDAOImpl implements AdminDAO {
 			}
 			userDao.updateUser(user);
 		}
+	}
+
+	@Override
+	public Admin findByEmail(String email) {
+		return entityManager.createQuery("SELECT a FROM Admin a WHERE a.email=:email",Admin.class)
+				.setParameter("email", email).getSingleResult();
+		}
+
+	@Override
+	@Transactional
+	public void update(Admin admin) {
+		Admin existingAdmin = entityManager.find(Admin.class, admin.getId());
+		if (admin.getPassword() == null || admin.getPassword().isEmpty()) {
+		    admin.setPassword(existingAdmin.getPassword()); // Keeping the old password
+		}
+		entityManager.merge(admin);
+		
 	}
 
 }

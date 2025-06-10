@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -20,35 +21,33 @@ public class Customer {
 	@Column(name = "customer_Id")
 	private int cId;
 
-	@NotNull(message = "*required")
+	@NotNull	
+	@Size(min = 3, max = 100, message = "Full name must be between 3 and 100 characters")
 	@Column(name = "name")
 	private String name;
 
-	@NotNull(message = "*required")
+	@NotNull
 	@Email(message = "Invalid email format")
-	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@gmail\\.com$", message = "Email must be in @gmail.com format")
 	@Column(name = "email")
 	private String email;
 
-	@NotNull(message = "*required")
-	@Pattern(regexp = "\\d{10}", message = "Phone number must be exactly 10 digits")
+	@NotNull
+	@Pattern(regexp = "^[0-9]{10}$", message = "Phone number 1 must be 10 digits")
 	@Column(name = "phone")
 	private String phone;
 
-	@NotNull(message = "*required")
-	@Pattern(regexp = "\\d{10}", message = "Phone number must be exactly 10 digits")
+	//@Pattern(regexp = "^[0-9]{10}$", message = "Alternate Phone number must be 10 digits")
+	
 	@Column(name = "altphone")
 	private String altPhone;
 
-	@NotNull(message = "*required")
+	@NotNull
+	@Size(min = 5, max = 255, message = "Address must be between 5 and 255 characters")
 	@Column(name = "address")
 	private String address;
 
-//	@Pattern(
-//	        regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$",
-//	        message = "Password must be at least 6 characters long, include one uppercase letter, one number, and one special character"
-//	    )
-	@NotNull(message = "*required")
+
+	@NotNull
 	@Column(name = "password")
 	private String password;
 

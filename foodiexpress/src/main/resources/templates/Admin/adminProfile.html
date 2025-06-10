@@ -26,7 +26,7 @@ body {
 	border-radius: 12px;
 	padding: 20px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	margin:  auto ;
+	margin: auto;
 	margin-top: 60px;
 }
 
@@ -50,7 +50,6 @@ body {
 	gap: 20px;
 	justify-content: center;
 }
-
 
 .form-group {
 	font-weight: bold;
@@ -91,89 +90,66 @@ body {
 .btn-primary:hover {
 	background-color: #e55338;
 }
-
-.foot {
-	margin-top:40px;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	
-}
 </style>
 </head>
 <body>
 
 	<div class="container position-relative">
-		
-		
-	
+
+
+
 		<div class="profile-icon">
 			<i class="fas fa-user-circle"></i>
 		</div>
 
 		<h2 class="section-heading">Update Profile</h2>
 
-		<div th:if="${ctm != null}">
-			<form action="/updateCustomer" method="post">
+		<div th:if="${adminDetails!= null}">
+			<form th:action="@{/updateAdmin}" method="post">
+				<input type="hidden" th:value=${adminDetails.id} name="id"/>
 				<div class="form-container">
 					<div class="form-group">
-					    <div class="text-danger" th:if="${#fields.hasErrors('ctm.name')}" th:errors="*{ctm.name}"></div>
-					
 						<label for="name">Name</label> <input type="text" id="name"
-							name="name" th:value="${ctm.name}" class="form-control">
+							name="name" th:value="${adminDetails.name}" class="form-control">
 					</div>
 
 					<div class="form-group">
-						<div class="text-danger" th:if="${#fields.hasErrors('ctm.email')}" th:errors="*{ctm.email}"></div>
-					
 						<label for="email">Email</label> <input type="email" id="email"
-							name="email" th:value="${ctm.email}" class="form-control" readonly>
+							name="email" th:value="${adminDetails.email}"
+							class="form-control">
 					</div>
 
-
-
 					<div class="form-group">
-						<div class="text-danger" th:if="${#fields.hasErrors('ctm.phone')}" th:errors="*{ctm.phone}"></div>
-					
 						<label for="phone">Phone</label> <input type="tel" id="phone"
-							name="phone" th:value="${ctm.phone}" class="form-control">
+							name="phone" th:value="${adminDetails.phone}"
+							class="form-control">
 					</div>
 
 					<div class="form-group">
-						<div class="text-danger" th:if="${#fields.hasErrors('ctm.altPhone')}" th:errors="*{ctm.altPhone}"></div>
-					
 						<label for="altPhone">Alternate Phone</label> <input type="tel"
-							id="altPhone" name="altPhone" th:value="${ctm.altPhone}"
+							id="altPhone" name="altphone" th:value="${adminDetails.altphone}"
 							class="form-control">
 					</div>
 					<div class="form-group add">
-						<div class="text-danger" th:if="${#fields.hasErrors('ctm.address')}" th:errors="*{ctm.address}"></div>
-					
 						<label for="address">Address</label> <input type="text"
-							id="address" name="address" th:value="${ctm.address}"
+							id="address" name="address" th:value="${adminDetails.address}"
 							class="form-control">
 					</div>
 				</div>
 
 				<div class="button-container">
 					<button type="submit" id="updateButton" class="btn btn-danger"
-						disabled style="margin-right:50px">Update</button>
-					
+						disabled style="margin-right: 50px">Update</button>
+
 				</div>
-				
-			</form>			
+
+			</form>
 		</div>
 
-		<div th:if="${ctm == null}" class="text-center py-4">
+		<div th:if="${adminDetails == null}" class="text-center py-4">
 			<p class="text-muted">No customer information available.</p>
 		</div>
-		
-		
 	</div>
-	
-	
-
-		
 
 
 	<script>
@@ -211,10 +187,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<div class="foot">
-			<p class="mb-2">&copy; 2025 Foodie Express. All Rights Reserved.</p>
 
-</div>
-	
 </body>
 </html>
