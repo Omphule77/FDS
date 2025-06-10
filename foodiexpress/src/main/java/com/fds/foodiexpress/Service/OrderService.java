@@ -29,5 +29,10 @@ public class OrderService {
     public List<Orders> getAvailableOrdersExcludingAgent(List<String> flags, String excludedEmail) {
         return orderDAO.getAvailableOrdersExcludingAgent(flags, excludedEmail);
     }
+    @Transactional
+    public void updateOrderTFlag(int orderId, String newTFlag) {
+        orderDAO.updateOrderTFlag(orderId, newTFlag);
+    }
+
 
 }
