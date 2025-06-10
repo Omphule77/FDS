@@ -15,5 +15,4 @@ public class FoodiexpressApplication {
 		SpringApplication.run(FoodiexpressApplication.class, args);
 	}
 	
-
 }

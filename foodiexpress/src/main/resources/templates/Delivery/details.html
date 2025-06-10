@@ -15,7 +15,7 @@
 
         /* Navbar Styling */
         .navbar {
-            background-color: red;
+            background-color: rgb(202, 169, 135) !important;
             padding: 12px;
         }
         .navbar-brand {
@@ -29,6 +29,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
         }
         .card:hover {
             transform: scale(1.05);
@@ -36,6 +37,28 @@
         }
 
         /* Button Styling */
+        
+        .receive-btn {
+		    display: inline-block;
+		    font-size: 18px;
+		    padding: 12px;
+		    border-radius: 8px;
+		    font-weight: bold;
+		    width: 100%;
+		    text-align: center;
+		    cursor: pointer;
+		    transition: all 0.3s ease;
+		    background: linear-gradient(90deg, #ffc107, #e0a800); /* Yellow gradient */
+		    color: white;
+		    text-decoration: none; /* Remove default underline */
+		    border: none;
+		}
+		
+		.receive-btn:hover {
+		    background: linear-gradient(90deg, #e0a800, #ffc107);
+		    transform: translateY(-3px);
+		}
+        
         .complete-btn {
             font-size: 18px;
             padding: 12px;
@@ -55,11 +78,11 @@
 
         /* Footer Styling */
         .footer {
-            background-color: #FF6F61;
+            background-color: rgb(202, 169, 135) !important;
             color: white;
             text-align: center;
             padding: 15px;
-            position: fixed;
+            position: relative;
             bottom: 0;
             width: 100%;
             font-size: 14px;
@@ -97,11 +120,20 @@
                     <p><strong>Customer Name:</strong> <span th:text="${order.cName}"></span></p>
                     <p><strong>Customer Phone:</strong> <span th:text="${order.cPhone}"></span></p>
 
-                    <form th:action="@{/delivery/complete-order}" method="post">
-                        <input type="hidden" th:value="${order.orderId}" name="orderId">
-                        <input type="text" name="otp" class="form-control mb-2" placeholder="Enter OTP" required minlength="6" maxlength="6">
-                        <button type="submit" class="complete-btn">✅ Complete Order</button>
-                    </form>
+               
+					<a th:href="@{/delivery/reciveOrder(orderId=${order.orderId})}" class="receive-btn" th:id="'receiveBtn-' + ${order.orderId}"> Receive Order</a>
+
+
+
+					<!-- Complete Order Form -->
+					<form th:action="@{/delivery/complete-order}" method="post" th:id="'complete-' + ${order.orderId}">
+					    <input type="hidden" th:value="${order.orderId}" name="orderId">
+					    <input type="text" name="otp" class="form-control mb-2" placeholder="Enter OTP" required minlength="6" maxlength="6">
+					    <button type="submit" class="complete-btn">
+					        ✅ Complete Order
+					    </button>
+					</form>
+                    
                 </div>
             </div>
         </div>
@@ -118,5 +150,17 @@
     <footer class="footer">
         © 2025 Foodie Express. All rights reserved.
     </footer>
+    <script>
+    function hideReceiveButton(orderId) {
+        console.log("Receive button clicked for Order ID:", orderId); // Debugging log
+        let receiveButton = document.getElementById(`receiveBtn-${orderId}`);
+        if (receiveButton) {
+            receiveButton.style.display = "none";
+        } else {
+            console.warn("Receive button not found for Order ID:", orderId);
+        }
+    }
+
+    </script>
 </body>
 </html>

@@ -51,17 +51,6 @@ public class DeliveryController {
         int successRate = (totalTrackedDeliveries > 0) ? (completedCount * 100 / totalTrackedDeliveries) : 0;
 
         String successMessage =null;
-//        if (successRate > 90) {
-//            successMessage = "You're an exceptional performer! Customers love your service.";
-//        } else if (successRate > 80) {
-//            successMessage = "You're doing great! Keep up the consistency.";
-//        } else if (successRate > 60) {
-//            successMessage = "Your performance is decent, but there's room for improvement.";
-//        } else if (successRate > 50) {
-//            successMessage = "Focus on accepting and completing more deliveries to improve your stats.";
-//        } else {
-//            successMessage = "Try to minimize rejected orders to boost your performance.";
-//        }
 
         theModel.addAttribute("user", delivery);
         theModel.addAttribute("activeCount", activeCount);
@@ -124,12 +113,24 @@ public class DeliveryController {
 
         return "redirect:/orders";
     }
+    
+    @GetMapping("/delivery/reciveOrder")
+    public String receiveOrder(@RequestParam("orderId") int orderId) {
+        int agentId = getLoggedInAgentId();
+
+        Delivery delivery = dsdao.findById(agentId);
+        orderService.updateOrderDetails(orderId, "2", delivery.getEmail());
+        orderService.updateOrderTFlag(orderId, "2");
+        return "redirect:/details";
+    }
+
 
     @PostMapping("/delivery/complete-order")
     public String completeOrder(@RequestParam("orderId") int orderId) {
         int agentId = getLoggedInAgentId();
         Delivery delivery = dsdao.findById(agentId);
         orderService.updateOrderDetails(orderId, "4", delivery.getEmail());
+        orderService.updateOrderTFlag(orderId, "3");
 
         return "redirect:/details";
     }
