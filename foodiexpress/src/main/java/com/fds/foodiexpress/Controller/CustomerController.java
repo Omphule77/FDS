@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,6 +35,7 @@ import jakarta.validation.Valid;
 public class CustomerController {
 	
 	CustomerService userService;
+	@Autowired
 	public CustomerController(CustomerService userService) {
 		this.userService=userService;
 	}
@@ -57,23 +59,22 @@ public class CustomerController {
 		    String role = authentication.getAuthorities().stream()
 		                                .map(GrantedAuthority::getAuthority)
 		                                .findFirst()
-		                                .orElse("ROLE_DEFAULT"); // Default role if none found
-
+		                                .orElse("ROLE_DEFAULT"); 
 		    System.out.println("Username: " + username);
 		    System.out.println("Role: " + role);
 
 		    switch (role) {
 		        case "ROLE_CUSTOMER":
-		            System.out.println("Redirecting to Admin Dashboard...");
+		            System.out.println("Redirecting to Customer Dashboard...");
 		            return "redirect:/dashboard/"+username;
 		        case "ROLE_RESTAURANT":
 		            System.out.println("Redirecting to Restro Dashboard...");
 		            return "redirect:/restro-dashboard";
 		        case "ROLE_DELIVERY":
-		            System.out.println("Redirecting to Moderator Panel...");
+		            System.out.println("Redirecting to Delivery Panel...");
 		            return "redirect:/delivery-dashboard";
 		        case "ROLE_ADMIN":
-		            System.out.println("Redirecting to Moderator Panel...");
+		            System.out.println("Redirecting to Admin Panel...");
 		            return "redirect:/admin-dashboard";
 		        default:
 		            System.out.println("Redirecting to Default Dashboard...");
@@ -83,6 +84,7 @@ public class CustomerController {
 		return "login";
 	}
 	
+
 //	@GetMapping("/showLogin")
 //	public String showLogin(Authentication authentication) {
 //		if (authentication != null && authentication.isAuthenticated()) {
@@ -120,6 +122,7 @@ public class CustomerController {
 
 	        return "login";
 	    }
+
 	
 	@GetMapping("/showRegister")
 	public String showRegister(Model model) {
@@ -442,20 +445,26 @@ public class CustomerController {
 		List<Orders> orders = userService.findOrderCard(mail);
 		 if (orders != null && !orders.isEmpty()) {
 			 feedback.setcEmail(orders.get(0).getcEmail()); 
-			 feedback.setdEmail(orders.get(5).getdEmail());
+			 feedback.setdEmail(orders.get(0).getdEmail());
 	    }
 	    System.out.println("=================");
 	    System.out.println(orders);
 		userService.addFeedback(feedback);
-		return "redirect:/cart/"+mail;
+		return "redirect:/card/"+mail;
 	}
 	
+
 	@GetMapping("/track/{email}/{orderId}")
 	public String track(@PathVariable String email,@PathVariable int orderId,Model m) {
 		Orders o=userService.findOrderById(orderId);
 		System.out.println(o);
 		m.addAttribute("t", o);
 		return "Customer/trackOrder";
+	}
+	
+	@GetMapping("/default")
+	public String defaultPage() {
+		return "Customer/defaultPage";
 	}
 	
 }

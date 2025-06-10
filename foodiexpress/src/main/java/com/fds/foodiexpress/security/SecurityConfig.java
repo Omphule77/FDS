@@ -55,19 +55,17 @@ public class SecurityConfig {
                 .requestMatchers("/dashboard").hasRole("CUSTOMER")
                 .requestMatchers("/restro-dashboard").hasRole("RESTAURANT")
                 .requestMatchers("/delivery-dashboard").hasRole("DELIVERY")
-//                .requestMatchers("/admin/**").hasRole("ADMIN")
-//                .requestMatchers("/user/**").hasRole("USER")
                 .anyRequest().authenticated()
             )
             .headers(headers -> headers
-                .cacheControl(cache -> cache.disable()) // Prevents browser caching
+                .cacheControl(cache -> cache.disable()) 
             )
             .formLogin(login -> login
                 .loginPage("/showLogin")
                 .defaultSuccessUrl("/goto")
                 .permitAll()
             )
-            .logout(logout -> logout.logoutSuccessUrl("/showLogin?logout"));
+            .logout(logout -> logout.logoutSuccessUrl("/showLogin"));
         return http.build();
     }
 
