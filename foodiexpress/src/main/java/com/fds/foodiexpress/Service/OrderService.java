@@ -33,6 +33,10 @@ public class OrderService {
     public void updateOrderTFlag(int orderId, String newTFlag) {
         orderDAO.updateOrderTFlag(orderId, newTFlag);
     }
+    public Orders findOrderById(int orderId) {
+        return orderDAO.findOrderById(orderId);
+    }
+
 
 
 }

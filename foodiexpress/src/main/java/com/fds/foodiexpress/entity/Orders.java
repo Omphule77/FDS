@@ -63,6 +63,9 @@ public class Orders {
 	@Column(name = "payment")
 	private String payment;
 	
+	@Column(name = "otp")
+	private String otp;
+	
 	
 	public Orders() {
 		
@@ -107,9 +110,12 @@ public class Orders {
 
 	
 
+	
+
+
 	public Orders(String name, String comment, String quantity, String price, String rName, String cName,
 			String cAddress, String cPhone, String cAltPhone, String flag, String rAddress, String cEmail, String fImg,
-			String dEmail, String tFlag, String payment) {
+			String dEmail, String tFlag, String payment, String otp) {
 		super();
 		this.name = name;
 		this.comment = comment;
@@ -127,7 +133,30 @@ public class Orders {
 		this.dEmail = dEmail;
 		this.tFlag = tFlag;
 		this.payment = payment;
+		this.otp = otp;
 	}
+	
+
+
+
+
+
+
+	public String getOtp() {
+		return otp;
+	}
+
+
+
+
+
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+
+
+
 
 
 
@@ -249,17 +278,21 @@ public class Orders {
 
 
 
+
+
+
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", name=" + name + ", comment=" + comment + ", quantity=" + quantity
 				+ ", price=" + price + ", rName=" + rName + ", cName=" + cName + ", cAddress=" + cAddress + ", cPhone="
 				+ cPhone + ", cAltPhone=" + cAltPhone + ", flag=" + flag + ", rAddress=" + rAddress + ", cEmail="
-				+ cEmail + ", fImg=" + fImg + ", dEmail=" + dEmail + ", tFlag=" + tFlag + ", payment=" + payment + "]";
+				+ cEmail + ", fImg=" + fImg + ", dEmail=" + dEmail + ", tFlag=" + tFlag + ", payment=" + payment
+				+ ", otp=" + otp + "]";
 	}
 
+
+
 	
-
-
 
 	
 

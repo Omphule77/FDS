@@ -23,6 +23,14 @@
             font-size: 24px;
             font-weight: bold;
         }
+        .no-orders-message {
+            display: none;
+            font-size: 20px;
+            font-weight: bold;
+            color: #6c757d;
+            text-align: center;
+            padding: 20px;
+        }
 
         /* Card Styling */
         .card {
@@ -82,7 +90,7 @@
             color: white;
             text-align: center;
             padding: 15px;
-            position: relative;
+            position: fixed;
             bottom: 0;
             width: 100%;
             font-size: 14px;
@@ -102,11 +110,11 @@
         <h2 class="text-center mb-4">Active Deliveries</h2>
 
         <!-- Debugging statement to check order count -->
-        <p th:if="${orders != null}" th:text="'Total Active Orders: ' + ${orders.size()}"></p>
+        <!-- <p th:if="${orders != null}" th:text="'Total Active Orders: ' + ${orders.size()}"></p> -->
 
         <!-- Show message if no active orders exist -->
-        <div th:if="${orders == null or #lists.isEmpty(orders)}" class="text-center text-muted">
-            🚀 No active deliveries at the moment.
+        <div th:if="${orders == null or #lists.isEmpty(orders)}" class="text-center text-muted" id="noordersmessage">
+             No active deliveries at the moment.
         </div>
 
         <!-- Render active orders -->
@@ -123,7 +131,10 @@
                
 					<a th:href="@{/delivery/reciveOrder(orderId=${order.orderId})}" class="receive-btn" th:id="'receiveBtn-' + ${order.orderId}"> Receive Order</a>
 
-
+					<div th:if="${errorMessage}" class="alert alert-danger">
+					    <span th:text="${errorMessage}"></span>
+					</div>
+					
 
 					<!-- Complete Order Form -->
 					<form th:action="@{/delivery/complete-order}" method="post" th:id="'complete-' + ${order.orderId}">
