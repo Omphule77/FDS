@@ -70,7 +70,7 @@ public class CustomerController {
 		            return "redirect:/dashboard/"+username;
 		        case "ROLE_RESTAURANT":
 		            System.out.println("Redirecting to Restro Dashboard...");
-		            return "redirect:/restro-dashboard";
+		            return "redirect:/restro-dashboard/"+username;
 		        case "ROLE_DELIVERY":
 		            System.out.println("Redirecting to Delivery Panel...");
 		            return "redirect:/delivery-dashboard";

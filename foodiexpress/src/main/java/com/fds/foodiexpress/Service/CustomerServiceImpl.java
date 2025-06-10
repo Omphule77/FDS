@@ -19,7 +19,7 @@ import jakarta.transaction.Transactional;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 	
-	CustomerDao customerDao;
+	private CustomerDao customerDao;
 	@Autowired
 	public CustomerServiceImpl(CustomerDao customerDao) {
 		this.customerDao=customerDao;
