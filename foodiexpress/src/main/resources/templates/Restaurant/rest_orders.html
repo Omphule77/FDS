@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${flag == 0 ? 'Pending Orders' : 'Completed Orders'}">See Orders</title>
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/restaurant-.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #E6E6FA;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .table {
+            border: 2px solid black;
+        }
+        .table thead th {
+            background-color: #f2f2f2; /* Light background for table headers */
+            font-weight: bold;
+        }
+        .table td, .table th {
+            vertical-align: middle; /* Center content vertically */
+        }
+        .action-icon {
+            display: block; /* Make the image a block element to center easily */
+            margin: auto; /* Center the image */
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${flag == 0 ? 'Pending Orders' : 'Completed Orders'}">See Order</h1>
+
+<div class="container mt-3">
+    <div class="row">
+        <div th:if="${#lists.isEmpty(orders)}" class="alert alert-info text-center" role="alert">
+            <p th:if="${flag == 0}">No pending orders found for this restaurant.</p>
+            <p th:if="${flag == 1}">No completed orders found for this restaurant.</p>
+            <p th:unless="${flag == 0 or flag == 1}">No orders found for this restaurant.</p>
+        </div>
+
+        <table th:unless="${#lists.isEmpty(orders)}" class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Note For Restaurant</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone1</th>
+                <th scope="col">Phone2</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="o : ${orders}">
+                <td th:text="${o.orderId}">1</td>
+                <td th:text="${o.name}">Product Name</td>       
+                <td th:text="${o.quantity}">1</td>
+                <td th:text="${o.comment}">Note for Restaurant</td>
+                <td th:text="${o.cAddress}">Address</td>
+                <td th:text="${o.cPhone}">1234567890</td>
+                <td th:text="${o.cAltPhone}">0987654321</td>
+                <td th:text="${o.price}">100.00</td>
+                <td>
+                    <div th:if="${flag == 0}">
+                       <form th:action="@{/restaurant/{restaurantName}(restaurantName=${restaurantName})}" method="post">
+
+                            <input type="hidden" name="orderId" th:value="${o.orderId}" />
+                            <input type="hidden" name="restaurantName" th:value="${restaurantName}" />
+                            <button type="submit" class="btn btn-link p-0 border-0">
+                                <img width="30" height="30" src="https://img.icons8.com/ios/50/checked-checkbox--v1.png" alt="Mark as Completed" class="action-icon"/>
+                            </button>
+                        </form>
+                    </div>
+                    <div th:if="${flag != 0}" class="text-center">
+                        <img width="30" height="30" src="https://img.icons8.com/ios/50/checked-checkbox--v1.png" alt="Completed" class="action-icon" style="opacity: 0.5; cursor: not-allowed;"/>
+                        <p class="text-success small mt-1">Completed</p>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+       
+    </div>
+</div>
+</body>
+</html>
