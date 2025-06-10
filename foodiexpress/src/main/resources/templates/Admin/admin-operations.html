@@ -111,19 +111,19 @@ body {
       <span class="navbar-brand mb-0 h1">FOODIEXPRESS <span th:text="${adminName}"></span></span>
       <div class="d-flex gap-2">
       
-      <a th:href="@{/admin-dashboard}"><button type="submit" class="btn btn-outline-dark">
+      <a th:href="@{/admin/admin-dashboard}"><button type="submit" class="btn btn-outline-dark">
 					<div class="icon-container">
 						<i class="fa-solid fa-house fa-lg"></i>
 						</div>
 					</button></a>
-      	<form th:action="@{/admin-operations}" method="get">
+      	<form th:action="@{/admin/admin-operations}" method="get">
 					<button type="submit" class="btn btn-outline-dark">
 					<div class="icon-container">
 						<i class="fa-solid fa-screwdriver-wrench fa-lg"></i>
 						</div>
 					</button>
 				</form>
-        <form th:action="@{/admin-profile}" method="get">
+        <form th:action="@{/admin/admin-profile}" method="get">
 					<button type="submit" class="btn btn-outline-dark">
 					<div class="icon-container">
 						<i class="fas fa-user fa-lg"></i>
@@ -152,7 +152,7 @@ body {
 
 		<h2 class="section-heading">Register New Admin</h2>
 
-		<form th:action="@{/addAdmin}" th:object="${admin}" method="post" name="admin">
+		<form th:action="@{/admin/addAdmin}" th:object="${admin}" method="post" name="admin">
 		
 			<div class="form-container">
 				<div class="form-group">
