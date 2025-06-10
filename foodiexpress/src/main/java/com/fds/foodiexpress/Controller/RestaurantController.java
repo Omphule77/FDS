@@ -23,4 +23,5 @@ public class RestaurantController {
 		    System.out.println(restro);
 	        return "Restaurant/restrohome"; 
 	    }
+	 
 }

@@ -60,10 +60,9 @@ public class DeliveryDaoImpl implements DeliveryDAO {
     
     @Override
 	public List<Delivery> findAllDeliveryPartner() {
-		// write Query
+
 		TypedQuery theQuery = entityManager.createQuery("select d From Delivery d",Delivery.class);
 
-		// Return Query
 		return theQuery.getResultList();
 	}
 
