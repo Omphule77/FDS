@@ -6,6 +6,8 @@
     <title>Restaurant</title>
     <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/restaurant-.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .card {
@@ -21,9 +23,63 @@
             width: 200px;
             margin-left: 25%;
         }
+        .navbar {
+	background-color: rgb(202, 169, 135) !important; /* Peach Color */
+	padding: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+.nav-item {
+	margin-left: 15px;
+}
+.navbar-brand {
+	font-weight: 700; /* Bold Foodie Express text */
+	color: #fff !important; /* White color for brand text */
+}
+
+.icon-container {
+	background-color: white;
+	padding: 8px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.icon-container:hover {
+	background-color: #e2e6ea; /* Lighten on hover */
+	transform: translateY(-2px); /* Slight lift on hover */
+}
+        
     </style>
 </head>
 <body style="background-color: #E6E6FA;">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+		<div class="container-fluid navbar-content">
+			<a class="navbar-brand d-flex align-items-center" href="#">  <span class="fw-bold">Foodie
+					Express</span>
+			</a>
+
+			
+
+				
+					<form th:action="@{/logout}" method="post">
+        <button type="submit" class="logout-button nav-link nav-item">
+					<div class="icon-container">
+						<i class="fas fa-sign-out-alt"></i>
+						</div>
+					</button>
+    </form>
+				
+			</div>
+		</div>
+	</nav>
+	<br>	<br>
+		
+	
     <h1 style="text-align: center; font-family: Papyrus, fantasy; margin-top: 50px;">Welcome to Restaurant</h1>
     <hr>
 
@@ -71,8 +127,6 @@
     </div>
     <hr>
 
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
+    
 </body>
 </html>
