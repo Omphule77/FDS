@@ -3,6 +3,7 @@ package com.fds.foodiexpress.Controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.fds.foodiexpress.Service.DeliveryServiceDAO;
@@ -126,14 +127,33 @@ public class DeliveryController {
 
 
     @PostMapping("/delivery/complete-order")
-    public String completeOrder(@RequestParam("orderId") int orderId) {
+    public String completeOrder(@RequestParam("orderId") int orderId, 
+                                @RequestParam("otp") String otp, 
+                                RedirectAttributes redirectAttributes) {
+        Orders order = orderService.findOrderById(orderId);
+
+        if (order == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Order not found.");
+            return "redirect:/details";
+        }
+
+        if (!order.getOtp().equals(otp)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "❌ Invalid OTP! Please try again.");
+            return "redirect:/details"; // Redirect with error message
+        }
+
         int agentId = getLoggedInAgentId();
         Delivery delivery = dsdao.findById(agentId);
+
         orderService.updateOrderDetails(orderId, "4", delivery.getEmail());
         orderService.updateOrderTFlag(orderId, "3");
 
         return "redirect:/details";
     }
+
+
+
+
 
     @GetMapping("/performance")
     public String showPerformance(Model model) {
