@@ -78,8 +78,9 @@ public class AdminController {
 	}
 	
 	@PostMapping("/updateAdmin")
-	public String updateAdmin(@ModelAttribute("admin") Admin admin){
+	public String updateAdmin(@ModelAttribute("admin") Admin admin,RedirectAttributes redirectAttributes){
 		adminService.updateAdmin(admin);
+		redirectAttributes.addFlashAttribute("successMessage","Your Profiles Detail are successfully updated");
 		return "redirect:/admin/admin-profile";		
 	}
 	
@@ -93,9 +94,9 @@ public class AdminController {
 	public String addAdmin( @Valid @ModelAttribute Admin admin,BindingResult bindingResult ,RedirectAttributes redirectAttributes,Model model){
 		
 		if (bindingResult.hasErrors()) {
-            // If there are validation errors, return to the form to display them
-            model.addAttribute("admin", admin); // Re-add the admin object to pre-fill the form
-            return "Admin/admin-operations"; // Assuming "register-admin" is your HTML template name
+            // If there are validation errors
+            model.addAttribute("admin", admin); 
+            return "Admin/admin-operations"; 
         }
 		System.out.println(admin);
 		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
