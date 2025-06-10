@@ -53,8 +53,7 @@ DROP TABLE IF EXISTS `authorities`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `authorities` (
   `username` varchar(50) NOT NULL,
-  `authority` varchar(45) NOT NULL,
-  PRIMARY KEY (`username`)
+  `authority` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -64,7 +63,7 @@ CREATE TABLE `authorities` (
 
 LOCK TABLES `authorities` WRITE;
 /*!40000 ALTER TABLE `authorities` DISABLE KEYS */;
-INSERT INTO `authorities` VALUES ('bhushan1@gmail.com','ROLE_RESTAURANT'),('harshad1@gmail.com','ROLE_RESTAURANT'),('harshad2@gmail.com','ROLE_DELIVERY'),('om1@gmail.com','ROLE_CUSTOMER'),('om2@gmail.com','ROLE_CUSTOMER'),('om3@gmail.com','ROLE_CUSTOMER'),('om4@gmail.com','ROLE_CUSTOMER'),('om6@gmail.com','ROLE_CUSTOMER'),('om7@gmail.com','ROLE_CUSTOMER'),('omphule1@gmail.com','ROLE_ADMIN'),('prafful3@gmail.com','ROLE_CUSTOMER'),('soham@gmail.com','ROLE_CUSTOMER');
+INSERT INTO `authorities` VALUES ('bhushan1@gmail.com','ROLE_RESTAURANT'),('harshad1@gmail.com','ROLE_RESTAURANT'),('harshad2@gmail.com','ROLE_DELIVERY'),('om1@gmail.com','ROLE_CUSTOMER'),('om2@gmail.com','ROLE_CUSTOMER'),('om3@gmail.com','ROLE_CUSTOMER'),('om4@gmail.com','ROLE_CUSTOMER'),('om6@gmail.com','ROLE_CUSTOMER'),('om7@gmail.com','ROLE_CUSTOMER'),('omphule1@gmail.com','ROLE_ADMIN'),('prafful3@gmail.com','ROLE_CUSTOMER'),('sarthak@gmail.com','ROLE_DELIVERY'),('soham@gmail.com','ROLE_CUSTOMER');
 /*!40000 ALTER TABLE `authorities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,12 +77,13 @@ DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `customer_Id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `email` varchar(45) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `phone` varchar(10) NOT NULL,
   `altphone` varchar(10) NOT NULL,
   `address` varchar(250) NOT NULL,
   `password` varchar(90) NOT NULL,
-  PRIMARY KEY (`customer_Id`)
+  PRIMARY KEY (`customer_Id`),
+  KEY `email_idx` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -93,7 +93,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (3,'Harshad Joshi','harshad@gmail.com','4534675423','4537786764','SDB 2 - (G & 1st Flr) SDB 3 - (3 - 6 Flr), Survey No. 602/3, Plot No. 1, ELCOT IT/ ITES - SEZ, Sholinganallur Village','$2a$10$dZnprbwuvlFv1EFWcLFXS.IV2hpjBUsLCTqwuSgN/wIPWv3r4/j66'),(4,'Om Phule','om1@gmail.com','7709777228','4534675423','siruseri chennai','$2a$10$6OVYngAtZ8d0WzXeQYL8yukEQWtDPlZhUCG8DKjV0RwU4f/0vx/fu'),(5,'Om Phule','om2@gmail.com','7709777228','4534675423','siruseri chennai','$2a$10$adYajXR.OQG7bVpQmc/BcOqJzt6PZ6uL7mWNSlEFRsoPNElHdbY.O'),(6,'Om Phule','om6@gmail.com','7709777228','7876545676','siruseri chennai','$2a$10$7Kp53B05U32kolGwEUh92ebOd0179X4gwdbTCEwkcY9Lm8e3t7LXq'),(7,'Om Phule','om7@gmail.com','7709777228','7876545676','siruseri chennai','$2a$10$d4g7jZv6oeTjGXS0NXxeGOBD/NKUQ0tyqo2TM1.7olDxmopcNUX2y'),(8,'Soham ','soham@gmail.com','2425242626','2626262626','chennai','$2a$12$YHdPPoDnS9YZ4SjDFuzz/u4LKCEfx29Q/LGTsq5ODEabt0JkCEqsC');
+INSERT INTO `customer` VALUES (3,'Harshad Joshi','harshad@gmail.com','4534675423','4537786764','SDB 2 - (G & 1st Flr) SDB 3 - (3 - 6 Flr), Survey No. 602/3, Plot No. 1, ELCOT IT/ ITES - SEZ, Sholinganallur Village','$2a$10$dZnprbwuvlFv1EFWcLFXS.IV2hpjBUsLCTqwuSgN/wIPWv3r4/j66'),(4,'Om Phule','om1@gmail.com','7709777228','4534675423','siruseri chennai','$2a$10$6OVYngAtZ8d0WzXeQYL8yukEQWtDPlZhUCG8DKjV0RwU4f/0vx/fu'),(5,'Om Phule','om2@gmail.com','7709777228','4534675423','siruseri chennai','$2a$10$adYajXR.OQG7bVpQmc/BcOqJzt6PZ6uL7mWNSlEFRsoPNElHdbY.O'),(6,'Om Phule','om6@gmail.com','7709777228','7876545676','siruseri chennai','$2a$10$7Kp53B05U32kolGwEUh92ebOd0179X4gwdbTCEwkcY9Lm8e3t7LXq'),(7,'Om Prakash Phule','om7@gmail.com','7709777228','7876545670','siruseri chennai','$2a$10$d4g7jZv6oeTjGXS0NXxeGOBD/NKUQ0tyqo2TM1.7olDxmopcNUX2y'),(8,'Soham ','soham@gmail.com','2425242626','2626262626','chennai','$2a$12$YHdPPoDnS9YZ4SjDFuzz/u4LKCEfx29Q/LGTsq5ODEabt0JkCEqsC');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,7 +117,7 @@ CREATE TABLE `delivery` (
   `address` varchar(128) NOT NULL,
   `flag` varchar(2) NOT NULL,
   PRIMARY KEY (`agentid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +126,7 @@ CREATE TABLE `delivery` (
 
 LOCK TABLES `delivery` WRITE;
 /*!40000 ALTER TABLE `delivery` DISABLE KEYS */;
-INSERT INTO `delivery` VALUES (1,'Om Prakash Phule','omphule77@gmail.com','7707777228','8626960196','Pass@123','2025-05-13','MH455665','675354687345','siruseri chennai','1'),(2,'Harshad','harshad2@gmail.com','4537786764','7878787878','pass123','2025-05-14','424423','2342342342','SDB 2 - (G & 1st Flr) SDB 3 - (3 - 6 Flr), Survey 602/3, Plot No. 1, ELCOT IT/ ITES - SEZ, Sholinganallur Village','1');
+INSERT INTO `delivery` VALUES (1,'Om Prakash Phule','omphule77@gmail.com','7707777228','8626960196','Pass@123','2025-05-13','MH455665','675354687345','siruseri chennai','1'),(2,'Harshad','harshad2@gmail.com','4537786764','7878787878','pass123','2025-05-14','424423','2342342342','SDB 2 - (G & 1st Flr) SDB 3 - (3 - 6 Flr), Survey 602/3, Plot No. 1, ELCOT IT/ ITES - SEZ, Sholinganallur Village','1'),(3,'sarthak nande','sarthak@gmail.com','4534675423','9098989898','$2a$10$k7jNdfB0fJ1DfCl972jWp.VrSlLIcni2L7DR6PcXdH0gINC8vGTxS','2025-06-10','mh7878','878787878787','SDB 2 - (G & 1st Flr) SDB 3 - (3 - 6 Flr), Survey No. 602/3, Plot No. 1, ELCOT IT/ ITES - SEZ, Sholinganallur Village','1');
 /*!40000 ALTER TABLE `delivery` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,9 +143,9 @@ CREATE TABLE `feedback` (
   `delivery_quality` varchar(45) NOT NULL,
   `app_exp` varchar(200) NOT NULL,
   `cemail` varchar(45) NOT NULL,
-  `demail` varchar(45) NOT NULL,
+  `demail` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`f_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +154,7 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
-INSERT INTO `feedback` VALUES (1,'4','4','good','om7@gmail.com','harshad2@gmail.com'),(2,'3','2','good','om7@gmail.com','harshad2@gmail.com'),(3,'5','5','good','om7@gmail.com','harshad2@gmail.com'),(4,'4','4','no problem','om7@gmail.com','harshad2@gmail.com'),(5,'4','4','no problem','om7@gmail.com','harshad2@gmail.com'),(6,'4','4','good','om7@gmail.com',''),(7,'2','2','good','om7@gmail.com',''),(8,'3','3','good','om7@gmail.com',''),(9,'1','1','xdvfsdf','om7@gmail.com',''),(10,'1','1','hh','soham@gmail.com',''),(11,'1','1','sdasd','soham@gmail.com',''),(12,'1','2','zsvsdf','soham@gmail.com','harshad2@gmail.com'),(13,'1','1','edwedfwe','om7@gmail.com',''),(14,'1','1','awefewr','om7@gmail.com',''),(15,'1','1','ZCZ','om7@gmail.com',''),(16,'1','1','FDGF','om7@gmail.com',''),(17,'2','2','aasc','om7@gmail.com','harshad2@gmail.com'),(18,'2','2','dad','om7@gmail.com','harshad2@gmail.com'),(19,'2','2','dqwd','om7@gmail.com','harshad2@gmail.com'),(20,'1','1','ssdff','',''),(21,'1','1','zdvxb','',''),(22,'1','1','no','om7@gmail.com','harshad2@gmail.com'),(23,'1','2','worst','om7@gmail.com','harshad2@gmail.com');
+INSERT INTO `feedback` VALUES (1,'4','4','good','om7@gmail.com','harshad2@gmail.com'),(2,'3','2','good','om7@gmail.com','harshad2@gmail.com'),(3,'5','5','good','om7@gmail.com','harshad2@gmail.com'),(4,'4','4','no problem','om7@gmail.com','harshad2@gmail.com'),(5,'4','4','no problem','om7@gmail.com','harshad2@gmail.com'),(6,'4','4','good','om7@gmail.com',''),(7,'2','2','good','om7@gmail.com',''),(8,'3','3','good','om7@gmail.com',''),(9,'1','1','xdvfsdf','om7@gmail.com',''),(10,'1','1','hh','soham@gmail.com',''),(11,'1','1','sdasd','soham@gmail.com',''),(12,'1','2','zsvsdf','soham@gmail.com','harshad2@gmail.com'),(13,'1','1','edwedfwe','om7@gmail.com',''),(14,'1','1','awefewr','om7@gmail.com',''),(15,'1','1','ZCZ','om7@gmail.com',''),(16,'1','1','FDGF','om7@gmail.com',''),(17,'2','2','aasc','om7@gmail.com','harshad2@gmail.com'),(18,'2','2','dad','om7@gmail.com','harshad2@gmail.com'),(19,'2','2','dqwd','om7@gmail.com','harshad2@gmail.com'),(20,'1','1','ssdff','',''),(21,'1','1','zdvxb','',''),(22,'1','1','no','om7@gmail.com','harshad2@gmail.com'),(23,'1','2','worst','om7@gmail.com','harshad2@gmail.com'),(24,'5','5','good','om7@gmail.com','harshad2@gmail.com'),(25,'5','5','good','om7@gmail.com','harshad2@gmail.com'),(26,'5','3','well','om7@gmail.com',NULL),(27,'4','4','mb','om7@gmail.com',NULL);
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,8 +213,11 @@ CREATE TABLE `orders` (
   `fimg` varchar(500) NOT NULL,
   `demail` varchar(45) DEFAULT NULL,
   `tflag` varchar(45) NOT NULL,
-  PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `payment` varchar(45) NOT NULL,
+  `otp` varchar(45) NOT NULL,
+  PRIMARY KEY (`order_id`),
+  KEY `dEmail_idx` (`demail`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +226,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'sandwitch','','1','100.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740',NULL,'1'),(2,'burger','','1','120.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/classic-cheese-burger-with-beef-cutlet-vegetables-onions-isolated-white-background_123827-29709.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740',NULL,'2'),(3,'Chicken','takadka','2','700.00','Prafful Restro','Om Phule','7709777228','7876545676','siruseri chennai','2','Sangole','om7@gmail.com','https://img.freepik.com/premium-photo/succulent-spiced-whole-roasted-chicken-slate-with-zesty-green-sauce_968957-8828.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','','3'),(4,'Biryani','special','1','90.00','Prafful Restro','Om Phule','7709777228','7876545676','siruseri chennai','4','Sangole','om7@gmail.com','https://img.freepik.com/free-photo/plate-biryani-with-bunch-food-it_505751-3819.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','4'),(5,'sandwitch','','2','200.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','3','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','2'),(6,'Cake','','1','250.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/premium-photo/wedding-cake-wedding-newlyweds_419896-2253.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','1'),(7,'Pizza','testy','2','220.00','Prafful Restro','Om Phule','7709777228','7876545676','siruseri chennai','4','Sangole','om7@gmail.com','https://img.freepik.com/free-photo/pizza-pizza-filled-with-tomatoes-salami-olives_140725-1200.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','3'),(8,'Cake','yumm','1','250.00','Anand Restaurant','Soham ','2425242626','2626262626','chennai','4','Solapur','soham@gmail.com','https://img.freepik.com/premium-photo/wedding-cake-wedding-newlyweds_419896-2253.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','1'),(9,'Cake','','1','250.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/premium-photo/wedding-cake-wedding-newlyweds_419896-2253.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','4'),(10,'French Fries','','1','80.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/premium-photo/homemade-pile-appetizing-french-fries_488220-4209.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','2'),(11,'French Fries','','1','80.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/premium-photo/homemade-pile-appetizing-french-fries_488220-4209.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','3'),(12,'burger','','1','120.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/classic-cheese-burger-with-beef-cutlet-vegetables-onions-isolated-white-background_123827-29709.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','1'),(13,'sandwitch','spicy','3','300.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','4'),(14,'Sandwitch','','1','89.00','Prafful Restro','Om Phule','7709777228','7876545676','siruseri chennai','1','Sangole','om7@gmail.com','https://img.freepik.com/free-photo/front-view-tasty-ham-sandwiches-with-french-fries-dark-surface_179666-34644.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','','0');
+INSERT INTO `orders` VALUES (1,'sandwitch','','1','100.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740',NULL,'1','COD','678564'),(2,'burger','','1','120.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/classic-cheese-burger-with-beef-cutlet-vegetables-onions-isolated-white-background_123827-29709.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740',NULL,'2','COD','234543'),(3,'Chicken','takadka','2','700.00','Prafful Restro','Om Phule','7709777228','7876545676','siruseri chennai','2','Sangole','om7@gmail.com','https://img.freepik.com/premium-photo/succulent-spiced-whole-roasted-chicken-slate-with-zesty-green-sauce_968957-8828.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','','3','COD','242231'),(4,'Biryani','special','1','90.00','Prafful Restro','Om Phule','7709777228','7876545676','siruseri chennai','4','Sangole','om7@gmail.com','https://img.freepik.com/free-photo/plate-biryani-with-bunch-food-it_505751-3819.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','4','COD','134543'),(5,'sandwitch','','2','200.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','sarthak@gmail.com','2','COD','4534534'),(6,'Cake','','1','250.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/premium-photo/wedding-cake-wedding-newlyweds_419896-2253.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','1','COD','323453'),(7,'Pizza','testy','2','220.00','Prafful Restro','Om Phule','7709777228','7876545676','siruseri chennai','4','Sangole','om7@gmail.com','https://img.freepik.com/free-photo/pizza-pizza-filled-with-tomatoes-salami-olives_140725-1200.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','3','COD','234567'),(8,'Cake','yumm','1','250.00','Anand Restaurant','Soham ','2425242626','2626262626','chennai','4','Solapur','soham@gmail.com','https://img.freepik.com/premium-photo/wedding-cake-wedding-newlyweds_419896-2253.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','1','COD','232323'),(9,'Cake','','1','250.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/premium-photo/wedding-cake-wedding-newlyweds_419896-2253.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','4','COD','565345'),(10,'French Fries','','1','80.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/premium-photo/homemade-pile-appetizing-french-fries_488220-4209.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','2','COD','3465323'),(11,'French Fries','','1','80.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/premium-photo/homemade-pile-appetizing-french-fries_488220-4209.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','3','COD','232323'),(12,'burger','','1','120.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/classic-cheese-burger-with-beef-cutlet-vegetables-onions-isolated-white-background_123827-29709.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','1','COD','989876'),(13,'sandwitch','spicy','3','300.00','Anand Restaurant','Om Phule','7709777228','7876545676','siruseri chennai','4','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','harshad2@gmail.com','4','COD','898098'),(14,'Sandwitch','','1','89.00','Prafful Restro','Om Phule','7709777228','7876545676','siruseri chennai','2','Sangole','om7@gmail.com','https://img.freepik.com/free-photo/front-view-tasty-ham-sandwiches-with-french-fries-dark-surface_179666-34644.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','sarthak@gmail.com','0','COD','657456'),(15,'IceCream','','1','60.00','Prafful Restro','Om Phule','7709777228','7876545670','siruseri chennai','1','Sangole','om7@gmail.com','https://img.freepik.com/free-photo/ice-cream-table_140725-8604.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','','1','COD','234543'),(16,'sandwitch','','1','100.00','Anand Restaurant','Om Phule','7709777228','7876545670','siruseri chennai','1','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','','1','COD','786798'),(17,'sandwitch','','1','100.00','Anand Restaurant','Om P Phule','7709777228','7876545670','siruseri chennai','2','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','sarthak@gmail.com','1','COD','536253'),(18,'Biryani','','1','90.00','Prafful Restro','Om P Phule','7709777228','7876545670','siruseri chennai','1','Sangole','om7@gmail.com','https://img.freepik.com/free-photo/plate-biryani-with-bunch-food-it_505751-3819.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','','1','COD','273632'),(19,'Pizza','','1','110.00','Prafful Restro','Om P Phule','7709777228','7876545670','siruseri chennai','1','Sangole','om7@gmail.com','https://img.freepik.com/free-photo/pizza-pizza-filled-with-tomatoes-salami-olives_140725-1200.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','','0','COD','253625'),(20,'sandwitch','','1','100.00','Anand Restaurant','Om Prakash Phule','7709777228','7876545670','siruseri chennai','1','Solapur','om7@gmail.com','https://img.freepik.com/free-photo/high-angle-sandwitch-with-pickle_23-2149235938.jpg?ga=GA1.1.556730580.1747023563&semt=ais_hybrid&w=740','','0','Online','829443');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,7 +288,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('bhushan1@gmail.com','$2a$10$JP3.fClj7fXqk4dSkEOyQOTTC6sSOzWu4chO/AaizYAomuRtmg8hC','1'),('harshad1@gmail.com','$2a$10$9mhXF0qbXlIbRXDNWoO3ne5EnDsu7XaCU56bVutoTALy/HApclZgm','1'),('harshad2@gmail.com','$2a$10$qkTOgqZ9z0DZMR9yJcXbne7PR1e/30c2SYyhbucUwyC8PgRvlPhpy','1'),('om1@gmail.com','$2a$10$ODpwsQOdlFA2ezahPogewOboVA2GAu8B30RJI6gvd8PFkMtJHXrcW','1'),('om2@gmail.com','{bcrypt}$2a$10$Nk9ErAxbJgRNb0Pv6RgqTuTZsWKh9PncfjnSJUlEV/ERtSLSnntVO','1'),('om3@gmail.com','{noop}pass123','1'),('om4@gmail.com','{noop}pass123','1'),('om6@gmail.com','$2a$10$ortUq5SzaLiyj5tqV/BuMugKnP5pF2Tpka4Syc8cUF8aKD1wkSbcy','1'),('om7@gmail.com','$2a$10$d4g7jZv6oeTjGXS0NXxeGOBD/NKUQ0tyqo2TM1.7olDxmopcNUX2y','1'),('omphule1@gmail.com','$2a$12$.gTx5Ved4.1T9mPaFTuHy.ZOU7kHJze6.rMUieJrwmWDy7mPDKZvO','1'),('prafful3@gmail.com','$2a$10$TRzif5R41ZiCYjN0wMvsRe7aQmeAc37oHWFisrtSKtD38ZSrraRAW','1'),('soham@gmail.com','$2a$12$YHdPPoDnS9YZ4SjDFuzz/u4LKCEfx29Q/LGTsq5ODEabt0JkCEqsC','1');
+INSERT INTO `users` VALUES ('bhushan1@gmail.com','$2a$10$JP3.fClj7fXqk4dSkEOyQOTTC6sSOzWu4chO/AaizYAomuRtmg8hC','1'),('harshad1@gmail.com','$2a$10$9mhXF0qbXlIbRXDNWoO3ne5EnDsu7XaCU56bVutoTALy/HApclZgm','1'),('harshad2@gmail.com','$2a$10$qkTOgqZ9z0DZMR9yJcXbne7PR1e/30c2SYyhbucUwyC8PgRvlPhpy','1'),('om1@gmail.com','$2a$10$ODpwsQOdlFA2ezahPogewOboVA2GAu8B30RJI6gvd8PFkMtJHXrcW','1'),('om2@gmail.com','{bcrypt}$2a$10$Nk9ErAxbJgRNb0Pv6RgqTuTZsWKh9PncfjnSJUlEV/ERtSLSnntVO','1'),('om3@gmail.com','{noop}pass123','1'),('om4@gmail.com','{noop}pass123','1'),('om6@gmail.com','$2a$10$ortUq5SzaLiyj5tqV/BuMugKnP5pF2Tpka4Syc8cUF8aKD1wkSbcy','1'),('om7@gmail.com','$2a$10$d4g7jZv6oeTjGXS0NXxeGOBD/NKUQ0tyqo2TM1.7olDxmopcNUX2y','1'),('omphule1@gmail.com','$2a$12$.gTx5Ved4.1T9mPaFTuHy.ZOU7kHJze6.rMUieJrwmWDy7mPDKZvO','1'),('prafful3@gmail.com','$2a$10$TRzif5R41ZiCYjN0wMvsRe7aQmeAc37oHWFisrtSKtD38ZSrraRAW','1'),('sarthak@gmail.com','$2a$10$k7jNdfB0fJ1DfCl972jWp.VrSlLIcni2L7DR6PcXdH0gINC8vGTxS','1'),('soham@gmail.com','$2a$12$YHdPPoDnS9YZ4SjDFuzz/u4LKCEfx29Q/LGTsq5ODEabt0JkCEqsC','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -298,4 +301,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-05 17:48:01
+-- Dump completed on 2025-06-10  9:34:04

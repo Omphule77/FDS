@@ -339,6 +339,7 @@ textarea.form-control {
 				type="hidden" th:value="1" name="flag"> <input type="hidden"
 				th:value="0" name="tFlag"> <input type="hidden" name="dEmail"> <input
 				type="hidden" th:value="${food.rAddress}" name="rAddress">
+        		<input type="hidden" id="randomNumber" name="otp" th:value="${randomNumber}">
 				
 
 			<!-- Place Order Button (Initially Disabled) -->
@@ -366,6 +367,7 @@ textarea.form-control {
 </body>
 
 <script>
+document.getElementById("randomNumber").value = Math.floor(100000 + Math.random() * 900000);
   window.addEventListener('pageshow' , function (event) {
 		if(event.persisted || (window.performance && window.performance.navigation.type === 2)){
 			window.location.reload();
