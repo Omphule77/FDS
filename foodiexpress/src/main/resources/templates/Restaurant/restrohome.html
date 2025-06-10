@@ -26,7 +26,7 @@
 <body style="background-color: #E6E6FA;">
     <h1 style="text-align: center; font-family: Papyrus, fantasy; margin-top: 50px;">Welcome to Restaurant</h1>
     <hr>
-    
+
     <div class="row">
         <div class="col-md-4">
             <div class="card" style="width: 100%; border-top-left-radius: 100px;">
@@ -34,19 +34,21 @@
                 <div class="card-body">
                     <h6 style="text-align: center;">Add Product</h6>
                     <hr>
-                  <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #10a710; border-radius: 20px;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #10a710; border-radius: 20px;">
                         <a th:href="@{/addFood}" style="text-decoration: none; color: white;">Check In</a>
-                    </button>   </div>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-3"> <div class="card">
-                <img src="/img/seeorder.jpg" class="card-img-top" alt="See Orders" style="margin-top:20px;">
+        <div class="col-md-4">
+            <div class="card" style="width: 100%; border-top-left-radius: 100px;">
+                <img src="/img/seeorder.jpg" class="card-img-top" alt="See Orders" style="border-top-left-radius: 50px; margin-top:20px;">
                 <div class="card-body">
-                    <h6>View Pending Orders</h6>
+                    <h6 style="text-align: center;">See Pending Orders</h6>
                     <hr>
-                    <button type="submit" class="btn btn-check-in">
-                        <a th:href="@{/restaurant/orders(email=${restaurantEmail}, flag=0)}" style="text-decoration: none; color: white;">Check In</a>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #10a710; border-radius: 20px;">
+                        <a th:href="@{/restaurant/{rName}(rName=${restaurantName})}" style="text-decoration: none; color: white;">Check In</a>
                     </button>
                 </div>
             </div>
@@ -60,20 +62,17 @@
                 <div class="card-body">
                     <h6 style="text-align: center;">See Completed Orders</h6>
                     <hr>
-                   <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #10a710; border-radius: 20px;">
-                        <a th:href="@{/addFood}" style="text-decoration: none; color: white;">Check In</a>
-                    </button> </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #10a710; border-radius: 20px;">
+                        <a th:href="@{/restaurant/completed-orders/{rName}(rName=${restaurantName})}" style="text-decoration: none; color: white;">Check In</a>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
     <hr>
 
-    
-
-    <hr>
-    
     <form th:action="@{/logout}" method="post">
-      <button type="submit">Logout</button>
+        <button type="submit">Logout</button>
     </form>
 </body>
 </html>
