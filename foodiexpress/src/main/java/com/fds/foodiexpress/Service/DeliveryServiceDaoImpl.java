@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import com.fds.foodiexpress.dao.DeliveryDAO;
 import com.fds.foodiexpress.entity.Delivery;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class DeliveryServiceDaoImpl implements DeliveryServiceDAO {
     private final DeliveryDAO deliveryDao;
@@ -29,9 +31,10 @@ public class DeliveryServiceDaoImpl implements DeliveryServiceDAO {
         }
         return result;
     }
-
+    
     @Override
-    public Delivery save(Delivery theDelivery) {
-        return deliveryDao.save(theDelivery);
+    @Transactional
+    public Delivery save(Delivery delivery) {
+        return deliveryDao.save(delivery);
     }
 }

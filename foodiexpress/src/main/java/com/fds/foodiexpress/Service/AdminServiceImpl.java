@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.fds.foodiexpress.dao.AdminDAO;
 import com.fds.foodiexpress.entity.Admin;
+import com.fds.foodiexpress.entity.Authorities;
 import com.fds.foodiexpress.entity.Customer;
 import com.fds.foodiexpress.entity.Delivery;
 import com.fds.foodiexpress.entity.Restaurant;
+import com.fds.foodiexpress.entity.Users;
 
 import jakarta.transaction.Transactional;
 
@@ -54,6 +56,12 @@ public class AdminServiceImpl implements AdminService {
 	public void updateAdmin(Admin admin) {
 		adminDAO.update(admin);
 		
+	}
+
+	@Override
+	@Transactional
+	public void addAdmin(Users user,Authorities authority,Admin admin) {
+		adminDAO.add(user,authority,admin);
 	}
 
 	
