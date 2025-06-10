@@ -129,7 +129,10 @@ body {
   </nav>
 	<div class="container position-relative">
 
-
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
 		<div class="profile-icon">
 			<i class="fas fa-user-circle"></i>
@@ -138,7 +141,7 @@ body {
 		<h2 class="section-heading">Update Profile</h2>
 
 		<div th:if="${adminDetails!= null}">
-			<form th:action="@{/admin/updateAdmin}" method="post">
+			<form th:action="@{/admin/updateAdmin}" method="post" id="updateForm">
 				<input type="hidden" th:value=${adminDetails.id} name="id"/>
 				<div class="form-container">
 					<div class="form-group">
@@ -149,7 +152,7 @@ body {
 					<div class="form-group">
 						<label for="email">Email</label> <input type="email" id="email"
 							name="email" th:value="${adminDetails.email}"
-							class="form-control">
+							class="form-control" readonly>
 					</div>
 
 					<div class="form-group">
@@ -160,7 +163,7 @@ body {
 
 					<div class="form-group">
 						<label for="altPhone">Alternate Phone</label> <input type="tel"
-							id="altPhone" name="altphone" th:value="${adminDetails.altphone}"
+							id="altphone" name="altphone" th:value="${adminDetails.altphone}"
 							class="form-control">
 					</div>
 					<div class="form-group add">
@@ -170,10 +173,10 @@ body {
 					</div>
 				</div>
 
-				<div class="button-container">
+				 <div class="button-container">
 					<button type="submit" id="updateButton" class="btn btn-danger"
 						disabled style="margin-right: 50px">Update</button>
-
+ 
 				</div>
 
 			</form>
@@ -183,41 +186,36 @@ body {
 			<p class="text-muted">No customer information available.</p>
 		</div>
 	</div>
-
-
+	
 	<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector("form");
-    const submitButton = document.getElementById("updateButton");
-    
-    // Get all input fields inside the form
-    const inputs = form.querySelectorAll("input, textarea");
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('updateForm');
+        const updateButton = document.getElementById('updateButton');
+        const formControls = form.querySelectorAll('.form-control');
 
-    // Store initial values
-    const initialValues = {};
-    inputs.forEach(input => {
-        initialValues[input.id] = input.value.trim(); // Store trimmed values
-    });
-
-    // Function to check changes
-    function checkChanges() {
-        let isChanged = false;
-
-        inputs.forEach(input => {
-            if (input.value.trim() !== initialValues[input.id]) {
-                isChanged = true;
-            }
+        // Store initial values to compare against
+        const initialValues = {};
+        formControls.forEach(control => {
+            initialValues[control.id] = control.value;
         });
 
-        // Enable or disable the button based on changes
-        submitButton.disabled = !isChanged;
-    }
+        function checkFormChanges() {
+            let hasChanged = false;
+            formControls.forEach(control => {
+                if (initialValues[control.id] !== control.value) {
+                    hasChanged = true;
+                }
+            });
+            updateButton.disabled = !hasChanged;
+        }
 
-    // Attach event listeners to all input fields
-    inputs.forEach(input => {
-        input.addEventListener("input", checkChanges);
+        formControls.forEach(control => {
+            control.addEventListener('input', checkFormChanges);
+        });
+
+        // Also check on load in case values are empty or pre-filled in a way that needs button disabled initially
+        checkFormChanges();
     });
-});
 </script>
 
 
