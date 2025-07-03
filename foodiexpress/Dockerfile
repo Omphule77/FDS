@@ -2,12 +2,20 @@
 FROM maven:3.9.4-eclipse-temurin-17 AS builder
 
 WORKDIR /app
-COPY . .
+
+# Copy the foodiexpress folder contents into the container
+COPY foodiexpress/ .
+
+# Build the project
 RUN mvn clean package -DskipTests
 
 # 🚀 Stage 2: Run the packaged JAR
 FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
+
+# Copy the built JAR from the builder stage
 COPY --from=builder /app/target/*.jar app.jar
+
+# Start the Spring Boot application
 ENTRYPOINT ["java", "-jar", "app.jar"]
