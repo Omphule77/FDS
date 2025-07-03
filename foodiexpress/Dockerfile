@@ -1,10 +1,11 @@
 # 🔧 Stage 1: Build the Spring Boot app
 FROM maven:3.9.4-eclipse-temurin-17 AS builder
 
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy only the FDS project folder contents
-COPY FDS/ .
+# Copy only the contents of the FDS folder (your Spring Boot project)
+COPY ./FDS/ .
 
 # Build the project and skip tests
 RUN mvn clean package -DskipTests
