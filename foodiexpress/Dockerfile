@@ -1,11 +1,13 @@
-# Stage 1: Build
+# 🔧 Stage 1: Build the Spring Boot app
 FROM maven:3.9.4-eclipse-temurin-17 AS builder
+
 WORKDIR /app
-COPY ./FDS/ .
+COPY . .
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run
+# 🚀 Stage 2: Run the packaged JAR
 FROM eclipse-temurin:17-jdk-alpine
+
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
